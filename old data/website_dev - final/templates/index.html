@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Robotic Arm{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">6 DOF Robotic Arm Control System</h2>
+<div class="row align-items-center">
+    <!-- Left: Description -->
+    <div class="col-md-6">
+        <div class="control-box mb-3">
+            <h5 class="mb-2">About the Robotic Arm</h5>
+            <p>
+                This is a 6 DOF (degrees of freedom) articulated robotic arm with a spherical wrist,
+                designed for precision control and automation tasks.
+            </p>
+            <p>
+                This web interface allows users to control a real hardware model through various features,
+                providing both manual and automatic control options.
+            </p>
+            <p class="mb-0"><strong>Specifications:</strong></p>
+            <ul class="mb-1">
+                <li>Total arm length: 0.8 meters</li>
+                <li>Payload capacity: 600 grams</li>
+                <li>Type: Articulated with spherical wrist</li>
+            </ul>
+        </div>
+        
+        <div class="control-box">
+            <h5 class="mb-2">Control Methods</h5>
+            <div class="mb-2">
+                <p><strong><i class="bi bi-sliders me-2"></i>Manual Control:</strong> Use sliders and knobs to precisely position the robotic arm in 3D space.</p>
+                <p><strong><i class="bi bi-robot me-2"></i>Automatic Control:</strong> Select objects from a trained list for the arm to automatically locate and pick up, then use manual control for placement.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Right: Image -->
+    <div class="col-md-6">
+        <div class="img-container">
+            <img src="{{ url_for('static', filename='robo.jpeg') }}" alt="Robotic Arm" class="img-fluid">
+        </div>
+        <div class="position-display mt-3">
+            <h5 class="mb-2">Control Options</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="{{ url_for('MANUAL_CONTROL') }}" class="btn btn-primary w-100 mb-2">
+                        <i class="bi bi-sliders me-1"></i> Manual Control
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{{ url_for('AUTOMATIC_CONTROL') }}" class="btn btn-primary w-100 mb-2">
+                        <i class="bi bi-robot me-1"></i> Automatic Control
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
