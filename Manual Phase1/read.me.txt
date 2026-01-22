@@ -1,0 +1,9 @@
+#read.me
+ servo microseconds
+
+servo 1 (35kg) 500,2400 
+servo 2 (150kg) 500,2300
+servo 3 (150kg) 725 2050
+servo 4 (35kg) 500 2400
+servo 5 (15kg) 575,1900
+servo 6 (15kg) 575,1900
