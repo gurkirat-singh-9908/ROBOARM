@@ -2,12 +2,12 @@ import socketio
 import time
 import sys
 import serial
-from main import inverse_kinematics
+#from main import inverse_kinematics
 from map import map_sliders_to_servos
 import numpy as np
 from param import Home_Position, Default_Gripper_Position
 
-port = 'COM7'  # Change to your port (e.g., 'COM6' or '/dev/ttyUSB0')
+port = '/dev/ttyUSB0'  # Change to your port (e.g., 'COM6' or '/dev/ttyUSB0')
 baud_rate = 9600
 # Create a Socket.IO client
 sio = socketio.Client()
@@ -121,8 +121,8 @@ def on_value_updated(data):
     # Map slider values to servo angles
     desiredMatrix = map_sliders_to_matrix(latest_values)
     print(">> desiredMatrix =", desiredMatrix)
-    servo_angles = inverse_kinematics(desiredMatrix)
-    #servo_angles = map_sliders_to_servos(latest_values)
+    #servo_angles = inverse_kinematics(desiredMatrix)
+    servo_angles = map_sliders_to_servos(latest_values)
 
     
     # Send angles to Arduino
@@ -148,8 +148,8 @@ def main():
             print(f"latest_values{latest_values}")
             desiredMatrix = map_sliders_to_matrix(latest_values)
             print(">> desiredMatrix =", desiredMatrix)
-            servo_angles = inverse_kinematics(desiredMatrix)
-            #servo_angles = map_sliders_to_servos(latest_values)
+            #servo_angles = inverse_kinematics(desiredMatrix)
+            servo_angles = map_sliders_to_servos(latest_values)
             for servo, angle in servo_angles.items():
                 servo_number = int(servo[1])
                 try:

@@ -27,7 +27,7 @@ limiter = Limiter(
 )
 
 # Initialize SocketIO
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode="threading")
 
 # Error handlers
 @app.errorhandler(404)
@@ -84,4 +84,4 @@ def handle_update_value(data):
     emit('value_updated', data, broadcast=True)
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True, port=8080)
+    socketio.run(app,host="0.0.0.0",port=8080,allow_unsafe_werkzeug=True)
