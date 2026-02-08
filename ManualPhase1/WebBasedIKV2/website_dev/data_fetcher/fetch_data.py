@@ -11,7 +11,7 @@ port = '/dev/ttyUSB0'  # Change to your port (e.g., 'COM6' or '/dev/ttyUSB0')
 baud_rate = 9600
 # Create a Socket.IO client
 sio = socketio.Client()
-arduino_flag = False
+arduino_flag = True
 
 # Store the latest values
 latest_values = {
@@ -143,7 +143,7 @@ def main():
         global arduino_flag
         arduino_connected = connect_to_arduino()
         if arduino_connected:
-            arduino_flag = False
+            arduino_flag = True
             print("Sending initial servo positions...")
             print(f"latest_values{latest_values}")
             desiredMatrix = map_sliders_to_matrix(latest_values)
@@ -180,6 +180,4 @@ if __name__ == '__main__':
     try:
         main()
     finally:
-        if arduino_serial and arduino_serial.is_open:
-            arduino_serial.close()
-            print("Arduino connection closed")
+        pass

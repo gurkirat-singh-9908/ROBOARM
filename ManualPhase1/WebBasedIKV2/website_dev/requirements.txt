@@ -11,3 +11,4 @@ pyserial==3.5
 python-socketio==5.10.0
 eventlet==0.35.2 
 requests>=2.31.0
+websocket-client>=1.9.0
