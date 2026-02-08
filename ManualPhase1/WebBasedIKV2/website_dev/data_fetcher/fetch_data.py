@@ -14,6 +14,7 @@ sio = socketio.Client()
 arduino_flag = True
 
 # Store the latest values
+#TODO: Wrong data name and type used for angles. it should be distnce for x, y and z but its angles in gripper is should be percentage val but its again angle 
 latest_values = {
     'slider_x': Home_Position[0],
     'slider_y': Home_Position[1],
@@ -24,18 +25,19 @@ latest_values = {
     'slider_gripper': Default_Gripper_Position
 }
 
-def send_data_to_arduino(value1, value2):
+#TODO: hard coding the gripper value for now. 
+def send_data_to_arduino(servo_angles):
     """
-    Sends two integers to Arduino with a checksum and prints the response.
+    Sends servo_angles to Arduino with a checksum and prints the response.
     
     Args:
         ser: Serial connection object
-        value1: First integer to send
-        value2: Second integer to send
+        servo_angles: all the angels 
     """
     print(f"send data to arduino executed")
-    checksum = value1 + value2
-    command = f"{value1} {value2} {checksum}\n"
+    s1,s2,s3,s4,s5,s6,g = servo_angles["s1"], servo_angles["s2"], servo_angles["s3"], servo_angles["s4"], servo_angles["s5"], servo_angles["s6"], 50
+    checksum = s1+s2+s3+s4+s5+s6+g
+    command = f"{s1} {s2} {s3} {s4} {s5} {s6} {g} {checksum}\n"
     arduino_serial.write(command.encode())  # Send the command as bytes
     time.sleep(0.05)  # Brief delay for Arduino to respond
     response = arduino_serial.readline().decode().strip()  # Read and decode response
@@ -150,16 +152,7 @@ def main():
             print(">> desiredMatrix =", desiredMatrix)
             #servo_angles = inverse_kinematics(desiredMatrix)
             servo_angles = map_sliders_to_servos(latest_values)
-            for servo, angle in servo_angles.items():
-                servo_number = int(servo[1])
-                try:
-                    intensity = int(round(angle))
-                    if arduino_flag:
-                        send_data_to_arduino(servo_number, intensity)
-                    else:
-                        print(servo_number, intensity)
-                except ValueError as e:
-                    print(f"Initial: Error for servo {servo_number}: {e}")
+            send_data_to_arduino(servo_angles)
     
         else:
             print("Warning: Could not connect to Arduino. Running without hardware control.")
