@@ -1,0 +1,90 @@
+[2.879s] DEBUG:colcon:Command line arguments: ['/home/kira/.local/bin/colcon', 'build']
+[2.879s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=12, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7bdf2f93b6a0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7bdf2fc63220>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7bdf2fc63220>>, mixin_verb=('build',))
+[3.021s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[3.021s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[3.021s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[3.021s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[3.021s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[3.021s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[3.021s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/kira/roboticarm_description'
+[3.021s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[3.021s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[3.021s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[3.021s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[3.021s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[3.021s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[3.021s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[3.021s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[3.021s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[3.041s] DEBUG:colcon.colcon_core.package_identification:Package '.' with type 'ros.ament_python' and name 'roboticarm_description'
+[3.041s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[3.041s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[3.041s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[3.041s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[3.041s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[3.272s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[3.272s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[3.356s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 344 installed packages in /home/kira/ros2_humble/install
+[3.390s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 192 installed packages in /opt/ros/humble
+[3.395s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[3.796s] Level 5:colcon.colcon_core.verb:set package 'roboticarm_description' build argument 'cmake_args' from command line to 'None'
+[3.796s] Level 5:colcon.colcon_core.verb:set package 'roboticarm_description' build argument 'cmake_target' from command line to 'None'
+[3.796s] Level 5:colcon.colcon_core.verb:set package 'roboticarm_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[3.796s] Level 5:colcon.colcon_core.verb:set package 'roboticarm_description' build argument 'cmake_clean_cache' from command line to 'False'
+[3.796s] Level 5:colcon.colcon_core.verb:set package 'roboticarm_description' build argument 'cmake_clean_first' from command line to 'False'
+[3.796s] Level 5:colcon.colcon_core.verb:set package 'roboticarm_description' build argument 'cmake_force_configure' from command line to 'False'
+[3.796s] Level 5:colcon.colcon_core.verb:set package 'roboticarm_description' build argument 'ament_cmake_args' from command line to 'None'
+[3.796s] Level 5:colcon.colcon_core.verb:set package 'roboticarm_description' build argument 'catkin_cmake_args' from command line to 'None'
+[3.796s] Level 5:colcon.colcon_core.verb:set package 'roboticarm_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[3.796s] DEBUG:colcon.colcon_core.verb:Building package 'roboticarm_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/kira/roboticarm_description/build/roboticarm_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/kira/roboticarm_description/install/roboticarm_description', 'merge_install': False, 'path': '/home/kira/roboticarm_description', 'symlink_install': False, 'test_result_base': None}
+[3.828s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[3.860s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[3.860s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/kira/roboticarm_description' with build type 'ament_python'
+[3.860s] Level 1:colcon.colcon_core.shell:create_environment_hook('roboticarm_description', 'ament_prefix_path')
+[3.903s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[3.903s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/hook/ament_prefix_path.ps1'
+[3.904s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/hook/ament_prefix_path.dsv'
+[3.904s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/hook/ament_prefix_path.sh'
+[3.961s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.961s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[4.564s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/kira/roboticarm_description'
+[4.599s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[4.599s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[6.003s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/kira/roboticarm_description': PYTHONPATH=/home/kira/roboticarm_description/build/roboticarm_description/prefix_override:/home/kira/roboticarm_description/install/roboticarm_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/roboticarm_description build --build-base /home/kira/roboticarm_description/build/roboticarm_description/build install --record /home/kira/roboticarm_description/build/roboticarm_description/install.log --install-scripts $base/lib/roboticarm_description --single-version-externally-managed
+[7.032s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/kira/roboticarm_description' returned '0': PYTHONPATH=/home/kira/roboticarm_description/build/roboticarm_description/prefix_override:/home/kira/roboticarm_description/install/roboticarm_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/roboticarm_description build --build-base /home/kira/roboticarm_description/build/roboticarm_description/build install --record /home/kira/roboticarm_description/build/roboticarm_description/install.log --install-scripts $base/lib/roboticarm_description --single-version-externally-managed
+[7.077s] Level 1:colcon.colcon_core.environment:checking '/home/kira/roboticarm_description/install/roboticarm_description' for CMake module files
+[7.077s] Level 1:colcon.colcon_core.environment:checking '/home/kira/roboticarm_description/install/roboticarm_description' for CMake config files
+[7.078s] Level 1:colcon.colcon_core.environment:checking '/home/kira/roboticarm_description/install/roboticarm_description/lib'
+[7.078s] Level 1:colcon.colcon_core.environment:checking '/home/kira/roboticarm_description/install/roboticarm_description/bin'
+[7.078s] Level 1:colcon.colcon_core.environment:checking '/home/kira/roboticarm_description/install/roboticarm_description/lib/pkgconfig/roboticarm_description.pc'
+[7.078s] Level 1:colcon.colcon_core.environment:checking '/home/kira/roboticarm_description/install/roboticarm_description/lib/python3.10/site-packages'
+[7.078s] Level 1:colcon.colcon_core.shell:create_environment_hook('roboticarm_description', 'pythonpath')
+[7.112s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/hook/pythonpath.ps1'
+[7.112s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/hook/pythonpath.dsv'
+[7.112s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/hook/pythonpath.sh'
+[7.113s] Level 1:colcon.colcon_core.environment:checking '/home/kira/roboticarm_description/install/roboticarm_description/bin'
+[7.113s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(roboticarm_description)
+[7.145s] INFO:colcon.colcon_core.shell:Creating package script '/home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/package.ps1'
+[7.145s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/package.dsv'
+[7.146s] INFO:colcon.colcon_core.shell:Creating package script '/home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/package.sh'
+[7.146s] INFO:colcon.colcon_core.shell:Creating package script '/home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/package.bash'
+[7.147s] INFO:colcon.colcon_core.shell:Creating package script '/home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/package.zsh'
+[7.148s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/kira/roboticarm_description/install/roboticarm_description/share/colcon-core/packages/roboticarm_description)
+[7.148s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[7.148s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[7.148s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[7.149s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[7.221s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[7.222s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[7.222s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[7.232s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[7.265s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/kira/roboticarm_description/install/local_setup.ps1'
+[7.266s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/kira/roboticarm_description/install/_local_setup_util_ps1.py'
+[7.267s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/kira/roboticarm_description/install/setup.ps1'
+[7.312s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/kira/roboticarm_description/install/local_setup.sh'
+[7.313s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/kira/roboticarm_description/install/_local_setup_util_sh.py'
+[7.313s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/kira/roboticarm_description/install/setup.sh'
+[7.357s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/kira/roboticarm_description/install/local_setup.bash'
+[7.357s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/kira/roboticarm_description/install/setup.bash'
+[7.399s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/kira/roboticarm_description/install/local_setup.zsh'
+[7.400s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/kira/roboticarm_description/install/setup.zsh'

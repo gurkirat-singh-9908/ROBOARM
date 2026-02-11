@@ -1,0 +1,79 @@
+[2.143s] Invoking command in '/home/kira/roboticarm_description': PYTHONPATH=/home/kira/roboticarm_description/build/roboticarm_description/prefix_override:/home/kira/roboticarm_description/install/roboticarm_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/roboticarm_description build --build-base /home/kira/roboticarm_description/build/roboticarm_description/build install --record /home/kira/roboticarm_description/build/roboticarm_description/install.log --install-scripts $base/lib/roboticarm_description --single-version-externally-managed
+[2.437s] /home/kira/.local/lib/python3.10/site-packages/setuptools/dist.py:472: SetuptoolsDeprecationWarning: Invalid dash-separated options
+[2.437s] !!
+[2.437s] 
+[2.437s]         ********************************************************************************
+[2.437s]         Usage of dash-separated 'script-dir' will not be supported in future
+[2.437s]         versions. Please use the underscore name 'script_dir' instead.
+[2.437s] 
+[2.437s]         This deprecation is overdue, please update your project and remove deprecated
+[2.437s]         calls to avoid build errors in the future.
+[2.437s] 
+[2.437s]         See https://setuptools.pypa.io/en/latest/userguide/declarative_config.html for details.
+[2.437s]         ********************************************************************************
+[2.438s] 
+[2.438s] !!
+[2.438s]   opt = self.warn_dash_deprecation(opt, section)
+[2.668s] running egg_info
+[2.668s] creating build/roboticarm_description/roboticarm_description.egg-info
+[2.700s] writing build/roboticarm_description/roboticarm_description.egg-info/PKG-INFO
+[2.700s] writing dependency_links to build/roboticarm_description/roboticarm_description.egg-info/dependency_links.txt
+[2.700s] writing requirements to build/roboticarm_description/roboticarm_description.egg-info/requires.txt
+[2.700s] writing top-level names to build/roboticarm_description/roboticarm_description.egg-info/top_level.txt
+[2.700s] writing manifest file 'build/roboticarm_description/roboticarm_description.egg-info/SOURCES.txt'
+[2.766s] reading manifest file 'build/roboticarm_description/roboticarm_description.egg-info/SOURCES.txt'
+[2.766s] writing manifest file 'build/roboticarm_description/roboticarm_description.egg-info/SOURCES.txt'
+[2.767s] running build
+[2.767s] running build_py
+[2.767s] creating /home/kira/roboticarm_description/build/roboticarm_description/build
+[2.767s] creating /home/kira/roboticarm_description/build/roboticarm_description/build/lib
+[2.767s] creating /home/kira/roboticarm_description/build/roboticarm_description/build/lib/roboticarm_description
+[2.767s] copying roboticarm_description/__init__.py -> /home/kira/roboticarm_description/build/roboticarm_description/build/lib/roboticarm_description
+[2.767s] running install
+[2.769s] /home/kira/.local/lib/python3.10/site-packages/setuptools/_distutils/cmd.py:66: SetuptoolsDeprecationWarning: setup.py install is deprecated.
+[2.769s] !!
+[2.769s] 
+[2.769s]         ********************************************************************************
+[2.769s]         Please avoid running ``setup.py`` directly.
+[2.769s]         Instead, use pypa/build, pypa/installer or other
+[2.769s]         standards-based tools.
+[2.769s] 
+[2.769s]         See https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html for details.
+[2.769s]         ********************************************************************************
+[2.769s] 
+[2.769s] !!
+[2.769s]   self.initialize_options()
+[2.774s] running install_lib
+[2.807s] creating /home/kira/roboticarm_description/install/roboticarm_description/lib/python3.10/site-packages/roboticarm_description
+[2.807s] copying /home/kira/roboticarm_description/build/roboticarm_description/build/lib/roboticarm_description/__init__.py -> /home/kira/roboticarm_description/install/roboticarm_description/lib/python3.10/site-packages/roboticarm_description
+[2.809s] byte-compiling /home/kira/roboticarm_description/install/roboticarm_description/lib/python3.10/site-packages/roboticarm_description/__init__.py to __init__.cpython-310.pyc
+[2.809s] running install_data
+[2.841s] creating /home/kira/roboticarm_description/install/roboticarm_description/share/ament_index
+[2.842s] creating /home/kira/roboticarm_description/install/roboticarm_description/share/ament_index/resource_index
+[2.842s] creating /home/kira/roboticarm_description/install/roboticarm_description/share/ament_index/resource_index/packages
+[2.842s] copying resource/roboticarm_description -> /home/kira/roboticarm_description/install/roboticarm_description/share/ament_index/resource_index/packages
+[2.842s] copying package.xml -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description
+[2.842s] creating /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/launch
+[2.842s] copying launch/gazebo.launch.py -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/launch
+[2.842s] copying launch/display.launch.py -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/launch
+[2.842s] creating /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/urdf
+[2.842s] copying urdf/materials.xacro -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/urdf
+[2.843s] copying urdf/roboticarm.gazebo -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/urdf
+[2.843s] copying urdf/roboticarm.xacro -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/urdf
+[2.843s] copying urdf/roboticarm.trans -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/urdf
+[2.843s] creating /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/meshes
+[2.843s] copying meshes/shoulder_1.stl -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/meshes
+[2.843s] copying meshes/w_b_1.stl -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/meshes
+[2.843s] copying meshes/waist_1.stl -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/meshes
+[2.844s] copying meshes/gripper_1.stl -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/meshes
+[2.844s] copying meshes/w_c_1.stl -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/meshes
+[2.845s] copying meshes/elbow_1.stl -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/meshes
+[2.845s] copying meshes/w_a_1.stl -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/meshes
+[2.845s] copying meshes/base_link.stl -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/meshes
+[2.845s] creating /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/config
+[2.845s] copying config/display.rviz -> /home/kira/roboticarm_description/install/roboticarm_description/share/roboticarm_description/config
+[2.845s] running install_egg_info
+[2.880s] Copying build/roboticarm_description/roboticarm_description.egg-info to /home/kira/roboticarm_description/install/roboticarm_description/lib/python3.10/site-packages/roboticarm_description-0.0.0-py3.10.egg-info
+[2.881s] running install_scripts
+[3.146s] writing list of installed files to '/home/kira/roboticarm_description/build/roboticarm_description/install.log'
+[3.172s] Invoked command in '/home/kira/roboticarm_description' returned '0': PYTHONPATH=/home/kira/roboticarm_description/build/roboticarm_description/prefix_override:/home/kira/roboticarm_description/install/roboticarm_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/roboticarm_description build --build-base /home/kira/roboticarm_description/build/roboticarm_description/build install --record /home/kira/roboticarm_description/build/roboticarm_description/install.log --install-scripts $base/lib/roboticarm_description --single-version-externally-managed
