@@ -127,17 +127,10 @@ def on_value_updated(data):
     servo_angles = map_sliders_to_servos(latest_values)
 
     
-    # Send angles to Arduino
-    for servo, angle in servo_angles.items():
-        servo_number = int(servo[1])  # Extract number (s1 -> 1)
-        try:
-            intensity = int(round(angle))  # Convert to integer
-            if arduino_flag:
-                send_data_to_arduino(servo_number, intensity)
-            else:
-                print(servo_number, intensity)
-        except ValueError as e:
-            print(f"Error for servo {servo_number}: {e}")
+    if arduino_flag:
+        send_data_to_arduino(servo_number, intensity)
+    else:
+        print(servo_number, intensity)
 
 def main():
     try:
