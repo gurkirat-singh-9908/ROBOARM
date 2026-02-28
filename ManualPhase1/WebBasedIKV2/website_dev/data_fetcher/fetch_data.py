@@ -128,9 +128,9 @@ def on_value_updated(data):
 
     
     if arduino_flag:
-        send_data_to_arduino(servo_number, intensity)
+        send_data_to_arduino(servo_angles)
     else:
-        print(servo_number, intensity)
+        print(servo_angles)
 
 def main():
     try:
