@@ -1,0 +1,35 @@
+[0.770s] Invoking command in '/home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/roboticarm_description': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/roboticarm_description build --build-base /home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/build install --record /home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/install.log --install-scripts $base/lib/roboticarm_description --single-version-externally-managed install_data
+[0.870s] /usr/lib/python3/dist-packages/setuptools/dist.py:744: SetuptoolsDeprecationWarning: Invalid dash-separated options
+[0.870s] !!
+[0.870s] 
+[0.870s]         ********************************************************************************
+[0.870s]         Usage of dash-separated 'script-dir' will not be supported in future
+[0.870s]         versions. Please use the underscore name 'script_dir' instead.
+[0.870s] 
+[0.870s]         This deprecation is overdue, please update your project and remove deprecated
+[0.871s]         calls to avoid build errors in the future.
+[0.871s] 
+[0.871s]         See https://setuptools.pypa.io/en/latest/userguide/declarative_config.html for details.
+[0.871s]         ********************************************************************************
+[0.871s] 
+[0.871s] !!
+[0.871s]   opt = self.warn_dash_deprecation(opt, section)
+[0.991s] running egg_info
+[1.008s] writing ../build/roboticarm_description/roboticarm_description.egg-info/PKG-INFO
+[1.008s] writing dependency_links to ../build/roboticarm_description/roboticarm_description.egg-info/dependency_links.txt
+[1.008s] writing requirements to ../build/roboticarm_description/roboticarm_description.egg-info/requires.txt
+[1.008s] writing top-level names to ../build/roboticarm_description/roboticarm_description.egg-info/top_level.txt
+[1.042s] reading manifest file '../build/roboticarm_description/roboticarm_description.egg-info/SOURCES.txt'
+[1.043s] writing manifest file '../build/roboticarm_description/roboticarm_description.egg-info/SOURCES.txt'
+[1.043s] running build
+[1.043s] running build_py
+[1.043s] running install
+[1.048s] running install_lib
+[1.065s] running install_data
+[1.065s] copying launch/gz_sim.launch.py -> /home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/launch
+[1.066s] running install_egg_info
+[1.083s] removing '/home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/lib/python3.12/site-packages/roboticarm_description-0.0.0-py3.12.egg-info' (and everything under it)
+[1.083s] Copying ../build/roboticarm_description/roboticarm_description.egg-info to /home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/lib/python3.12/site-packages/roboticarm_description-0.0.0-py3.12.egg-info
+[1.084s] running install_scripts
+[1.197s] writing list of installed files to '/home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/install.log'
+[1.217s] Invoked command in '/home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/roboticarm_description' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/roboticarm_description build --build-base /home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/build install --record /home/kirat/Desktop/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/install.log --install-scripts $base/lib/roboticarm_description --single-version-externally-managed install_data
