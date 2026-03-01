@@ -1,0 +1,9 @@
+/home/kirat/Desktop/ROBOARM/ManualPhase1/Moveit/build/roboticarm_moveit_config/CMakeFiles/uninstall.dir
+/home/kirat/Desktop/ROBOARM/ManualPhase1/Moveit/build/roboticarm_moveit_config/CMakeFiles/roboticarm_moveit_config_uninstall.dir
+/home/kirat/Desktop/ROBOARM/ManualPhase1/Moveit/build/roboticarm_moveit_config/CMakeFiles/test.dir
+/home/kirat/Desktop/ROBOARM/ManualPhase1/Moveit/build/roboticarm_moveit_config/CMakeFiles/edit_cache.dir
+/home/kirat/Desktop/ROBOARM/ManualPhase1/Moveit/build/roboticarm_moveit_config/CMakeFiles/rebuild_cache.dir
+/home/kirat/Desktop/ROBOARM/ManualPhase1/Moveit/build/roboticarm_moveit_config/CMakeFiles/list_install_components.dir
+/home/kirat/Desktop/ROBOARM/ManualPhase1/Moveit/build/roboticarm_moveit_config/CMakeFiles/install.dir
+/home/kirat/Desktop/ROBOARM/ManualPhase1/Moveit/build/roboticarm_moveit_config/CMakeFiles/install/local.dir
+/home/kirat/Desktop/ROBOARM/ManualPhase1/Moveit/build/roboticarm_moveit_config/CMakeFiles/install/strip.dir
