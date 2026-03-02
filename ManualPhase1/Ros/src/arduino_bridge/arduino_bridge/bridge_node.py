@@ -1,8 +1,8 @@
 import rclpy
 from rclpy.node import Node
-from trajectory_msgs.msg import JointTrajectory
-#import serial
+from sensor_msgs.msg import JointState
 import math
+
 
 class ArduinoBridge(Node):
 
@@ -10,33 +10,29 @@ class ArduinoBridge(Node):
         super().__init__('arduino_bridge')
 
         self.subscription = self.create_subscription(
-            JointTrajectory,
-            '/arm_controller/joint_trajectory',
+            JointState,
+            '/joint_states',
             self.listener_callback,
             10)
 
-        #self.ser = serial.Serial('/dev/ttyUSB0', 9600)
-        #self.get_logger().info("Arduino Bridge Started")
+        self.get_logger().info("Bridge listening to /joint_states ...")
 
     def listener_callback(self, msg):
 
-        if len(msg.points) == 0:
+        # Ensure we have positions
+        if not msg.position:
             return
 
-        # Take final trajectory point
-        positions = msg.points[-1].positions
-
         # Convert radians → degrees
-        degrees = [int(math.degrees(p)) for p in positions]
+        degrees = [int(math.degrees(p)) for p in msg.position]
 
-        # Clamp 0–180
+        # Clamp 0–180 (for hobby servos)
         degrees = [max(0, min(180, d)) for d in degrees]
 
-        # Send as comma-separated
-        command = ",".join(map(str, degrees)) + "\n"
-        #self.ser.write(command.encode())
+        command = ",".join(map(str, degrees))
 
-        self.get_logger().info(f"Sent: {command.strip()}")
+        self.get_logger().info(f"JointState: {command}")
+
 
 def main():
     rclpy.init()
@@ -44,6 +40,7 @@ def main():
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()
