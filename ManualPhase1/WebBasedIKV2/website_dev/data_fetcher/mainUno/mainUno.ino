@@ -7,7 +7,7 @@ int crntAngles[6] = {90, 90, 90, 90, 90, 90};
 int prevAngles[6] = {90, 90, 90, 90, 90, 90};
 
 int totalDelay = 500;  
-int mul = 10;          
+int mul = 5;          
 float slowness = totalDelay * mul / 100.0;
 
 void setup() {

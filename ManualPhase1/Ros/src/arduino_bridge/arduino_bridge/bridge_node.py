@@ -19,19 +19,24 @@ class ArduinoBridge(Node):
 
     def listener_callback(self, msg):
 
-        # Ensure we have positions
         if not msg.position:
             return
-
-        # Convert radians → degrees
-        degrees = [int(math.degrees(p)) for p in msg.position]
-
-        # Clamp 0–180 (for hobby servos)
+    
+        degrees = [int(math.degrees(p) + 90) for p in msg.position]
         degrees = [max(0, min(180, d)) for d in degrees]
 
-        command = ",".join(map(str, degrees))
+        g = 0  # gripper placeholder
 
-        self.get_logger().info(f"JointState: {command}")
+        command_values = degrees + [g]
+        checksum = sum(command_values)
+
+        command_values.append(checksum)
+
+        command = " ".join(str(v) for v in command_values) + "\n"
+
+        self.get_logger().info(f"Sending: {command.strip()}")
+
+        # self.ser.write(command.encode())   # Uncomment when ready
 
 
 def main():

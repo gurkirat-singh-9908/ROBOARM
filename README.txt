@@ -40,3 +40,7 @@ then build the workspace
 colcon build
 
 
+
+get all the ros topics and nodes on the host 
+export ROS_DOMAIN_ID=10
+export ROS_LOCALHOST_ONLY=0
