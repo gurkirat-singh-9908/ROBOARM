@@ -1,1 +1,0 @@
-/home/kv3/ROBOARM/ManualPhase1/Ros/src/roboticarm_moveit_config/launch/static_virtual_joint_tfs.launch.py

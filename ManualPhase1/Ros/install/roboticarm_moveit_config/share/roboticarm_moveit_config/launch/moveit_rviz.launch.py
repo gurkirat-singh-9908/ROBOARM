@@ -1,1 +1,0 @@
-/home/kv3/ROBOARM/ManualPhase1/Ros/src/roboticarm_moveit_config/launch/moveit_rviz.launch.py
