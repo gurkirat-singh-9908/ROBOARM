@@ -10,36 +10,36 @@ default_acceleration_scaling_factor: 0.1
 joint_limits:
   Revolute 22:
     has_velocity_limits: true
-    max_velocity: 1.5
+    max_velocity: 0.7
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 1.5
 
   Revolute 23:
     has_velocity_limits: true
-    max_velocity: 1.5
+    max_velocity: 0.7
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 1.5
 
   Revolute 24:
     has_velocity_limits: true
-    max_velocity: 1.5
+    max_velocity: 0.7
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 1.5
 
   Revolute 25:
     has_velocity_limits: true
-    max_velocity: 1.5
+    max_velocity: 0.7
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 1.5
 
   Revolute 26:
     has_velocity_limits: true
-    max_velocity: 1.5
+    max_velocity: 0.7
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 1.5
 
   Revolute 27:
     has_velocity_limits: true
-    max_velocity: 1.5
+    max_velocity: 0.7
     has_acceleration_limits: true
-    max_acceleration: 2.0
+    max_acceleration: 1.5
