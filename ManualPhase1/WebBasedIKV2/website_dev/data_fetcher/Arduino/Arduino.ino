@@ -4,11 +4,6 @@
 Servo s1, s2, s3, s4, s5, s6;
 
 int crntAngles[6] = {90, 90, 90, 90, 90, 90};
-int prevAngles[6] = {90, 90, 90, 90, 90, 90};
-
-int totalDelay = 500;  
-int mul = 1;          
-float slowness = totalDelay * mul / 200.0;
 
 void setup() {
   Serial.begin(9600);
@@ -22,14 +17,6 @@ void setup() {
   s6.attach(11, 575, 1900);  // Servo 6 (15kg)
 
   Serial.println("Setup complete");
-
-  // Initial pose (degrees still valid)
-  s1.write(prevAngles[0]);
-  s2.write(prevAngles[1]);
-  s3.write(prevAngles[2]);
-  s4.write(prevAngles[3]);
-  s5.write(prevAngles[4]);
-  s6.write(prevAngles[5]);
 }
 
 void loop() {
@@ -73,13 +60,7 @@ void loop() {
       crntAngles[i] = constrain(values[i], 0, 180);
     }
 
-    updateServos(prevAngles, crntAngles, slowness);
-
-    // Store previous angles
-    for (int i = 0; i < 6; i++) {
-      prevAngles[i] = crntAngles[i];
-    }
-
+    updateServos(crntAngles);
     Serial.println("Packet OK");
   }
 }
