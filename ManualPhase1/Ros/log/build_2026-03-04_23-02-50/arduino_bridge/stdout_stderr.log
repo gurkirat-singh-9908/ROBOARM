@@ -1,0 +1,35 @@
+running egg_info
+creating ../../build/arduino_bridge/arduino_bridge.egg-info
+writing ../../build/arduino_bridge/arduino_bridge.egg-info/PKG-INFO
+writing dependency_links to ../../build/arduino_bridge/arduino_bridge.egg-info/dependency_links.txt
+writing entry points to ../../build/arduino_bridge/arduino_bridge.egg-info/entry_points.txt
+writing requirements to ../../build/arduino_bridge/arduino_bridge.egg-info/requires.txt
+writing top-level names to ../../build/arduino_bridge/arduino_bridge.egg-info/top_level.txt
+writing manifest file '../../build/arduino_bridge/arduino_bridge.egg-info/SOURCES.txt'
+reading manifest file '../../build/arduino_bridge/arduino_bridge.egg-info/SOURCES.txt'
+writing manifest file '../../build/arduino_bridge/arduino_bridge.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build
+creating /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build/lib
+creating /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build/lib/arduino_bridge
+copying arduino_bridge/__init__.py -> /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build/lib/arduino_bridge
+copying arduino_bridge/bridge_node.py -> /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build/lib/arduino_bridge
+running install
+running install_lib
+creating /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge
+copying /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build/lib/arduino_bridge/__init__.py -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge
+copying /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build/lib/arduino_bridge/bridge_node.py -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge
+byte-compiling /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge/__init__.py to __init__.cpython-312.pyc
+byte-compiling /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge/bridge_node.py to bridge_node.cpython-312.pyc
+running install_data
+creating /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/share/ament_index
+creating /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/share/ament_index/resource_index
+creating /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/share/ament_index/resource_index/packages
+copying resource/arduino_bridge -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/share/ament_index/resource_index/packages
+copying package.xml -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/share/arduino_bridge
+running install_egg_info
+Copying ../../build/arduino_bridge/arduino_bridge.egg-info to /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge-0.0.0-py3.12.egg-info
+running install_scripts
+Installing bridge_node script to /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/arduino_bridge
+writing list of installed files to '/home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/install.log'

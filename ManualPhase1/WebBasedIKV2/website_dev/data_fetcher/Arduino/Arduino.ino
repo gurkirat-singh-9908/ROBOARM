@@ -6,7 +6,7 @@ Servo s1, s2, s3, s4, s5, s6;
 int crntAngles[6] = {90, 90, 90, 90, 90, 90};
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   // Attach servos with microsecond limits
   s1.attach(3, 500, 2400);   // Servo 1 (35kg)

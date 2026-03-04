@@ -1,0 +1,37 @@
+[5.072s] Invoking command in '/home/kv3/ROBOARM/ManualPhase1/Ros/src/arduino_bridge': PYTHONPATH=/home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/arduino_bridge build --build-base /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build install --record /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/install.log --single-version-externally-managed install_data
+[6.211s] running egg_info
+[6.213s] creating ../../build/arduino_bridge/arduino_bridge.egg-info
+[6.288s] writing ../../build/arduino_bridge/arduino_bridge.egg-info/PKG-INFO
+[6.288s] writing dependency_links to ../../build/arduino_bridge/arduino_bridge.egg-info/dependency_links.txt
+[6.290s] writing entry points to ../../build/arduino_bridge/arduino_bridge.egg-info/entry_points.txt
+[6.292s] writing requirements to ../../build/arduino_bridge/arduino_bridge.egg-info/requires.txt
+[6.292s] writing top-level names to ../../build/arduino_bridge/arduino_bridge.egg-info/top_level.txt
+[6.293s] writing manifest file '../../build/arduino_bridge/arduino_bridge.egg-info/SOURCES.txt'
+[6.449s] reading manifest file '../../build/arduino_bridge/arduino_bridge.egg-info/SOURCES.txt'
+[6.452s] writing manifest file '../../build/arduino_bridge/arduino_bridge.egg-info/SOURCES.txt'
+[6.452s] running build
+[6.454s] running build_py
+[6.454s] creating /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build
+[6.455s] creating /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build/lib
+[6.458s] creating /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build/lib/arduino_bridge
+[6.458s] copying arduino_bridge/__init__.py -> /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build/lib/arduino_bridge
+[6.459s] copying arduino_bridge/bridge_node.py -> /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build/lib/arduino_bridge
+[6.461s] running install
+[6.484s] running install_lib
+[6.562s] creating /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge
+[6.564s] copying /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build/lib/arduino_bridge/__init__.py -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge
+[6.564s] copying /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build/lib/arduino_bridge/bridge_node.py -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge
+[6.567s] byte-compiling /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge/__init__.py to __init__.cpython-312.pyc
+[6.569s] byte-compiling /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge/bridge_node.py to bridge_node.cpython-312.pyc
+[6.573s] running install_data
+[6.574s] creating /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/share/ament_index
+[6.574s] creating /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/share/ament_index/resource_index
+[6.574s] creating /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/share/ament_index/resource_index/packages
+[6.575s] copying resource/arduino_bridge -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/share/ament_index/resource_index/packages
+[6.576s] copying package.xml -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/share/arduino_bridge
+[6.576s] running install_egg_info
+[6.665s] Copying ../../build/arduino_bridge/arduino_bridge.egg-info to /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge-0.0.0-py3.12.egg-info
+[6.671s] running install_scripts
+[7.255s] Installing bridge_node script to /home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/arduino_bridge
+[7.257s] writing list of installed files to '/home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/install.log'
+[7.415s] Invoked command in '/home/kv3/ROBOARM/ManualPhase1/Ros/src/arduino_bridge' returned '0': PYTHONPATH=/home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kv3/ROBOARM/ManualPhase1/Ros/install/arduino_bridge/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/arduino_bridge build --build-base /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/build install --record /home/kv3/ROBOARM/ManualPhase1/Ros/build/arduino_bridge/install.log --single-version-externally-managed install_data

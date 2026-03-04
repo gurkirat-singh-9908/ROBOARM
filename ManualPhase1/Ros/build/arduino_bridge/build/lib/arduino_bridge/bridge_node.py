@@ -54,7 +54,7 @@ class ArduinoBridge(Node):
             self.ser.write(command.encode())
             self.get_logger().info(f"Sent: {command.strip()}")
             self.last_sent = command
-            #time.sleep(0.002)
+            time.sleep(0.04)
 
 
 def main():

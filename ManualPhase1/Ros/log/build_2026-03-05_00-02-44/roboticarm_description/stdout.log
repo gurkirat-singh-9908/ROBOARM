@@ -1,0 +1,30 @@
+running develop
+running egg_info
+writing roboticarm_description.egg-info/PKG-INFO
+writing dependency_links to roboticarm_description.egg-info/dependency_links.txt
+writing requirements to roboticarm_description.egg-info/requires.txt
+writing top-level names to roboticarm_description.egg-info/top_level.txt
+reading manifest file 'roboticarm_description.egg-info/SOURCES.txt'
+writing manifest file 'roboticarm_description.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/lib/python3.12/site-packages/roboticarm-description.egg-link (link to .)
+
+Installed /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description
+running symlink_data
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/resource/roboticarm_description -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/ament_index/resource_index/packages
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/package.xml -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/launch/display.launch.py -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/launch
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/launch/gazebo.launch.py -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/launch
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/urdf/roboticarm.xacro -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/urdf
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/urdf/roboticarm.trans -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/urdf
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/urdf/roboticarm.gazebo -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/urdf
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/urdf/materials.xacro -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/urdf
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/meshes/w_b_1.stl -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/meshes
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/meshes/w_c_1.stl -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/meshes
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/meshes/waist_1.stl -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/meshes
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/meshes/base_link.stl -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/meshes
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/meshes/shoulder_1.stl -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/meshes
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/meshes/elbow_1.stl -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/meshes
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/meshes/w_a_1.stl -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/meshes
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/meshes/gripper_1.stl -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/meshes
+symbolically linking /home/kv3/ROBOARM/ManualPhase1/Ros/build/roboticarm_description/config/display.rviz -> /home/kv3/ROBOARM/ManualPhase1/Ros/install/roboticarm_description/share/roboticarm_description/config
