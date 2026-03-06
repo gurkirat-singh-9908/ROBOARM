@@ -24,6 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
+        	'move_robot = roboticarm_control.move_robot:main',
         	'startup_state = roboticarm_control.startup_state:main',
 ],
     },
