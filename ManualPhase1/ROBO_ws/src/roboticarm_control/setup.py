@@ -25,7 +25,8 @@ setup(
     entry_points={
         'console_scripts': [
         	'move_robot = roboticarm_control.move_robot:main',
-        	'startup_state = roboticarm_control.startup_state:main',
+            'object_detector = roboticarm_control.object_detector:main',
+            'object_follower = roboticarm_control.object_follower:main',
 ],
     },
 )

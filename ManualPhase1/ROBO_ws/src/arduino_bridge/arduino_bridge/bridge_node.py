@@ -37,7 +37,7 @@ class ArduinoBridge(Node):
             return
 
         # Convert radians → servo degrees
-        degrees = [abs(int(math.degrees(p))) for p in msg.position]
+        degrees = [int(math.degrees(abs(p))) for p in msg.position]
         degrees = [max(0, min(180, d)) for d in degrees]
 
         g = 0  # gripper placeholder
