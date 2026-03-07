@@ -38,19 +38,29 @@ class ArduinoBridge(Node):
 
         # Convert radians → servo degrees
         degrees = [int(math.degrees(p)) for p in msg.position]
-	degrees[0] = 180-(degrees[0])
-	degrees[1] = 180+degrees[1]
-	degrees[2] = 180+degrees[2]
-	degrees[3] = 180+degrees[3]
-	degrees[4] = -(degrees[4])
-	degrees[5] = -degrees[5])
+
+        # Ensure we have at least 6 joints
+        if len(degrees) < 6:
+            self.get_logger().warn("Received less than 6 joint values")
+            return
+
+        # Joint corrections
+        degrees[0] = 180 - degrees[0]
+        degrees[1] = 180 + degrees[1]
+        degrees[2] = 180 + degrees[2]
+        degrees[3] = 180 + degrees[3]
+        degrees[4] = -degrees[4]
+        degrees[5] = -degrees[5]
+
+        # Clamp servo limits
         degrees = [max(0, min(180, d)) for d in degrees]
 
         g = 0  # gripper placeholder
 
         command_values = degrees + [g]
-        checksum = sum(command_values)  # safer checksum
 
+        # Checksum
+        checksum = sum(command_values)
         command_values.append(checksum)
 
         command = " ".join(str(v) for v in command_values) + "\n"
@@ -60,7 +70,6 @@ class ArduinoBridge(Node):
             self.ser.write(command.encode())
             self.get_logger().info(f"Sent: {command.strip()}")
             self.last_sent = command
-            #time.sleep(0.002)
 
 
 def main():
