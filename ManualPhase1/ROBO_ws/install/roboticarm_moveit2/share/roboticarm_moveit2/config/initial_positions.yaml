@@ -1,9 +1,0 @@
-# Default initial positions for roboticarm's ros2_control fake system
-
-initial_positions:
-  Revolute 43: 1.5708
-  Revolute 44: -1.5708
-  Revolute 45: -1.5708
-  Revolute 46: -1.5708
-  Revolute 47: -1.5708
-  Revolute 48: -1.5708
