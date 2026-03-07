@@ -1,0 +1,4 @@
+[console_scripts]
+move_robot = roboticarm_control.move_robot:main
+object_detector = roboticarm_control.object_detector:main
+object_follower = roboticarm_control.object_follower:main

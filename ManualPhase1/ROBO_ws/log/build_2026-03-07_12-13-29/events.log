@@ -1,0 +1,375 @@
+[0.000000] (-) TimerEvent: {}
+[0.001655] (arduino_bridge) JobQueued: {'identifier': 'arduino_bridge', 'dependencies': OrderedDict()}
+[0.001794] (roboticarm_control) JobQueued: {'identifier': 'roboticarm_control', 'dependencies': OrderedDict()}
+[0.001868] (roboticarm_description) JobQueued: {'identifier': 'roboticarm_description', 'dependencies': OrderedDict()}
+[0.001933] (roboticarm_moveit2) JobQueued: {'identifier': 'roboticarm_moveit2', 'dependencies': OrderedDict({'roboticarm_description': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description'})}
+[0.002011] (roboticarm_description) JobStarted: {'identifier': 'roboticarm_description'}
+[0.048251] (arduino_bridge) JobStarted: {'identifier': 'arduino_bridge'}
+[0.071739] (roboticarm_control) JobStarted: {'identifier': 'roboticarm_control'}
+[0.099302] (-) TimerEvent: {}
+[0.200220] (-) TimerEvent: {}
+[0.300943] (-) TimerEvent: {}
+[0.401524] (-) TimerEvent: {}
+[0.502205] (-) TimerEvent: {}
+[0.602868] (-) TimerEvent: {}
+[0.703447] (-) TimerEvent: {}
+[0.804064] (-) TimerEvent: {}
+[0.904812] (-) TimerEvent: {}
+[1.005691] (-) TimerEvent: {}
+[1.106271] (-) TimerEvent: {}
+[1.206911] (-) TimerEvent: {}
+[1.307479] (-) TimerEvent: {}
+[1.408119] (-) TimerEvent: {}
+[1.508676] (-) TimerEvent: {}
+[1.609222] (-) TimerEvent: {}
+[1.709889] (-) TimerEvent: {}
+[1.810721] (-) TimerEvent: {}
+[1.911332] (-) TimerEvent: {}
+[2.011962] (-) TimerEvent: {}
+[2.112623] (-) TimerEvent: {}
+[2.213223] (-) TimerEvent: {}
+[2.313863] (-) TimerEvent: {}
+[2.414416] (-) TimerEvent: {}
+[2.515018] (-) TimerEvent: {}
+[2.615770] (-) TimerEvent: {}
+[2.716697] (-) TimerEvent: {}
+[2.817483] (-) TimerEvent: {}
+[2.918433] (-) TimerEvent: {}
+[3.019325] (-) TimerEvent: {}
+[3.121265] (-) TimerEvent: {}
+[3.222918] (-) TimerEvent: {}
+[3.324910] (-) TimerEvent: {}
+[3.425725] (-) TimerEvent: {}
+[3.527507] (-) TimerEvent: {}
+[3.628353] (-) TimerEvent: {}
+[3.730424] (-) TimerEvent: {}
+[3.831653] (-) TimerEvent: {}
+[3.932395] (-) TimerEvent: {}
+[4.033164] (-) TimerEvent: {}
+[4.134004] (-) TimerEvent: {}
+[4.234867] (-) TimerEvent: {}
+[4.336991] (-) TimerEvent: {}
+[4.437694] (-) TimerEvent: {}
+[4.538434] (-) TimerEvent: {}
+[4.639183] (-) TimerEvent: {}
+[4.739916] (-) TimerEvent: {}
+[4.841362] (-) TimerEvent: {}
+[4.944308] (-) TimerEvent: {}
+[5.045153] (-) TimerEvent: {}
+[5.146049] (-) TimerEvent: {}
+[5.248054] (-) TimerEvent: {}
+[5.349068] (-) TimerEvent: {}
+[5.451708] (-) TimerEvent: {}
+[5.553510] (-) TimerEvent: {}
+[5.654338] (-) TimerEvent: {}
+[5.756135] (-) TimerEvent: {}
+[5.858121] (-) TimerEvent: {}
+[5.958916] (-) TimerEvent: {}
+[6.059841] (-) TimerEvent: {}
+[6.163910] (-) TimerEvent: {}
+[6.266868] (-) TimerEvent: {}
+[6.369678] (-) TimerEvent: {}
+[6.388266] (arduino_bridge) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/arduino_bridge', 'build', '--build-base', '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/arduino_bridge/build', 'install', '--record', '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/arduino_bridge/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/src/arduino_bridge', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'kv3', 'SSH_CLIENT': '100.92.204.20 46920 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/kv3', 'OLDPWD': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/src/arduino_bridge/arduino_bridge', 'SSH_TTY': '/dev/pts/0', 'RCUTILS_LOGGING_SEVERITY': 'ERROR', 'ROS_PYTHON_VERSION': '3', 'ROS_LOG_DIR': '/tmp/ros_logs', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'kv3', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '5', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'ROS_DOMAIN_ID': '10', 'AMENT_PREFIX_PATH': '/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'PWD': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/arduino_bridge', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '100.92.204.20 46920 100.106.195.16 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/arduino_bridge/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/arduino_bridge/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor'}, 'shell': False}
+[6.415535] (roboticarm_control) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/roboticarm_control', 'build', '--build-base', '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/build', 'install', '--record', '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/src/roboticarm_control', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'kv3', 'SSH_CLIENT': '100.92.204.20 46920 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/kv3', 'OLDPWD': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/src/arduino_bridge/arduino_bridge', 'SSH_TTY': '/dev/pts/0', 'RCUTILS_LOGGING_SEVERITY': 'ERROR', 'ROS_PYTHON_VERSION': '3', 'ROS_LOG_DIR': '/tmp/ros_logs', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'kv3', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '5', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'ROS_DOMAIN_ID': '10', 'AMENT_PREFIX_PATH': '/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'PWD': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '100.92.204.20 46920 100.106.195.16 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor'}, 'shell': False}
+[6.429108] (roboticarm_description) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/roboticarm_description', 'build', '--build-base', '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/build', 'install', '--record', '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/install.log', '--install-scripts', '$base/lib/roboticarm_description', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/src/roboticarm_description', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'kv3', 'SSH_CLIENT': '100.92.204.20 46920 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/kv3', 'OLDPWD': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/src/arduino_bridge/arduino_bridge', 'SSH_TTY': '/dev/pts/0', 'RCUTILS_LOGGING_SEVERITY': 'ERROR', 'ROS_PYTHON_VERSION': '3', 'ROS_LOG_DIR': '/tmp/ros_logs', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'kv3', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '5', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'ROS_DOMAIN_ID': '10', 'AMENT_PREFIX_PATH': '/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'PWD': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '100.92.204.20 46920 100.106.195.16 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor'}, 'shell': False}
+[6.469802] (-) TimerEvent: {}
+[6.571873] (-) TimerEvent: {}
+[6.673970] (-) TimerEvent: {}
+[6.775792] (-) TimerEvent: {}
+[6.877044] (-) TimerEvent: {}
+[6.977892] (-) TimerEvent: {}
+[7.079710] (-) TimerEvent: {}
+[7.097969] (roboticarm_description) StderrLine: {'line': b'/usr/lib/python3/dist-packages/setuptools/dist.py:744: SetuptoolsDeprecationWarning: Invalid dash-separated options\n'}
+[7.098813] (roboticarm_description) StderrLine: {'line': b'!!\n'}
+[7.099438] (roboticarm_description) StderrLine: {'line': b'\n'}
+[7.099989] (roboticarm_description) StderrLine: {'line': b'        ********************************************************************************\n'}
+[7.100440] (roboticarm_description) StderrLine: {'line': b"        Usage of dash-separated 'script-dir' will not be supported in future\n"}
+[7.101028] (roboticarm_description) StderrLine: {'line': b"        versions. Please use the underscore name 'script_dir' instead.\n"}
+[7.101499] (roboticarm_description) StderrLine: {'line': b'\n'}
+[7.102123] (roboticarm_description) StderrLine: {'line': b'        This deprecation is overdue, please update your project and remove deprecated\n'}
+[7.102639] (roboticarm_description) StderrLine: {'line': b'        calls to avoid build errors in the future.\n'}
+[7.103164] (roboticarm_description) StderrLine: {'line': b'\n'}
+[7.103633] (roboticarm_description) StderrLine: {'line': b'        See https://setuptools.pypa.io/en/latest/userguide/declarative_config.html for details.\n'}
+[7.104168] (roboticarm_description) StderrLine: {'line': b'        ********************************************************************************\n'}
+[7.104639] (roboticarm_description) StderrLine: {'line': b'\n'}
+[7.105151] (roboticarm_description) StderrLine: {'line': b'!!\n'}
+[7.105571] (roboticarm_description) StderrLine: {'line': b'  opt = self.warn_dash_deprecation(opt, section)\n'}
+[7.179892] (-) TimerEvent: {}
+[7.281446] (-) TimerEvent: {}
+[7.382186] (-) TimerEvent: {}
+[7.483907] (-) TimerEvent: {}
+[7.585949] (-) TimerEvent: {}
+[7.686730] (-) TimerEvent: {}
+[7.759672] (roboticarm_control) StdoutLine: {'line': b'running egg_info\n'}
+[7.761162] (roboticarm_control) StdoutLine: {'line': b'creating ../../build/roboticarm_control/roboticarm_control.egg-info\n'}
+[7.764709] (roboticarm_description) StdoutLine: {'line': b'running egg_info\n'}
+[7.766280] (roboticarm_description) StdoutLine: {'line': b'creating ../../build/roboticarm_description/roboticarm_description.egg-info\n'}
+[7.774917] (arduino_bridge) StdoutLine: {'line': b'running egg_info\n'}
+[7.776404] (arduino_bridge) StdoutLine: {'line': b'creating ../../build/arduino_bridge/arduino_bridge.egg-info\n'}
+[7.786885] (-) TimerEvent: {}
+[7.854451] (roboticarm_control) StdoutLine: {'line': b'writing ../../build/roboticarm_control/roboticarm_control.egg-info/PKG-INFO\n'}
+[7.855967] (roboticarm_control) StdoutLine: {'line': b'writing dependency_links to ../../build/roboticarm_control/roboticarm_control.egg-info/dependency_links.txt\n'}
+[7.856915] (roboticarm_control) StdoutLine: {'line': b'writing entry points to ../../build/roboticarm_control/roboticarm_control.egg-info/entry_points.txt\n'}
+[7.859793] (roboticarm_control) StdoutLine: {'line': b'writing requirements to ../../build/roboticarm_control/roboticarm_control.egg-info/requires.txt\n'}
+[7.860402] (roboticarm_control) StdoutLine: {'line': b'writing top-level names to ../../build/roboticarm_control/roboticarm_control.egg-info/top_level.txt\n'}
+[7.861678] (roboticarm_control) StdoutLine: {'line': b"writing manifest file '../../build/roboticarm_control/roboticarm_control.egg-info/SOURCES.txt'\n"}
+[7.862387] (roboticarm_description) StdoutLine: {'line': b'writing ../../build/roboticarm_description/roboticarm_description.egg-info/PKG-INFO\n'}
+[7.863248] (roboticarm_description) StdoutLine: {'line': b'writing dependency_links to ../../build/roboticarm_description/roboticarm_description.egg-info/dependency_links.txt\n'}
+[7.863794] (roboticarm_description) StdoutLine: {'line': b'writing requirements to ../../build/roboticarm_description/roboticarm_description.egg-info/requires.txt\n'}
+[7.864310] (roboticarm_description) StdoutLine: {'line': b'writing top-level names to ../../build/roboticarm_description/roboticarm_description.egg-info/top_level.txt\n'}
+[7.864841] (roboticarm_description) StdoutLine: {'line': b"writing manifest file '../../build/roboticarm_description/roboticarm_description.egg-info/SOURCES.txt'\n"}
+[7.873787] (arduino_bridge) StdoutLine: {'line': b'writing ../../build/arduino_bridge/arduino_bridge.egg-info/PKG-INFO\n'}
+[7.875180] (arduino_bridge) StdoutLine: {'line': b'writing dependency_links to ../../build/arduino_bridge/arduino_bridge.egg-info/dependency_links.txt\n'}
+[7.876157] (arduino_bridge) StdoutLine: {'line': b'writing entry points to ../../build/arduino_bridge/arduino_bridge.egg-info/entry_points.txt\n'}
+[7.877050] (arduino_bridge) StdoutLine: {'line': b'writing requirements to ../../build/arduino_bridge/arduino_bridge.egg-info/requires.txt\n'}
+[7.877959] (arduino_bridge) StdoutLine: {'line': b'writing top-level names to ../../build/arduino_bridge/arduino_bridge.egg-info/top_level.txt\n'}
+[7.880816] (arduino_bridge) StdoutLine: {'line': b"writing manifest file '../../build/arduino_bridge/arduino_bridge.egg-info/SOURCES.txt'\n"}
+[7.887050] (-) TimerEvent: {}
+[7.988890] (-) TimerEvent: {}
+[8.048304] (roboticarm_control) StdoutLine: {'line': b"reading manifest file '../../build/roboticarm_control/roboticarm_control.egg-info/SOURCES.txt'\n"}
+[8.051320] (roboticarm_control) StdoutLine: {'line': b"writing manifest file '../../build/roboticarm_control/roboticarm_control.egg-info/SOURCES.txt'\n"}
+[8.052489] (roboticarm_control) StdoutLine: {'line': b'running build\n'}
+[8.053761] (roboticarm_control) StdoutLine: {'line': b'running build_py\n'}
+[8.054697] (roboticarm_description) StdoutLine: {'line': b"reading manifest file '../../build/roboticarm_description/roboticarm_description.egg-info/SOURCES.txt'\n"}
+[8.055853] (roboticarm_control) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/build\n'}
+[8.056830] (roboticarm_control) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/build/lib\n'}
+[8.058383] (roboticarm_control) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/build/lib/roboticarm_control\n'}
+[8.060686] (roboticarm_control) StdoutLine: {'line': b'copying roboticarm_control/__init__.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/build/lib/roboticarm_control\n'}
+[8.061333] (roboticarm_control) StdoutLine: {'line': b'copying roboticarm_control/object_detector.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/build/lib/roboticarm_control\n'}
+[8.061997] (roboticarm_description) StdoutLine: {'line': b"writing manifest file '../../build/roboticarm_description/roboticarm_description.egg-info/SOURCES.txt'\n"}
+[8.064330] (roboticarm_description) StdoutLine: {'line': b'running build\n'}
+[8.065250] (roboticarm_control) StdoutLine: {'line': b'copying roboticarm_control/object_follower.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/build/lib/roboticarm_control\n'}
+[8.065878] (roboticarm_description) StdoutLine: {'line': b'running build_py\n'}
+[8.066355] (roboticarm_description) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/build\n'}
+[8.066800] (roboticarm_control) StdoutLine: {'line': b'copying roboticarm_control/move_robot.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/build/lib/roboticarm_control\n'}
+[8.067260] (roboticarm_description) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/build/lib\n'}
+[8.067795] (roboticarm_control) StdoutLine: {'line': b'running install\n'}
+[8.068348] (roboticarm_description) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/build/lib/roboticarm_description\n'}
+[8.068822] (roboticarm_description) StdoutLine: {'line': b'copying roboticarm_description/__init__.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/build/lib/roboticarm_description\n'}
+[8.069271] (roboticarm_description) StdoutLine: {'line': b'running install\n'}
+[8.074960] (arduino_bridge) StdoutLine: {'line': b"reading manifest file '../../build/arduino_bridge/arduino_bridge.egg-info/SOURCES.txt'\n"}
+[8.078201] (arduino_bridge) StdoutLine: {'line': b"writing manifest file '../../build/arduino_bridge/arduino_bridge.egg-info/SOURCES.txt'\n"}
+[8.080919] (arduino_bridge) StdoutLine: {'line': b'running build\n'}
+[8.081468] (arduino_bridge) StdoutLine: {'line': b'running build_py\n'}
+[8.082180] (arduino_bridge) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/arduino_bridge/build\n'}
+[8.082885] (arduino_bridge) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/arduino_bridge/build/lib\n'}
+[8.083330] (arduino_bridge) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/arduino_bridge/build/lib/arduino_bridge\n'}
+[8.083975] (arduino_bridge) StdoutLine: {'line': b'copying arduino_bridge/__init__.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/arduino_bridge/build/lib/arduino_bridge\n'}
+[8.084808] (arduino_bridge) StdoutLine: {'line': b'copying arduino_bridge/bridge_node.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/arduino_bridge/build/lib/arduino_bridge\n'}
+[8.088042] (roboticarm_control) StdoutLine: {'line': b'running install_lib\n'}
+[8.088978] (arduino_bridge) StdoutLine: {'line': b'running install\n'}
+[8.089883] (-) TimerEvent: {}
+[8.090376] (roboticarm_description) StdoutLine: {'line': b'running install_lib\n'}
+[8.116470] (arduino_bridge) StdoutLine: {'line': b'running install_lib\n'}
+[8.182546] (roboticarm_description) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/lib/python3.12/site-packages/roboticarm_description\n'}
+[8.183700] (roboticarm_description) StdoutLine: {'line': b'copying /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/build/lib/roboticarm_description/__init__.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/lib/python3.12/site-packages/roboticarm_description\n'}
+[8.184512] (roboticarm_control) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/python3.12/site-packages/roboticarm_control\n'}
+[8.185344] (roboticarm_control) StdoutLine: {'line': b'copying /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/build/lib/roboticarm_control/__init__.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/python3.12/site-packages/roboticarm_control\n'}
+[8.186348] (roboticarm_control) StdoutLine: {'line': b'copying /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/build/lib/roboticarm_control/object_detector.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/python3.12/site-packages/roboticarm_control\n'}
+[8.187146] (roboticarm_description) StdoutLine: {'line': b'byte-compiling /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/lib/python3.12/site-packages/roboticarm_description/__init__.py to __init__.cpython-312.pyc\n'}
+[8.187970] (roboticarm_control) StdoutLine: {'line': b'copying /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/build/lib/roboticarm_control/object_follower.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/python3.12/site-packages/roboticarm_control\n'}
+[8.188713] (roboticarm_description) StdoutLine: {'line': b'running install_data\n'}
+[8.189643] (roboticarm_control) StdoutLine: {'line': b'copying /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/build/lib/roboticarm_control/move_robot.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/python3.12/site-packages/roboticarm_control\n'}
+[8.190327] (-) TimerEvent: {}
+[8.190834] (roboticarm_description) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/ament_index\n'}
+[8.191668] (roboticarm_description) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/ament_index/resource_index\n'}
+[8.192419] (roboticarm_description) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/ament_index/resource_index/packages\n'}
+[8.193087] (roboticarm_description) StdoutLine: {'line': b'copying resource/roboticarm_description -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/ament_index/resource_index/packages\n'}
+[8.193912] (roboticarm_description) StdoutLine: {'line': b'copying package.xml -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description\n'}
+[8.194961] (roboticarm_description) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/launch\n'}
+[8.195695] (roboticarm_control) StdoutLine: {'line': b'byte-compiling /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/python3.12/site-packages/roboticarm_control/__init__.py to __init__.cpython-312.pyc\n'}
+[8.196324] (roboticarm_control) StdoutLine: {'line': b'byte-compiling /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/python3.12/site-packages/roboticarm_control/object_detector.py to object_detector.cpython-312.pyc\n'}
+[8.197215] (roboticarm_description) StdoutLine: {'line': b'copying launch/display.launch.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/launch\n'}
+[8.198141] (roboticarm_description) StdoutLine: {'line': b'copying launch/gazebo.launch.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/launch\n'}
+[8.198992] (roboticarm_control) StdoutLine: {'line': b'byte-compiling /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/python3.12/site-packages/roboticarm_control/object_follower.py to object_follower.cpython-312.pyc\n'}
+[8.199951] (roboticarm_description) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/urdf\n'}
+[8.200995] (roboticarm_description) StdoutLine: {'line': b'copying urdf/roboticarm.xacro -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/urdf\n'}
+[8.201714] (roboticarm_control) StdoutLine: {'line': b'byte-compiling /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/python3.12/site-packages/roboticarm_control/move_robot.py to move_robot.cpython-312.pyc\n'}
+[8.202644] (roboticarm_description) StdoutLine: {'line': b'copying urdf/roboticarm.trans -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/urdf\n'}
+[8.203968] (roboticarm_description) StdoutLine: {'line': b'copying urdf/roboticarm.gazebo -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/urdf\n'}
+[8.204817] (roboticarm_control) StdoutLine: {'line': b'running install_data\n'}
+[8.205939] (roboticarm_control) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/share/ament_index\n'}
+[8.206880] (roboticarm_control) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/share/ament_index/resource_index\n'}
+[8.208105] (roboticarm_description) StdoutLine: {'line': b'copying urdf/materials.xacro -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/urdf\n'}
+[8.208608] (roboticarm_control) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/share/ament_index/resource_index/packages\n'}
+[8.209137] (roboticarm_description) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/meshes\n'}
+[8.209786] (roboticarm_control) StdoutLine: {'line': b'copying resource/roboticarm_control -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/share/ament_index/resource_index/packages\n'}
+[8.210520] (roboticarm_description) StdoutLine: {'line': b'copying meshes/w_b_1.stl -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/meshes\n'}
+[8.211069] (roboticarm_control) StdoutLine: {'line': b'copying package.xml -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/share/roboticarm_control\n'}
+[8.211879] (roboticarm_control) StdoutLine: {'line': b'running install_egg_info\n'}
+[8.212509] (roboticarm_description) StdoutLine: {'line': b'copying meshes/w_c_1.stl -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/meshes\n'}
+[8.219342] (arduino_bridge) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge\n'}
+[8.220070] (arduino_bridge) StdoutLine: {'line': b'copying /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/arduino_bridge/build/lib/arduino_bridge/__init__.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge\n'}
+[8.221090] (arduino_bridge) StdoutLine: {'line': b'copying /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/arduino_bridge/build/lib/arduino_bridge/bridge_node.py -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge\n'}
+[8.224274] (arduino_bridge) StdoutLine: {'line': b'byte-compiling /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge/__init__.py to __init__.cpython-312.pyc\n'}
+[8.231674] (roboticarm_description) StdoutLine: {'line': b'copying meshes/waist_1.stl -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/meshes\n'}
+[8.232849] (arduino_bridge) StdoutLine: {'line': b'byte-compiling /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge/bridge_node.py to bridge_node.cpython-312.pyc\n'}
+[8.236187] (roboticarm_description) StdoutLine: {'line': b'copying meshes/base_link.stl -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/meshes\n'}
+[8.237161] (arduino_bridge) StdoutLine: {'line': b'running install_data\n'}
+[8.238192] (arduino_bridge) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/arduino_bridge/share/ament_index\n'}
+[8.239174] (arduino_bridge) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/arduino_bridge/share/ament_index/resource_index\n'}
+[8.239795] (arduino_bridge) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/arduino_bridge/share/ament_index/resource_index/packages\n'}
+[8.240691] (arduino_bridge) StdoutLine: {'line': b'copying resource/arduino_bridge -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/arduino_bridge/share/ament_index/resource_index/packages\n'}
+[8.241360] (arduino_bridge) StdoutLine: {'line': b'copying package.xml -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/arduino_bridge/share/arduino_bridge\n'}
+[8.242149] (arduino_bridge) StdoutLine: {'line': b'running install_egg_info\n'}
+[8.243528] (roboticarm_description) StdoutLine: {'line': b'copying meshes/shoulder_1.stl -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/meshes\n'}
+[8.245606] (roboticarm_description) StdoutLine: {'line': b'copying meshes/elbow_1.stl -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/meshes\n'}
+[8.247667] (roboticarm_description) StdoutLine: {'line': b'copying meshes/w_a_1.stl -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/meshes\n'}
+[8.250790] (roboticarm_description) StdoutLine: {'line': b'copying meshes/gripper_1.stl -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/meshes\n'}
+[8.269608] (roboticarm_description) StdoutLine: {'line': b'creating /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/config\n'}
+[8.270173] (roboticarm_description) StdoutLine: {'line': b'copying config/display.rviz -> /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/share/roboticarm_description/config\n'}
+[8.273758] (roboticarm_description) StdoutLine: {'line': b'running install_egg_info\n'}
+[8.290538] (-) TimerEvent: {}
+[8.315851] (roboticarm_control) StdoutLine: {'line': b'Copying ../../build/roboticarm_control/roboticarm_control.egg-info to /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/python3.12/site-packages/roboticarm_control-0.0.0-py3.12.egg-info\n'}
+[8.323665] (roboticarm_control) StdoutLine: {'line': b'running install_scripts\n'}
+[8.349834] (arduino_bridge) StdoutLine: {'line': b'Copying ../../build/arduino_bridge/arduino_bridge.egg-info to /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/arduino_bridge/lib/python3.12/site-packages/arduino_bridge-0.0.0-py3.12.egg-info\n'}
+[8.357057] (arduino_bridge) StdoutLine: {'line': b'running install_scripts\n'}
+[8.378940] (roboticarm_description) StdoutLine: {'line': b'Copying ../../build/roboticarm_description/roboticarm_description.egg-info to /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/lib/python3.12/site-packages/roboticarm_description-0.0.0-py3.12.egg-info\n'}
+[8.385643] (roboticarm_description) StdoutLine: {'line': b'running install_scripts\n'}
+[8.390695] (-) TimerEvent: {}
+[8.491408] (-) TimerEvent: {}
+[8.592248] (-) TimerEvent: {}
+[8.692964] (-) TimerEvent: {}
+[8.794550] (-) TimerEvent: {}
+[8.896396] (-) TimerEvent: {}
+[8.997871] (-) TimerEvent: {}
+[9.011201] (roboticarm_control) StdoutLine: {'line': b'Installing move_robot script to /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/roboticarm_control\n'}
+[9.012256] (roboticarm_control) StdoutLine: {'line': b'Installing object_detector script to /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/roboticarm_control\n'}
+[9.013242] (roboticarm_control) StdoutLine: {'line': b'Installing object_follower script to /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_control/lib/roboticarm_control\n'}
+[9.015024] (roboticarm_control) StdoutLine: {'line': b"writing list of installed files to '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_control/install.log'\n"}
+[9.064671] (arduino_bridge) StdoutLine: {'line': b'Installing bridge_node script to /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/arduino_bridge/lib/arduino_bridge\n'}
+[9.067941] (arduino_bridge) StdoutLine: {'line': b"writing list of installed files to '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/arduino_bridge/install.log'\n"}
+[9.098188] (-) TimerEvent: {}
+[9.125901] (roboticarm_description) StdoutLine: {'line': b"writing list of installed files to '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/install.log'\n"}
+[9.198671] (-) TimerEvent: {}
+[9.265540] (roboticarm_control) CommandEnded: {'returncode': 0}
+[9.301842] (-) TimerEvent: {}
+[9.371799] (roboticarm_control) JobEnded: {'identifier': 'roboticarm_control', 'rc': 0}
+[9.376268] (roboticarm_description) CommandEnded: {'returncode': 0}
+[9.402012] (-) TimerEvent: {}
+[9.404973] (roboticarm_description) JobEnded: {'identifier': 'roboticarm_description', 'rc': 0}
+[9.410376] (roboticarm_moveit2) JobStarted: {'identifier': 'roboticarm_moveit2'}
+[9.425886] (arduino_bridge) CommandEnded: {'returncode': 0}
+[9.452420] (arduino_bridge) JobEnded: {'identifier': 'arduino_bridge', 'rc': 0}
+[9.456021] (roboticarm_moveit2) JobProgress: {'identifier': 'roboticarm_moveit2', 'progress': 'cmake'}
+[9.457874] (roboticarm_moveit2) Command: {'cmd': ['/usr/bin/cmake', '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/src/roboticarm_moveit2', '-DCMAKE_INSTALL_PREFIX=/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2'], 'cwd': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_moveit2', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'kv3', 'SSH_CLIENT': '100.92.204.20 46920 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/kv3', 'OLDPWD': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/src/arduino_bridge/arduino_bridge', 'SSH_TTY': '/dev/pts/0', 'RCUTILS_LOGGING_SEVERITY': 'ERROR', 'ROS_PYTHON_VERSION': '3', 'ROS_LOG_DIR': '/tmp/ros_logs', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'kv3', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '5', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'ROS_DOMAIN_ID': '10', 'AMENT_PREFIX_PATH': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'PWD': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_moveit2', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '100.92.204.20 46920 100.106.195.16 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[9.502230] (-) TimerEvent: {}
+[9.602970] (-) TimerEvent: {}
+[9.703930] (-) TimerEvent: {}
+[9.804758] (-) TimerEvent: {}
+[9.905413] (-) TimerEvent: {}
+[10.006276] (-) TimerEvent: {}
+[10.107211] (-) TimerEvent: {}
+[10.208131] (-) TimerEvent: {}
+[10.309021] (-) TimerEvent: {}
+[10.410068] (-) TimerEvent: {}
+[10.511227] (-) TimerEvent: {}
+[10.612086] (-) TimerEvent: {}
+[10.689286] (roboticarm_moveit2) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.3.0\n'}
+[10.712284] (-) TimerEvent: {}
+[10.813134] (-) TimerEvent: {}
+[10.913927] (-) TimerEvent: {}
+[11.014784] (-) TimerEvent: {}
+[11.115487] (-) TimerEvent: {}
+[11.216371] (-) TimerEvent: {}
+[11.317119] (-) TimerEvent: {}
+[11.418080] (-) TimerEvent: {}
+[11.518830] (-) TimerEvent: {}
+[11.523926] (roboticarm_moveit2) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.3.0\n'}
+[11.619094] (-) TimerEvent: {}
+[11.636633] (roboticarm_moveit2) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[11.719385] (-) TimerEvent: {}
+[11.820123] (-) TimerEvent: {}
+[11.920834] (-) TimerEvent: {}
+[12.021568] (-) TimerEvent: {}
+[12.122351] (-) TimerEvent: {}
+[12.169046] (roboticarm_moveit2) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[12.206279] (roboticarm_moveit2) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[12.208128] (roboticarm_moveit2) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[12.210327] (roboticarm_moveit2) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[12.222516] (-) TimerEvent: {}
+[12.265548] (roboticarm_moveit2) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[12.322730] (-) TimerEvent: {}
+[12.423400] (-) TimerEvent: {}
+[12.524136] (-) TimerEvent: {}
+[12.624969] (-) TimerEvent: {}
+[12.725637] (-) TimerEvent: {}
+[12.772449] (roboticarm_moveit2) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[12.809267] (roboticarm_moveit2) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[12.810214] (roboticarm_moveit2) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[12.812050] (roboticarm_moveit2) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[12.825735] (-) TimerEvent: {}
+[12.856031] (roboticarm_moveit2) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[12.925947] (-) TimerEvent: {}
+[13.026691] (-) TimerEvent: {}
+[13.127271] (-) TimerEvent: {}
+[13.227856] (-) TimerEvent: {}
+[13.328498] (-) TimerEvent: {}
+[13.429162] (-) TimerEvent: {}
+[13.529766] (-) TimerEvent: {}
+[13.580434] (roboticarm_moveit2) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[13.629917] (-) TimerEvent: {}
+[13.730466] (-) TimerEvent: {}
+[13.831115] (-) TimerEvent: {}
+[13.931723] (-) TimerEvent: {}
+[14.032299] (-) TimerEvent: {}
+[14.132913] (-) TimerEvent: {}
+[14.233487] (-) TimerEvent: {}
+[14.334104] (-) TimerEvent: {}
+[14.434704] (-) TimerEvent: {}
+[14.535284] (-) TimerEvent: {}
+[14.636182] (-) TimerEvent: {}
+[14.702475] (roboticarm_moveit2) StdoutLine: {'line': b'-- Configuring done (5.0s)\n'}
+[14.723565] (roboticarm_moveit2) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[14.731612] (roboticarm_moveit2) StdoutLine: {'line': b'-- Build files have been written to: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_moveit2\n'}
+[14.736468] (-) TimerEvent: {}
+[14.750268] (roboticarm_moveit2) CommandEnded: {'returncode': 0}
+[14.751782] (roboticarm_moveit2) JobProgress: {'identifier': 'roboticarm_moveit2', 'progress': 'build'}
+[14.753789] (roboticarm_moveit2) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_moveit2', '--', '-j4', '-l4'], 'cwd': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_moveit2', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'kv3', 'SSH_CLIENT': '100.92.204.20 46920 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/kv3', 'OLDPWD': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/src/arduino_bridge/arduino_bridge', 'SSH_TTY': '/dev/pts/0', 'RCUTILS_LOGGING_SEVERITY': 'ERROR', 'ROS_PYTHON_VERSION': '3', 'ROS_LOG_DIR': '/tmp/ros_logs', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'kv3', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '5', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'ROS_DOMAIN_ID': '10', 'AMENT_PREFIX_PATH': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'PWD': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_moveit2', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '100.92.204.20 46920 100.106.195.16 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[14.836662] (-) TimerEvent: {}
+[14.937401] (-) TimerEvent: {}
+[14.947638] (roboticarm_moveit2) CommandEnded: {'returncode': 0}
+[14.949407] (roboticarm_moveit2) JobProgress: {'identifier': 'roboticarm_moveit2', 'progress': 'install'}
+[14.992108] (roboticarm_moveit2) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_moveit2'], 'cwd': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_moveit2', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'kv3', 'SSH_CLIENT': '100.92.204.20 46920 22', 'XDG_SESSION_TYPE': 'tty', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/aarch64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/kv3', 'OLDPWD': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/src/arduino_bridge/arduino_bridge', 'SSH_TTY': '/dev/pts/0', 'RCUTILS_LOGGING_SEVERITY': 'ERROR', 'ROS_PYTHON_VERSION': '3', 'ROS_LOG_DIR': '/tmp/ros_logs', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'kv3', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '5', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1000', 'LANG': 'en_US.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'ROS_DOMAIN_ID': '10', 'AMENT_PREFIX_PATH': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'PWD': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_moveit2', 'LC_ALL': 'en_US.UTF-8', 'SSH_CONNECTION': '100.92.204.20 46920 100.106.195.16 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[15.032266] (roboticarm_moveit2) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[15.033359] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/ament_index/resource_index/package_run_dependencies/roboticarm_moveit2\n'}
+[15.035226] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/ament_index/resource_index/parent_prefix_path/roboticarm_moveit2\n'}
+[15.036893] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/environment/ament_prefix_path.sh\n'}
+[15.037493] (-) TimerEvent: {}
+[15.038287] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/environment/ament_prefix_path.dsv\n'}
+[15.039599] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/environment/path.sh\n'}
+[15.040738] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/environment/path.dsv\n'}
+[15.041962] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/local_setup.bash\n'}
+[15.043213] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/local_setup.sh\n'}
+[15.044416] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/local_setup.zsh\n'}
+[15.045610] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/local_setup.dsv\n'}
+[15.046863] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/package.dsv\n'}
+[15.048385] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/ament_index/resource_index/packages/roboticarm_moveit2\n'}
+[15.049858] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/cmake/roboticarm_moveit2Config.cmake\n'}
+[15.050949] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/cmake/roboticarm_moveit2Config-version.cmake\n'}
+[15.052151] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/package.xml\n'}
+[15.053228] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/launch\n'}
+[15.053960] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/launch/move_group.launch.py\n'}
+[15.055961] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/launch/spawn_controllers.launch.py\n'}
+[15.057400] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/launch/static_virtual_joint_tfs.launch.py\n'}
+[15.058899] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/launch/demo.launch.py\n'}
+[15.060329] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/launch/setup_assistant.launch.py\n'}
+[15.061827] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/launch/rsp.launch.py\n'}
+[15.063367] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/launch/warehouse_db.launch.py\n'}
+[15.064883] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/launch/moveit_rviz.launch.py\n'}
+[15.066656] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/config\n'}
+[15.067500] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/config/roboticarm.ros2_control.xacro\n'}
+[15.069290] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/config/joint_limits.yaml\n'}
+[15.070951] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/config/initial_positions.yaml\n'}
+[15.072628] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/config/ros2_controllers.yaml\n'}
+[15.074275] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/config/moveit_controllers.yaml\n'}
+[15.076047] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/config/roboticarm.urdf.xacro\n'}
+[15.077608] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/config/pilz_cartesian_limits.yaml\n'}
+[15.079175] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/config/moveit.rviz\n'}
+[15.080710] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/config/roboticarm.srdf\n'}
+[15.082293] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/config/kinematics.yaml\n'}
+[15.084094] (roboticarm_moveit2) StdoutLine: {'line': b'-- Installing: /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_moveit2/share/roboticarm_moveit2/.setup_assistant\n'}
+[15.092295] (roboticarm_moveit2) CommandEnded: {'returncode': 0}
+[15.137718] (-) TimerEvent: {}
+[15.145290] (roboticarm_moveit2) JobEnded: {'identifier': 'roboticarm_moveit2', 'rc': 0}
+[15.148327] (-) EventReactorShutdown: {}

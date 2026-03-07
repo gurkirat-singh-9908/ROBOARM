@@ -1,0 +1,34 @@
+[6.650s] Invoking command in '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/src/roboticarm_description': PYTHONPATH=/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/roboticarm_description build --build-base /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/build install --record /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/install.log --install-scripts $base/lib/roboticarm_description --single-version-externally-managed install_data
+[7.318s] /usr/lib/python3/dist-packages/setuptools/dist.py:744: SetuptoolsDeprecationWarning: Invalid dash-separated options
+[7.319s] !!
+[7.319s] 
+[7.320s]         ********************************************************************************
+[7.320s]         Usage of dash-separated 'script-dir' will not be supported in future
+[7.321s]         versions. Please use the underscore name 'script_dir' instead.
+[7.321s] 
+[7.322s]         This deprecation is overdue, please update your project and remove deprecated
+[7.322s]         calls to avoid build errors in the future.
+[7.323s] 
+[7.323s]         See https://setuptools.pypa.io/en/latest/userguide/declarative_config.html for details.
+[7.324s]         ********************************************************************************
+[7.324s] 
+[7.325s] !!
+[7.326s]   opt = self.warn_dash_deprecation(opt, section)
+[7.986s] running egg_info
+[8.081s] writing ../../build/roboticarm_description/roboticarm_description.egg-info/PKG-INFO
+[8.082s] writing dependency_links to ../../build/roboticarm_description/roboticarm_description.egg-info/dependency_links.txt
+[8.083s] writing requirements to ../../build/roboticarm_description/roboticarm_description.egg-info/requires.txt
+[8.084s] writing top-level names to ../../build/roboticarm_description/roboticarm_description.egg-info/top_level.txt
+[8.281s] reading manifest file '../../build/roboticarm_description/roboticarm_description.egg-info/SOURCES.txt'
+[8.286s] writing manifest file '../../build/roboticarm_description/roboticarm_description.egg-info/SOURCES.txt'
+[8.287s] running build
+[8.288s] running build_py
+[8.291s] running install
+[8.320s] running install_lib
+[8.418s] running install_data
+[8.425s] running install_egg_info
+[8.527s] removing '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/lib/python3.12/site-packages/roboticarm_description-0.0.0-py3.12.egg-info' (and everything under it)
+[8.529s] Copying ../../build/roboticarm_description/roboticarm_description.egg-info to /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/lib/python3.12/site-packages/roboticarm_description-0.0.0-py3.12.egg-info
+[8.536s] running install_scripts
+[9.218s] writing list of installed files to '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/install.log'
+[9.573s] Invoked command in '/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/src/roboticarm_description' returned '0': PYTHONPATH=/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/kv3/ROBOARM/ManualPhase1/ROBO_ws/install/roboticarm_description/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/roboticarm_description build --build-base /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/build install --record /home/kv3/ROBOARM/ManualPhase1/ROBO_ws/build/roboticarm_description/install.log --install-scripts $base/lib/roboticarm_description --single-version-externally-managed install_data
