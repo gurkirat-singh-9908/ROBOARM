@@ -5,7 +5,7 @@ def nothing(x):
     pass
 
 # Open camera
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 # Create window
 cv2.namedWindow("Trackbars")

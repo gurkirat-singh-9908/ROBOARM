@@ -1,0 +1,14 @@
+digraph G {
+"w_c_1" -> "gripper_1"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"w_b_1" -> "w_c_1"[label=" Broadcaster: default_authority\nAverage rate: 10.199\nBuffer length: 5.0\nMost recent transform: 1776101156.154934\nOldest transform: 1776101151.154658\n"];
+"w_c_1" -> "camera_1"[label=" Broadcaster: default_authority\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"base_link" -> "waist_1"[label=" Broadcaster: default_authority\nAverage rate: 10.199\nBuffer length: 5.0\nMost recent transform: 1776101156.154934\nOldest transform: 1776101151.154658\n"];
+"waist_1" -> "shoulder_1"[label=" Broadcaster: default_authority\nAverage rate: 10.199\nBuffer length: 5.0\nMost recent transform: 1776101156.154934\nOldest transform: 1776101151.154658\n"];
+"shoulder_1" -> "elbow_1"[label=" Broadcaster: default_authority\nAverage rate: 10.199\nBuffer length: 5.0\nMost recent transform: 1776101156.154934\nOldest transform: 1776101151.154658\n"];
+"elbow_1" -> "w_a_1"[label=" Broadcaster: default_authority\nAverage rate: 10.199\nBuffer length: 5.0\nMost recent transform: 1776101156.154934\nOldest transform: 1776101151.154658\n"];
+"w_a_1" -> "w_b_1"[label=" Broadcaster: default_authority\nAverage rate: 10.199\nBuffer length: 5.0\nMost recent transform: 1776101156.154934\nOldest transform: 1776101151.154658\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 1776101156.173969"[ shape=plaintext ] ;
+}->"base_link";
+}

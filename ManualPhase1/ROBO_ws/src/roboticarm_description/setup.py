@@ -26,6 +26,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+        'joint_publisher = roboticarm_description.joint_publisher:main',
+        'fake_camera = roboticarm_description.fake_camera:main'
         ],
     },
 )
