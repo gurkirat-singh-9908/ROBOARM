@@ -11,7 +11,7 @@ int mul = 1;
 float slowness = totalDelay * mul / 200.0;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   // Attach servos with microsecond limits
   s1.attach(3, 500, 2400);   // Servo 1 (35kg)
@@ -39,36 +39,45 @@ void loop() {
     String data = Serial.readStringUntil('\n');
     data.trim();
 
-    int values[8];        // NEW packet size = 8
-    int index = 0;
-
+    // New packet format: "ARM s1 s2 s3 s4 s5 s6 g seq checksum"
     char buffer[data.length() + 1];
     data.toCharArray(buffer, sizeof(buffer));
 
+    // Check magic header
     char *token = strtok(buffer, " ");
-    while (token != NULL && index < 8) {
+    if (token == NULL || strcmp(token, "ARM") != 0) {
+      Serial.println("Header error");
+      return;
+    }
+
+    // Parse 9 numeric values: s1 s2 s3 s4 s5 s6 g seq checksum
+    int values[9];
+    int index = 0;
+    token = strtok(NULL, " ");
+    while (token != NULL && index < 9) {
       values[index++] = atoi(token);
       token = strtok(NULL, " ");
     }
 
     // Ensure full packet received
-    if (index != 8) {
+    if (index != 9) {
       Serial.println("Packet size error");
       return;
     }
 
-    // Checksum validation
+    // Checksum validation: (s1+s2+s3+s4+s5+s6+g+seq) % 256 == checksum
     int calcChecksum = 0;
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 8; i++) {
       calcChecksum += values[i];
     }
+    calcChecksum = calcChecksum % 256;
 
-    if (calcChecksum != values[7]) {
+    if (calcChecksum != values[8]) {
       Serial.println("Checksum fail");
       return;
     }
 
-    // Update servo target angles
+    // Update servo target angles (values[0..5] = s1..s6)
     for (int i = 0; i < 6; i++) {
       crntAngles[i] = constrain(values[i], 0, 180);
     }
