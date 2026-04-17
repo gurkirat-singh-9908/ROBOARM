@@ -1,6 +1,6 @@
 void setup() {
   // Initialize serial communication at 9600 baud rate
-  Serial.begin(9600);
+  Serial.begin(115200);  // Updated to 115200 to match bridge_node.py
   
   // Wait for serial connection to be established
   while (!Serial) {
