@@ -167,14 +167,6 @@
     </div>
   </div>
 </div>
-<!-- Emergency Stop Button (fixed position) -->
-<button id="emergency_stop_btn" onclick="triggerEStop()"
-  style="position:fixed;bottom:24px;right:24px;z-index:9999;
-         background:#dc2626;color:white;border:none;border-radius:50%;
-         width:72px;height:72px;font-size:13px;font-weight:bold;
-         cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.4);">
-  ⛔<br>STOP
-</button>
 {% endblock %}
 
 {% block extra_scripts %}
@@ -182,40 +174,9 @@
 <script>
   const socket = io();
 
-  // ── Connection status indicator ──────────────────────────────────────────
-  const statusDot = document.createElement('div');
-  statusDot.id = 'ws-status';
-  statusDot.style.cssText = 'position:fixed;top:16px;left:50%;transform:translateX(-50%);padding:4px 16px;border-radius:20px;font-size:13px;font-weight:bold;z-index:9998;transition:all 0.3s;';
-  document.body.appendChild(statusDot);
-
-  function setConnected(connected) {
-    statusDot.textContent = connected ? '● Connected' : '● Disconnected — reconnecting...';
-    statusDot.style.background = connected ? '#16a34a' : '#dc2626';
-    statusDot.style.color = 'white';
-    // Disable sliders when disconnected (but not the E-stop button)
-    document.querySelectorAll('input[type=range]').forEach(el => {
-      el.disabled = !connected;
-      el.style.opacity = connected ? '' : '0.4';
-    });
-  }
-
-  socket.on('connect', () => setConnected(true));
-  socket.on('disconnect', () => setConnected(false));
-  socket.on('connect_error', () => setConnected(false));
-  setConnected(false);
-
-  // ── Throttle helper ──────────────────────────────────────────────────────
-  function throttle(fn, ms) {
-    let last = 0;
-    return function(...args) {
-      const now = Date.now();
-      if (now - last >= ms) { last = now; fn.apply(this, args); }
-    };
-  }
-
-  // ── Sliders — throttled at 50 ms ─────────────────────────────────────────
+  // Emit value update when sliders change
   document.querySelectorAll('.form-range').forEach(slider => {
-      slider.addEventListener('input', throttle(function() {
+      slider.addEventListener('input', function() {
           const data = {
               param: this.id,
               value: this.value
@@ -223,48 +184,15 @@
           socket.emit('update_value', data);
           document.getElementById(`value_${this.id.split('_')[1]}`).textContent = this.value;
           document.getElementById(`display_${this.id.split('_')[1]}`).textContent = this.value;
-      }, 50));
+      });
   });
 
-  // ── Listen for value updates ─────────────────────────────────────────────
+  // Listen for value updates
   socket.on('value_updated', function(data) {
       console.log('Value updated:', data);
   });
 
-  // ── Listen for position_set (atomic preset ack) ──────────────────────────
-  socket.on('position_set', function(data) {
-      console.log('Position set:', data);
-  });
-
-  // ── Helper: apply a preset object to UI and send atomic set_position ─────
-  function applyPreset(position) {
-      // Update UI controls
-      Object.keys(position).forEach(param => {
-          const displayId = param.replace('slider_', '');
-          const valEl = document.getElementById(`value_${displayId}`);
-          const dispEl = document.getElementById(`display_${displayId}`);
-          if (valEl) valEl.textContent = position[param];
-          if (dispEl) dispEl.textContent = position[param];
-
-          if (param.startsWith('slider_')) {
-              const el = document.getElementById(param);
-              if (el) el.value = position[param];
-          }
-
-          if (['roll', 'pitch', 'yaw'].includes(param)) {
-              const knob = document.querySelector(`.knob-container[data-param="${param}"]`);
-              if (knob) {
-                  knob.currentAngle = position[param];
-                  knob.querySelector('.knob-indicator-container').style.transform = `rotate(${position[param]}deg)`;
-              }
-          }
-      });
-
-      // Single atomic emit instead of a per-key loop
-      socket.emit('set_position', position);
-  }
-
-  // ── Preset positions ─────────────────────────────────────────────────────
+  // Preset positions
   document.getElementById('home_position').addEventListener('click', function() {
       const homePosition = {
           slider_x: 0,
@@ -275,9 +203,35 @@
           yaw: 90,
           slider_gripper: 0
       };
-      applyPreset(homePosition);
+      
+      // Update all controls to home position
+      Object.keys(homePosition).forEach(param => {
+          socket.emit('update_value', {
+              param: param,
+              value: homePosition[param]
+          });
+          
+          // Update display values
+          const displayId = param.replace('slider_', '');
+          document.getElementById(`value_${displayId}`).textContent = homePosition[param];
+          document.getElementById(`display_${displayId}`).textContent = homePosition[param];
+          
+          // Update slider positions
+          if (param.startsWith('slider_')) {
+              document.getElementById(param).value = homePosition[param];
+          }
+          
+          // Update knob positions if it's orientation
+          if (['roll', 'pitch', 'yaw'].includes(param)) {
+              const knob = document.querySelector(`.knob-container[data-param="${param}"]`);
+              if (knob) {
+                  knob.currentAngle = homePosition[param];
+                  knob.querySelector('.knob-indicator-container').style.transform = `rotate(${homePosition[param]}deg)`;
+              }
+          }
+      });
   });
-
+  
   document.getElementById('rest_position').addEventListener('click', function() {
       const restPosition = {
           slider_x: 0,
@@ -288,24 +242,36 @@
           yaw: 0,
           slider_gripper: 100
       };
-      applyPreset(restPosition);
+      
+      // Update all controls to rest position
+      Object.keys(restPosition).forEach(param => {
+          socket.emit('update_value', {
+              param: param,
+              value: restPosition[param]
+          });
+          
+          // Update display values
+          const displayId = param.replace('slider_', '');
+          document.getElementById(`value_${displayId}`).textContent = restPosition[param];
+          document.getElementById(`display_${displayId}`).textContent = restPosition[param];
+          
+          // Update slider positions
+          if (param.startsWith('slider_')) {
+              document.getElementById(param).value = restPosition[param];
+          }
+          
+          // Update knob positions if it's orientation
+          if (['roll', 'pitch', 'yaw'].includes(param)) {
+              const knob = document.querySelector(`.knob-container[data-param="${param}"]`);
+              if (knob) {
+                  knob.currentAngle = restPosition[param];
+                  knob.querySelector('.knob-indicator-container').style.transform = `rotate(${restPosition[param]}deg)`;
+              }
+          }
+      });
   });
 
-  // ── Emergency Stop ───────────────────────────────────────────────────────
-  function triggerEStop() {
-    socket.emit('emergency_stop');
-    const btn = document.getElementById('emergency_stop_btn');
-    btn.style.background = '#7f1d1d';
-    btn.textContent = 'STOPPED';
-    btn.disabled = true;
-    // Disable all controls
-    document.querySelectorAll('input[type=range], button:not(#emergency_stop_btn)').forEach(el => {
-      el.disabled = true;
-      el.style.opacity = '0.4';
-    });
-  }
-
-  // ── Knob drag listeners ──────────────────────────────────────────────────
+  // Attach mouse and touch event listeners to knob containers to update rotation
   document.querySelectorAll('.knob-container').forEach(knob => {
     let dragging = false;
     let lastAngle = 0;  // Store the last angle
@@ -327,7 +293,7 @@
       const newAngle = knob.currentAngle + factor * (target - knob.currentAngle);
       knob.currentAngle = newAngle;
       lastAngle = Math.round(newAngle);  // Store the last angle
-
+      
       // Update the display and emit the value
       const param = knob.dataset.param;
       document.getElementById(`value_${param}`).textContent = lastAngle;
@@ -336,19 +302,19 @@
         param: param,
         value: lastAngle
       });
-
+      
       knob.querySelector('.knob-indicator-container').style.transform = `rotate(${newAngle}deg)`;
     }
-
+    
     knob.addEventListener('mousedown', function (e) {
       dragging = true;
       updateKnob(e);
     });
-
+    
     document.addEventListener('mousemove', function (e) {
       if (dragging) updateKnob(e);
     });
-
+    
     document.addEventListener('mouseup', function () {
       if (dragging) {
         dragging = false;

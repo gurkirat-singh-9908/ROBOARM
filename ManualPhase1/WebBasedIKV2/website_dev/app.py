@@ -83,19 +83,5 @@ def handle_update_value(data):
     # Broadcast the updated value to all connected clients
     emit('value_updated', data, broadcast=True)
 
-@socketio.on('emergency_stop')
-def handle_emergency_stop():
-    print("!!! EMERGENCY STOP received !!!")
-    emit('emergency_stop', broadcast=True)
-
-@socketio.on('set_position')
-def handle_set_position(data):
-    # Validate all required keys are present
-    required = {'slider_x', 'slider_y', 'slider_z', 'roll', 'pitch', 'yaw', 'slider_gripper'}
-    if not required.issubset(data.keys()):
-        emit('error', {'message': 'Missing fields in set_position'})
-        return
-    emit('position_set', data, broadcast=True)
-
 if __name__ == "__main__":
     socketio.run(app,host="0.0.0.0",port=8080,allow_unsafe_werkzeug=True)

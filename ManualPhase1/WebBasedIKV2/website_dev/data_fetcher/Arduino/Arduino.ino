@@ -26,45 +26,36 @@ void loop() {
     String data = Serial.readStringUntil('\n');
     data.trim();
 
-    // New packet format: "ARM s1 s2 s3 s4 s5 s6 g seq checksum"
+    int values[8];        // NEW packet size = 8
+    int index = 0;
+
     char buffer[data.length() + 1];
     data.toCharArray(buffer, sizeof(buffer));
 
-    // Check magic header
     char *token = strtok(buffer, " ");
-    if (token == NULL || strcmp(token, "ARM") != 0) {
-      Serial.println("Header error");
-      return;
-    }
-
-    // Parse 9 numeric values: s1 s2 s3 s4 s5 s6 g seq checksum
-    int values[9];
-    int index = 0;
-    token = strtok(NULL, " ");
-    while (token != NULL && index < 9) {
+    while (token != NULL && index < 8) {
       values[index++] = atoi(token);
       token = strtok(NULL, " ");
     }
 
     // Ensure full packet received
-    if (index != 9) {
+    if (index != 8) {
       Serial.println("Packet size error");
       return;
     }
 
-    // Checksum validation: (s1+s2+s3+s4+s5+s6+g+seq) % 256 == checksum
+    // Checksum validation
     int calcChecksum = 0;
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 7; i++) {
       calcChecksum += values[i];
     }
-    calcChecksum = calcChecksum % 256;
 
-    if (calcChecksum != values[8]) {
+    if (calcChecksum != values[7]) {
       Serial.println("Checksum fail");
       return;
     }
 
-    // Update servo target angles (values[0..5] = s1..s6)
+    // Update servo target angles
     for (int i = 0; i < 6; i++) {
       crntAngles[i] = constrain(values[i], 0, 180);
     }
