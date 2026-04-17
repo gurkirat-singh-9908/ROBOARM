@@ -1,0 +1,34 @@
+# Python virtual environments
+roboenv/
+yolo/yoloenv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# ROS2 build artifacts
+ManualPhase1/ROBO_ws/build/
+ManualPhase1/ROBO_ws/install/
+ManualPhase1/ROBO_ws/log/
+ManualPhase1/ws/build/
+ManualPhase1/ws/install/
+ManualPhase1/ws/log/
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Compiled Arduino sketches / temp
+*.hex
+*.elf
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
