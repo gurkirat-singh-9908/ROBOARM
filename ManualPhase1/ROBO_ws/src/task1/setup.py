@@ -16,13 +16,9 @@ setup(
     entry_points={
         'console_scripts': [
             'object_detector = task1.object_detector:main',
-
             'visual_servo = task1.visual_servo_controller:main',
-
             'moveit_interface = task1.moveit_interface:main',
-	        'joint_tracker = task1.joint_tracker:main',
-            'arduino_bridge = task1.arduino_bridge:main',
-
+            'joint_tracker = task1.joint_tracker:main',
         ],
     },
 )

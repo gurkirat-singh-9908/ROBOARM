@@ -15,7 +15,7 @@ setup(
     zip_safe=True,
     maintainer='kirat',
     maintainer_email='gurkiratsinghvirdi10@gmail.com',
-    description='TODO: Package description',
+    description='Serial bridge between ROS2 /joint_states and the Arduino-driven arm.',
     license='TODO: License declaration',
     extras_require={
         'test': [
@@ -24,7 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-		'bridge_node = arduino_bridge.bridge_node:main',
+            'bridge_node = arduino_bridge.bridge_node:main',
         ],
     },
 )

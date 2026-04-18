@@ -1,0 +1,27 @@
+# Hand-eye calibration configuration
+#
+# mode:
+#   eye_to_hand  → camera fixed in the world, ArUco target mounted on the gripper.
+#                  Solves for T_camera_to_base   (camera expressed in base frame).
+#   eye_in_hand  → camera mounted on the gripper, ArUco target fixed in the world.
+#                  Solves for T_camera_to_gripper.
+mode: eye_to_hand
+
+# TF frame names – must match the URDF / TF tree.
+base_frame:     base_link
+gripper_frame:  gripper_link
+camera_frame:   camera_frame
+
+# ArUco marker ID that represents the calibration target. -1 = accept any ID.
+target_marker_id: -1
+
+# Paths for intermediate / final artifacts.
+samples_file:     /tmp/handeye_samples.yaml
+calibration_file: handeye_result.yaml
+
+# cv2.calibrateHandEye method. One of:
+#   TSAI, PARK, HORAUD, ANDREFF, DANIILIDIS
+method: PARK
+
+# Minimum samples before compute_calibration will run. 10+ recommended.
+min_samples: 3

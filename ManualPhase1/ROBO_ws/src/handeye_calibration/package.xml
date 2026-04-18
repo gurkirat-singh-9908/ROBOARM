@@ -1,18 +1,27 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>ArUcoMarkerRos</name>
-  <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <name>handeye_calibration</name>
+  <version>0.1.0</version>
+  <description>Hand-eye calibration (cv2.calibrateHandEye) for the RoboArm.
+    Collects (base-to-gripper, camera-to-target) pose pairs, solves AX=XB for
+    the fixed camera-to-base or camera-to-gripper transform, and broadcasts it
+    as a static TF.</description>
   <maintainer email="gurkiratsinghvirdi10@gmail.com">kirat</maintainer>
-  <license>TODO: License declaration</license>
+  <license>MIT</license>
 
   <depend>rclpy</depend>
   <depend>std_msgs</depend>
-  <depend>sensor_msgs</depend>
   <depend>geometry_msgs</depend>
-  <depend>cv_bridge</depend>
+  <depend>sensor_msgs</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf_transformations</depend>
   <depend>python3-opencv</depend>
+  <depend>python3-yaml</depend>
+  <depend>ArUcoMarkerRos</depend>
+
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
