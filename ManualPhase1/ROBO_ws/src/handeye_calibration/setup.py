@@ -27,6 +27,7 @@ setup(
             'sample_collector = handeye_calibration.sample_collector:main',
             'compute_calibration = handeye_calibration.compute_calibration:main',
             'publish_calibration = handeye_calibration.publish_calibration:main',
+            'sim_aruco_publisher = handeye_calibration.sim_aruco_publisher:main',
         ],
     },
 )

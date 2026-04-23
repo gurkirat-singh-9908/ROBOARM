@@ -46,7 +46,7 @@ class SampleCollector(Node):
         super().__init__('handeye_sample_collector')
 
         self.declare_parameter('base_frame', 'base_link')
-        self.declare_parameter('gripper_frame', 'gripper_link')
+        self.declare_parameter('gripper_frame', 'gripper_1')
         self.declare_parameter('samples_file', '/tmp/handeye_samples.yaml')
         self.declare_parameter('target_marker_id', -1)
 

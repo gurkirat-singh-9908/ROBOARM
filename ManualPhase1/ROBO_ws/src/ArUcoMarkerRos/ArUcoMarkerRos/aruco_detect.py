@@ -187,7 +187,7 @@ class ArucoNode(Node):
             # ── publish PoseStamped ──────────────────────────────────────────
             pose_msg = PoseStamped()
             pose_msg.header.stamp    = stamp
-            pose_msg.header.frame_id = 'camera_frame'
+            pose_msg.header.frame_id = 'camera_1'
 
             pose_msg.pose.position.x = float(tvec[0])
             pose_msg.pose.position.y = float(tvec[1])

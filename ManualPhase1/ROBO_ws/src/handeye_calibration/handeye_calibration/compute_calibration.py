@@ -66,8 +66,8 @@ class ComputeCalibration(Node):
         self.declare_parameter('method', 'PARK')
         self.declare_parameter('min_samples', 3)
         self.declare_parameter('base_frame', 'base_link')
-        self.declare_parameter('gripper_frame', 'gripper_link')
-        self.declare_parameter('camera_frame', 'camera_frame')
+        self.declare_parameter('gripper_frame', 'gripper_1')
+        self.declare_parameter('camera_frame', 'camera_1')
 
     def run(self) -> int:
         p = {k: self.get_parameter(k).value for k in (
