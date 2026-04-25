@@ -1,169 +1,205 @@
-import socketio
-import time
+"""
+fetch_data.py  —  web ↔ ROS bridge (publisher side)
+
+Listens to the Flask/SocketIO web server and forwards slider values into ROS2:
+
+  /target_pose       geometry_msgs/PoseStamped   position + orientation for IK
+  /roboarm/gripper   std_msgs/Float64             gripper open % [0-100]
+
+The IK node (ik_mover) subscribes to /target_pose, plans with MoveIt2, and
+executes the trajectory.  bridge_node reads /joint_states and drives Arduino.
+"""
+
+import math
 import sys
-import serial
-#from main import inverse_kinematics
-from map import map_sliders_to_servos
-import numpy as np
+import threading
+
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import PoseStamped
+from std_msgs.msg import Float64
+import socketio
+
 from param import Home_Position, Default_Gripper_Position
 
-port = '/dev/ttyUSB0'  # Change to your port (e.g., 'COM6' or '/dev/ttyUSB0')
-baud_rate = 9600
-# Create a Socket.IO client
-sio = socketio.Client()
-arduino_flag = True
+# Only publish once the user has stopped moving the slider for this long.
+# Prevents flooding the IK solver with every pixel of drag.
+DEBOUNCE_SEC = 0.20
 
-# Store the latest values
-#TODO: Wrong data name and type used for angles. it should be distnce for x, y and z but its angles in gripper is should be percentage val but its again angle 
+# ── Workspace bounds (must match ik_mover.cpp constants) ──────────────────────
+_ARM_MAX_REACH = 0.75   # metres
+_ARM_MIN_REACH = 0.10   # metres
+
+sio = socketio.Client()
+ros_node = None
+
+_publish_timer: threading.Timer | None = None
+_timer_lock = threading.Lock()
+
 latest_values = {
-    'slider_x': Home_Position[0],
-    'slider_y': Home_Position[1],
-    'slider_z': Home_Position[2],
-    'roll': Home_Position[3],
-    'pitch': Home_Position[4],
-    'yaw': Home_Position[5],
-    'slider_gripper': Default_Gripper_Position
+    'slider_x':      Home_Position[0],
+    'slider_y':      Home_Position[1],
+    'slider_z':      Home_Position[2],
+    'roll':          Home_Position[3],
+    'pitch':         Home_Position[4],
+    'yaw':           Home_Position[5],
+    'slider_gripper': Default_Gripper_Position,
 }
 
-#TODO: hard coding the gripper value for now. 
-def send_data_to_arduino(servo_angles):
-    """
-    Sends servo_angles to Arduino with a checksum and prints the response.
-    
-    Args:
-        ser: Serial connection object
-        servo_angles: all the angels 
-    """
-    print(f"send data to arduino executed")
-    s1,s2,s3,s4,s5,s6,g = servo_angles["s1"], servo_angles["s2"], servo_angles["s3"], servo_angles["s4"], servo_angles["s5"], servo_angles["s6"], 50
-    checksum = s1+s2+s3+s4+s5+s6+g
-    command = f"{s1} {s2} {s3} {s4} {s5} {s6} {g} {checksum}\n"
-    arduino_serial.write(command.encode())  # Send the command as bytes
-    time.sleep(0.05)  # Brief delay for Arduino to respond
-    response = arduino_serial.readline().decode().strip()  # Read and decode response
-    print(f"Sent: {command.strip()}, Received: {response}")
 
-# Serial connection to Arduino
-arduino_serial = None
+# ── Helpers ───────────────────────────────────────────────────────────────────
 
-def connect_to_arduino():
-    """Connect to Arduino on COM6."""
-    global arduino_serial, port
-    max_connect_attempts = 3
-    for attempt in range(max_connect_attempts):
-        try:
-            arduino_serial = serial.Serial(port, 9600, timeout=0.2)
-            print(f"Connected to Arduino on {port}")
-            time.sleep(2)  # Wait for Arduino reset
-            #arduino_serial.flushInput()  # Clear input buffer
-            #arduino_serial.flushOutput()  # Clear output buffer
-            return True
-        except (OSError, serial.SerialException) as e:
-            print(f"Failed to connect on attempt {attempt + 1}/{max_connect_attempts}: {e}")
-            if arduino_serial:
-                arduino_serial.close()
-                arduino_serial = None
-            time.sleep(1)
-    print("Warning: Could not connect to Arduino. Running without hardware control.")
-    return False
-
-def map_sliders_to_matrix(values):
+def _euler_zyx_to_quaternion(roll_deg: float, pitch_deg: float, yaw_deg: float):
     """
-    Maps all slider values to their corresponding servo angles
-    
-    Args:
-        values (dict): Dictionary containing slider values
-    
-    Returns:
-        dict: Dictionary containing mapped servo angles
+    ZYX extrinsic Euler angles (degrees) → quaternion (qx, qy, qz, qw).
+    Matches the standard used by tf2/KDL.
     """
-    
-    # Convert string values to float before mapping
-    #try:
-    float_values = {
-        'slider_x': float(values['slider_x']),
-        'slider_y': float(values['slider_y']),
-        'slider_z': float(values['slider_z']),
-        'roll': float(values['roll']),
-        'pitch': float(values['pitch']),
-        'yaw': float(values['yaw']),
-        'slider_gripper': float(values['slider_gripper'])
-    }
-    
-    # Map each slider to its corresponding servo
-    desiredMatrix = np.array([[float_values['slider_x'], float_values['slider_y'], float_values['slider_z']],
-                    [float_values['roll'], float_values['pitch'], float_values['yaw']]])
-    
-    return desiredMatrix
+    r = math.radians(roll_deg)
+    p = math.radians(pitch_deg)
+    y = math.radians(yaw_deg)
 
-    '''except (ValueError, TypeError) as e:
-        print(f"Error converting values to float: {e}")
-        print("Values received:", values)
-        return None'''
+    cy, sy = math.cos(y * 0.5), math.sin(y * 0.5)
+    cp, sp = math.cos(p * 0.5), math.sin(p * 0.5)
+    cr, sr = math.cos(r * 0.5), math.sin(r * 0.5)
+
+    return (
+        sr * cp * cy - cr * sp * sy,   # qx
+        cr * sp * cy + sr * cp * sy,   # qy
+        cr * cp * sy - sr * sp * cy,   # qz
+        cr * cp * cy + sr * sp * sy,   # qw
+    )
+
+
+# ── ROS node ──────────────────────────────────────────────────────────────────
+
+class WebPublisher(Node):
+    def __init__(self):
+        super().__init__('web_pose_publisher')
+        self.pose_pub    = self.create_publisher(PoseStamped, '/target_pose',     10)
+        self.gripper_pub = self.create_publisher(Float64,     '/roboarm/gripper', 10)
+
+    def publish(self, values: dict):
+        x = float(values['slider_x'])
+        y = float(values['slider_y'])
+        z = float(values['slider_z'])
+
+        # ── Workspace guard — hard-block poses that will always fail ──────────
+        reach = math.sqrt(x*x + y*y + z*z)
+        if reach < _ARM_MIN_REACH:
+            self.get_logger().warn(
+                f'Target reach {reach:.3f} m < min {_ARM_MIN_REACH} m '
+                f'(pos={x:.3f},{y:.3f},{z:.3f}) — skipping publish.')
+            return
+        if reach > _ARM_MAX_REACH:
+            self.get_logger().warn(
+                f'Reach {reach:.3f} m > max {_ARM_MAX_REACH} m — '
+                f'ik_mover will stretch-clamp toward target.')
+
+        # ── Orientation (slider gives degrees, IK needs quaternion) ───────────
+        qx, qy, qz, qw = _euler_zyx_to_quaternion(
+            float(values['roll']),
+            float(values['pitch']),
+            float(values['yaw']),
+        )
+
+        pose_msg = PoseStamped()
+        pose_msg.header.stamp    = self.get_clock().now().to_msg()
+        pose_msg.header.frame_id = 'base_link'
+        pose_msg.pose.position.x    = x
+        pose_msg.pose.position.y    = y
+        pose_msg.pose.position.z    = z
+        pose_msg.pose.orientation.x = qx
+        pose_msg.pose.orientation.y = qy
+        pose_msg.pose.orientation.z = qz
+        pose_msg.pose.orientation.w = qw
+        self.pose_pub.publish(pose_msg)
+
+        # ── Gripper (independent of IK) ────────────────────────────────────────
+        g = max(0.0, min(100.0, float(values['slider_gripper'])))
+        gripper_msg = Float64()
+        gripper_msg.data = g
+        self.gripper_pub.publish(gripper_msg)
+
+        self.get_logger().info(
+            f'/target_pose pos=({x:.3f},{y:.3f},{z:.3f})  '
+            f'q=({qx:.3f},{qy:.3f},{qz:.3f},{qw:.3f})  '
+            f'gripper={g:.1f}%'
+        )
+
+
+# ── SocketIO callbacks ────────────────────────────────────────────────────────
 
 @sio.event
 def connect():
-    print('Connected to server')
+    print('Connected to web server')
+
 
 @sio.event
 def connect_error(error):
     print(f'Connection failed: {error}')
 
+
 @sio.event
 def disconnect():
-    print('Disconnected from server')
+    print('Disconnected from web server')
+
+
+def _fire_publish():
+    """Called by the debounce timer — publishes the latest snapshot."""
+    if ros_node is not None:
+        ros_node.publish(latest_values)
+
 
 @sio.on('value_updated')
 def on_value_updated(data):
-    global arduino_flag
-    param = data.get('param')
-    value = data.get('value')
-    latest_values[param] = value
-    
-    # Map slider values to servo angles
-    desiredMatrix = map_sliders_to_matrix(latest_values)
-    print(">> desiredMatrix =", desiredMatrix)
-    #servo_angles = inverse_kinematics(desiredMatrix)
-    servo_angles = map_sliders_to_servos(latest_values)
+    global _publish_timer
+    latest_values[data['param']] = data['value']   # always update dict immediately
 
-    
-    if arduino_flag:
-        send_data_to_arduino(servo_angles)
-    else:
-        print(servo_angles)
+    # Reset the debounce timer so we only publish after the user stops dragging
+    with _timer_lock:
+        if _publish_timer is not None:
+            _publish_timer.cancel()
+        _publish_timer = threading.Timer(DEBOUNCE_SEC, _fire_publish)
+        _publish_timer.daemon = True
+        _publish_timer.start()
+
+
+# ── Entry point ───────────────────────────────────────────────────────────────
 
 def main():
+    global ros_node
+
+    rclpy.init()
+    ros_node = WebPublisher()
+
+    ros_thread = threading.Thread(target=rclpy.spin, args=(ros_node,), daemon=True)
+    ros_thread.start()
+
+    # Only publish home position if it is within the reachable workspace.
+    # Home_Position defaults to [0,0,0,...] which is the robot's base origin —
+    # publishing that would immediately trigger an IK failure loop.
+    home_reach = math.sqrt(
+        Home_Position[0]**2 + Home_Position[1]**2 + Home_Position[2]**2)
+    if home_reach >= _ARM_MIN_REACH:
+        ros_node.publish(latest_values)
+        print(f'Home position published: {latest_values}')
+    else:
+        print(
+            f'Home position {Home_Position[:3]} is at the origin — '
+            f'skipping initial publish. Arm will move on first slider input.')
+
     try:
-        # Connect to Arduino
-        global arduino_flag
-        arduino_connected = connect_to_arduino()
-        if arduino_connected:
-            arduino_flag = True
-            print("Sending initial servo positions...")
-            print(f"latest_values{latest_values}")
-            desiredMatrix = map_sliders_to_matrix(latest_values)
-            print(">> desiredMatrix =", desiredMatrix)
-            #servo_angles = inverse_kinematics(desiredMatrix)
-            servo_angles = map_sliders_to_servos(latest_values)
-            send_data_to_arduino(servo_angles)
-    
-        else:
-            print("Warning: Could not connect to Arduino. Running without hardware control.")
-            arduino_flag = False 
-        
-        print('Connecting to server...')
+        print('Connecting to web server at http://localhost:8080 …')
         sio.connect('http://localhost:8080', wait_timeout=10)
         sio.wait()
     except Exception as e:
         print(f'Error: {e}')
-        print('Ensure Flask server is running on http://localhost:8080')
-        if arduino_serial and arduino_serial.is_open:
-            arduino_serial.close()
-            print("Arduino connection closed")
+        print('Ensure the Flask server is running on http://localhost:8080')
         sys.exit(1)
+    finally:
+        ros_node.destroy_node()
+        rclpy.shutdown()
+
 
 if __name__ == '__main__':
-    try:
-        main()
-    finally:
-        pass
+    main()
