@@ -20,29 +20,29 @@
       <h5 class="mb-2">Positional Control</h5>
       <div class="mb-2">
         <label for="slider_x" class="control-label">X</label>
-        <input type="range" class="form-range" id="slider_x" min="-0.8" max="0.8" step="0.01" value="0">
+        <input type="range" class="form-range" id="slider_x" min="0" max="1.6" step="0.01" value="0">
         <div class="d-flex justify-content-between">
-          <span>-0.8</span>
+          <span>0</span>
           <span id="value_x">0</span>
-          <span>0.8</span>
+          <span>1.6</span>
         </div>
       </div>
       <div class="mb-2">
         <label for="slider_y" class="control-label">Y</label>
-        <input type="range" class="form-range" id="slider_y" min="-0.8" max="0.8" step="0.01" value="0">
+        <input type="range" class="form-range" id="slider_y" min="0" max="1.6" step="0.01" value="0">
         <div class="d-flex justify-content-between">
-          <span>-0.8</span>
+          <span>0</span>
           <span id="value_y">0</span>
-          <span>0.8</span>
+          <span>1.6</span>
         </div>
       </div>
       <div class="mb-2">
         <label for="slider_z" class="control-label">Z</label>
-        <input type="range" class="form-range" id="slider_z" min="-0.8" max="0.8" step="0.01" value="0">
+        <input type="range" class="form-range" id="slider_z" min="0" max="1.6" step="0.01" value="0">
         <div class="d-flex justify-content-between">
-          <span>-0.8</span>
+          <span>0</span>
           <span id="value_z">0</span>
-          <span>0.8</span>
+          <span>1.6</span>
         </div>
       </div>
     </div>
@@ -174,6 +174,16 @@
 <script>
   const socket = io();
 
+  // Reset sliders on load to counter browser form caching
+  document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.form-range').forEach(slider => {
+          slider.value = slider.defaultValue;
+          const key = slider.id.split('_')[1];
+          document.getElementById(`value_${key}`).textContent = slider.defaultValue;
+          document.getElementById(`display_${key}`).textContent = slider.defaultValue;
+      });
+  });
+
   // Emit value update when sliders change
   document.querySelectorAll('.form-range').forEach(slider => {
       slider.addEventListener('input', function() {
@@ -236,7 +246,7 @@
       const restPosition = {
           slider_x: 0,
           slider_y: 0,
-          slider_z: -0.5,
+          slider_z: 0,
           roll: 0,
           pitch: 0,
           yaw: 0,

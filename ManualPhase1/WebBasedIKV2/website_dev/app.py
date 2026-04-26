@@ -9,8 +9,9 @@ import param
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)  # Generate a secure secret key
 
-# Security headers
-Talisman(app, 
+# Security headers (force_https=False for development without SSL certs)
+Talisman(app,
+    force_https=False,
     content_security_policy={
         'default-src': "'self'",
         'script-src': ["'self'", "'unsafe-inline'", 'cdn.jsdelivr.net'],

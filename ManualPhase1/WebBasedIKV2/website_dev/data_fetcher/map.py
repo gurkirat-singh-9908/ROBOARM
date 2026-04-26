@@ -50,9 +50,9 @@ def map_sliders_to_servos(values):
         
         # Map each slider to its corresponding servo
         servo_angles = {
-            's1': mapVal(float_values['slider_x']+0.8, ranges['slider_x'][0], ranges['slider_x'][1]),
-            's2': mapVal(float_values['slider_y']+0.8, ranges['slider_y'][0], ranges['slider_y'][1]),
-            's3': mapVal(float_values['slider_z']+0.8, ranges['slider_z'][0], ranges['slider_z'][1]),
+            's1': mapVal(float_values['slider_x'], ranges['slider_x'][0], ranges['slider_x'][1]),
+            's2': mapVal(float_values['slider_y'], ranges['slider_y'][0], ranges['slider_y'][1]),
+            's3': mapVal(float_values['slider_z'], ranges['slider_z'][0], ranges['slider_z'][1]),
             's4': mapVal(float_values['roll'], ranges['roll'][0], ranges['roll'][1]),
             's5': mapVal(float_values['pitch'], ranges['pitch'][0], ranges['pitch'][1]),
             's6': mapVal(float_values['yaw'], ranges['yaw'][0], ranges['yaw'][1])

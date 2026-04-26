@@ -159,14 +159,14 @@
     <inertia ixx="0.000642" iyy="0.000989" izz="0.000923" ixy="0.0" iyz="0.0" ixz="9.8e-05"/>
   </inertial>
   <visual>
-    <origin xyz="0.160761 -0.364037 -0.437465" rpy="0 0 0"/>
+    <origin xyz="-0.160761 -0.364037 0.437465" rpy="0 3.14159265 0"/>
     <geometry>
       <mesh filename="file://$(find roboticarm_description)/meshes/gripper_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
     <material name="silver"/>
   </visual>
   <collision>
-    <origin xyz="0.160761 -0.364037 -0.437465" rpy="0 0 0"/>
+    <origin xyz="-0.160761 -0.364037 0.437465" rpy="0 3.14159265 0"/>
     <geometry>
       <mesh filename="file://$(find roboticarm_description)/meshes/gripper_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
@@ -240,7 +240,7 @@
 </joint>
 
 <joint name="Rigid 49" type="fixed">
-  <origin xyz="-0.0872 0.0 0.0" rpy="0 0 0"/>
+  <origin xyz="-0.0872 0.0 0.0" rpy="0 3.14159265 0"/>
   <parent link="w_c_1"/>
   <child link="gripper_1"/>
 </joint>
