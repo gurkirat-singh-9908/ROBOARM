@@ -1,0 +1,120 @@
+<div id="urdf-viewer"
+     style="position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 180px; background: #1a1a22; border-radius: 0.375rem; overflow: hidden;">
+  <div id="urdf-status"
+       style="position: absolute; top: 8px; left: 12px; color: #cccccc; font-family: monospace; font-size: 12px; pointer-events: none; z-index: 1; text-shadow: 0 1px 2px rgba(0,0,0,0.6);">
+    Loading URDF…
+  </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+    "urdf-loader": "https://cdn.jsdelivr.net/npm/urdf-loader@0.12.6/src/URDFLoader.js"
+  }
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.5.4/dist/socket.io.min.js"></script>
+
+<script type="module">
+  import * as THREE from 'three';
+  import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+  import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+  import URDFLoader from 'urdf-loader';
+
+  const mount  = document.getElementById('urdf-viewer');
+  const status = document.getElementById('urdf-status');
+  const setStatus = msg => { if (status) status.textContent = msg; };
+
+  THREE.Object3D.DEFAULT_UP.set(0, 0, 1);
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x1a1a22);
+
+  const camera = new THREE.PerspectiveCamera(
+    50, Math.max(1, mount.clientWidth) / Math.max(1, mount.clientHeight), 0.01, 100);
+  camera.up.set(0, 0, 1);
+  camera.position.set(1.2, 1.2, 0.9);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(mount.clientWidth, mount.clientHeight);
+  mount.appendChild(renderer.domElement);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.target.set(0, 0, 0.4);
+  controls.update();
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+  const dir = new THREE.DirectionalLight(0xffffff, 0.85);
+  dir.position.set(2, 2, 5);
+  scene.add(dir);
+
+  const grid = new THREE.GridHelper(2, 20, 0x666688, 0x333344);
+  grid.rotation.x = Math.PI / 2;
+  scene.add(grid);
+
+  let robot = null;
+  const loader = new URDFLoader();
+  loader.loadMeshCb = (path, manager, done) => {
+    new STLLoader(manager).load(
+      path,
+      geom => {
+        geom.computeVertexNormals();
+        done(new THREE.Mesh(geom, new THREE.MeshPhongMaterial({ color: 0xb8b8c8 })));
+      },
+      undefined,
+      err => {
+        console.error('STL load failed', path, err);
+        setStatus(`mesh fail: ${path.split('/').pop()}`);
+        done(null, err);
+      },
+    );
+  };
+
+  loader.load(
+    '/robot_description',
+    result => {
+      robot = result;
+      scene.add(robot);
+      const jointCount = Object.keys(robot.joints).length;
+      setStatus(`Robot loaded · ${jointCount} joints`);
+      console.log('URDF joints:', Object.keys(robot.joints));
+    },
+    undefined,
+    err => {
+      console.error('URDF load failed', err);
+      setStatus('URDF load failed — see console');
+    },
+  );
+
+  // Reuse the page's existing socket if available (e.g. MANUAL_CONTROL),
+  // otherwise open a dedicated connection (e.g. index page).
+  const sock = window._pageSocket || io();
+  sock.on('joint_states', data => {
+    if (!robot || !data || !data.name) return;
+    for (let i = 0; i < data.name.length; i++) {
+      const joint = robot.joints[data.name[i]];
+      if (joint) joint.setJointValue(data.position[i]);
+    }
+  });
+
+  function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  const resize = () => {
+    if (!mount.clientWidth || !mount.clientHeight) return;
+    camera.aspect = mount.clientWidth / mount.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(mount.clientWidth, mount.clientHeight);
+  };
+  window.addEventListener('resize', resize);
+  // First post-layout sizing pass — initial clientWidth can be 0 before paint.
+  requestAnimationFrame(resize);
+</script>

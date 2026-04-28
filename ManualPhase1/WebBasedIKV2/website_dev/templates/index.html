@@ -37,10 +37,10 @@
             </div>
         </div>
     </div>
-    <!-- Right: Image -->
+    <!-- Right: Live URDF viewer -->
     <div class="col-md-6">
         <div class="img-container">
-            <img src="{{ url_for('static', filename='robo.jpeg') }}" alt="Robotic Arm" class="img-fluid">
+            {% include '_urdf_viewer.html' %}
         </div>
         <div class="position-display mt-3">
             <h5 class="mb-2">Control Options</h5>

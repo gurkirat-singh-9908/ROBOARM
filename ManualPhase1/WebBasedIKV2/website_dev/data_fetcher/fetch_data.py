@@ -13,11 +13,17 @@ executes the trajectory.  bridge_node reads /joint_states and drives Arduino.
 import math
 import sys
 import threading
+import time
 
+import base64
+
+import cv2
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
 from std_msgs.msg import Float64
+from sensor_msgs.msg import JointState, Image as ImageMsg
+from cv_bridge import CvBridge
 import socketio
 
 from param import Home_Position, Default_Gripper_Position
@@ -25,6 +31,13 @@ from param import Home_Position, Default_Gripper_Position
 # Only publish once the user has stopped moving the slider for this long.
 # Prevents flooding the IK solver with every pixel of drag.
 DEBOUNCE_SEC = 0.20
+
+# Throttle /joint_states → web at ~30 Hz; the URDF viewer doesn't need
+# the broadcaster's 100 Hz and SocketIO over a slow link would queue up.
+JOINT_STATE_MIN_PERIOD = 1.0 / 30.0
+
+# Throttle camera frames to 15 Hz — base64 JPEG over socket.io is heavy.
+CAMERA_MIN_PERIOD = 1.0 / 15.0
 
 # ── Workspace bounds (must match ik_mover.cpp constants) ──────────────────────
 _ARM_MAX_REACH = 0.75   # metres
@@ -77,6 +90,43 @@ class WebPublisher(Node):
         super().__init__('web_pose_publisher')
         self.pose_pub    = self.create_publisher(PoseStamped, '/target_pose',     10)
         self.gripper_pub = self.create_publisher(Float64,     '/roboarm/gripper', 10)
+        self.joint_state_sub = self.create_subscription(
+            JointState, '/joint_states', self._on_joint_state, 10)
+        self._last_js_emit = 0.0
+        self._cv_bridge = CvBridge()
+        self.camera_sub = self.create_subscription(
+            ImageMsg, '/camera/image_raw', self._on_camera_frame, 10)
+        self._last_cam_emit = 0.0
+
+    def _on_joint_state(self, msg: JointState):
+        now = time.monotonic()
+        if now - self._last_js_emit < JOINT_STATE_MIN_PERIOD:
+            return
+        self._last_js_emit = now
+        if not sio.connected:
+            return
+        try:
+            sio.emit('joint_states', {
+                'name':     list(msg.name),
+                'position': list(msg.position),
+            })
+        except Exception as e:
+            self.get_logger().warn(f'joint_states emit failed: {e}')
+
+    def _on_camera_frame(self, msg: ImageMsg):
+        now = time.monotonic()
+        if now - self._last_cam_emit < CAMERA_MIN_PERIOD:
+            return
+        self._last_cam_emit = now
+        if not sio.connected:
+            return
+        try:
+            frame = self._cv_bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
+            _, buf = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 70])
+            b64 = base64.b64encode(buf).decode('utf-8')
+            sio.emit('camera_frame', {'frame': b64})
+        except Exception as e:
+            self.get_logger().warn(f'camera_frame emit failed: {e}')
 
     def publish(self, values: dict):
         x = float(values['slider_x'])
