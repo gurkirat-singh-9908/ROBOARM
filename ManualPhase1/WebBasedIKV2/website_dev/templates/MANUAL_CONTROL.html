@@ -5,12 +5,11 @@
 {% block extra_head %}{% endblock %}
 
 {% block content %}
+<h2 class="mb-2">Manual Control</h2>
 <div class="row g-2">
-  <!-- Col 1: Controls -->
+  <!-- Col 1: All Sliders + Knobs + Gripper + Presets -->
   <div class="col-md-4">
-    <h2 class="mb-2">Manual Control</h2>
-
-    <!-- Positional Control (Sliders) -->
+    <!-- Positional Sliders -->
     <div class="control-box mb-2">
       <h5 class="mb-2">Positional Control</h5>
       <div class="mb-2">
@@ -42,11 +41,10 @@
       </div>
     </div>
 
-    <!-- Orientation Control (Knobs) -->
-    <div class="control-box">
+    <!-- Orientation Knobs -->
+    <div class="control-box mb-2">
       <h5 class="mb-2">Orientation Control</h5>
       <div class="row">
-        <!-- Roll Knob -->
         <div class="col-4">
           <div class="knob-container" data-param="roll">
             <div class="ring"></div>
@@ -65,7 +63,6 @@
           </div>
           <div class="dial-label">Roll</div>
         </div>
-        <!-- Pitch Knob -->
         <div class="col-4">
           <div class="knob-container" data-param="pitch">
             <div class="ring"></div>
@@ -84,7 +81,6 @@
           </div>
           <div class="dial-label">Pitch</div>
         </div>
-        <!-- Yaw Knob -->
         <div class="col-4">
           <div class="knob-container" data-param="yaw">
             <div class="ring"></div>
@@ -105,29 +101,9 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Col 2: URDF Viewer + Presets + Gripper -->
-  <div class="col-md-4">
-    <div class="img-container mb-2">
-      {% include '_urdf_viewer.html' %}
-    </div>
-
-    <!-- Preset Positions -->
-    <div class="control-box mb-2">
-      <h5 class="mb-2">Preset Positions</h5>
-      <div class="row">
-        <div class="col-6">
-          <button id="home_position" class="btn btn-primary w-100">Home</button>
-        </div>
-        <div class="col-6">
-          <button id="rest_position" class="btn btn-primary w-100">Rest</button>
-        </div>
-      </div>
-    </div>
 
     <!-- Gripper Control -->
-    <div class="control-box">
+    <div class="control-box mb-2">
       <h5 class="mb-2">Gripper Control</h5>
       <div class="mb-2">
         <label for="slider_gripper" class="control-label">Gripper Opening</label>
@@ -139,37 +115,34 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Col 3: Camera Feed + Position Display -->
-  <div class="col-md-4">
-    <!-- Robot Camera Feed -->
-    <div class="control-box mb-2">
-      <h5 class="mb-2">Robot Camera</h5>
-      <div id="camera-panel" style="position:relative; width:100%; aspect-ratio:16/9; min-height:140px; background:#1a1a22; border-radius:0.375rem; overflow:hidden; display:flex; align-items:center; justify-content:center;">
-        <img id="camera-feed"
-             style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; display:none; border-radius:0.375rem;">
-        <div id="camera-placeholder"
-             style="color:#cccccc; font-family:monospace; font-size:0.9rem; text-align:center; padding:1rem;">
-          connect camera!
+    <!-- Preset Positions (below gripper) -->
+    <div class="control-box">
+      <h5 class="mb-2">Preset Positions</h5>
+      <div class="row">
+        <div class="col-6">
+          <button id="home_position" class="btn btn-primary w-100">Home</button>
+        </div>
+        <div class="col-6">
+          <button id="rest_position" class="btn btn-primary w-100">Rest</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Current Position -->
-    <div class="position-display">
-      <h5 class="mb-2">Current Position</h5>
-      <div class="row">
-        <div class="col-6">
-          <p class="mb-1"><strong>X:</strong> <span id="display_x">0</span></p>
-          <p class="mb-1"><strong>Y:</strong> <span id="display_y">0</span></p>
-          <p class="mb-1"><strong>Z:</strong> <span id="display_z">0</span></p>
-          <p class="mb-1"><strong>Gripper:</strong> <span id="display_gripper">0</span>%</p>
-        </div>
-        <div class="col-6">
-          <p class="mb-1"><strong>Roll:</strong> <span id="display_roll">0</span>°</p>
-          <p class="mb-1"><strong>Pitch:</strong> <span id="display_pitch">0</span>°</p>
-          <p class="mb-1"><strong>Yaw:</strong> <span id="display_yaw">0</span>°</p>
+  <!-- Col 2: URDF Viewer (top-aligned with Positional) + Camera Overlay -->
+  <div class="col-md-8 d-flex">
+    <div class="control-box mb-2 flex-fill" id="urdf-wrapper" style="position: relative; display: flex;">
+      {% include '_urdf_viewer.html' %}
+
+      <!-- Camera overlay floating tile, top-right -->
+      <div id="camera-panel"
+           style="position:absolute; top:20px; right:20px; width:30%; aspect-ratio:16/9; min-width:180px; background:#1a1a22; border:2px solid #303841; border-radius:0.5rem; overflow:hidden; box-shadow:0 12px 28px rgba(0,0,0,0.55), 0 4px 8px rgba(0,0,0,0.35); z-index:5; display:flex; align-items:center; justify-content:center;">
+        <img id="camera-feed"
+             style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; display:none;">
+        <div id="camera-placeholder"
+             style="color:#cccccc; font-family:monospace; font-size:0.75rem; text-align:center; padding:0.5rem;">
+          connect camera!
         </div>
       </div>
     </div>
@@ -181,32 +154,33 @@
 <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.5.4/dist/socket.io.min.js"></script>
 <script>
   const socket = io();
-  window._pageSocket = socket;   // shared with the URDF viewer
+  window._pageSocket = socket;
 
-  // Reset sliders on load to counter browser form caching
+  function setKnobIndicator(knob, angle) {
+    knob.querySelector('.knob-indicator-container').style.transform = `rotate(${angle - 90}deg)`;
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.form-range').forEach(slider => {
           slider.value = slider.defaultValue;
           const key = slider.id.split('_')[1];
-          document.getElementById(`value_${key}`).textContent = slider.defaultValue;
-          document.getElementById(`display_${key}`).textContent = slider.defaultValue;
+          const valueEl = document.getElementById(`value_${key}`);
+          if (valueEl) valueEl.textContent = slider.defaultValue;
+      });
+      document.querySelectorAll('.knob-container').forEach(knob => {
+          knob.currentAngle = 0;
+          setKnobIndicator(knob, 0);
       });
   });
 
-  // Emit value update when sliders change
   document.querySelectorAll('.form-range').forEach(slider => {
       slider.addEventListener('input', function() {
-          const data = {
-              param: this.id,
-              value: this.value
-          };
-          socket.emit('update_value', data);
-          document.getElementById(`value_${this.id.split('_')[1]}`).textContent = this.value;
-          document.getElementById(`display_${this.id.split('_')[1]}`).textContent = this.value;
+          socket.emit('update_value', { param: this.id, value: this.value });
+          const valueEl = document.getElementById(`value_${this.id.split('_')[1]}`);
+          if (valueEl) valueEl.textContent = this.value;
       });
   });
 
-  // Listen for value updates
   socket.on('value_updated', function(data) {
       console.log('Value updated:', data);
   });
@@ -232,35 +206,28 @@
           yaw: 90,
           slider_gripper: 0
       };
-      
-      // Update all controls to home position
+
       Object.keys(homePosition).forEach(param => {
-          socket.emit('update_value', {
-              param: param,
-              value: homePosition[param]
-          });
-          
-          // Update display values
+          socket.emit('update_value', { param, value: homePosition[param] });
           const displayId = param.replace('slider_', '');
-          document.getElementById(`value_${displayId}`).textContent = homePosition[param];
-          document.getElementById(`display_${displayId}`).textContent = homePosition[param];
-          
-          // Update slider positions
+          const valueEl = document.getElementById(`value_${displayId}`);
+          if (valueEl) valueEl.textContent = homePosition[param];
+
           if (param.startsWith('slider_')) {
-              document.getElementById(param).value = homePosition[param];
+              const sl = document.getElementById(param);
+              if (sl) sl.value = homePosition[param];
           }
-          
-          // Update knob positions if it's orientation
+
           if (['roll', 'pitch', 'yaw'].includes(param)) {
               const knob = document.querySelector(`.knob-container[data-param="${param}"]`);
               if (knob) {
                   knob.currentAngle = homePosition[param];
-                  knob.querySelector('.knob-indicator-container').style.transform = `rotate(${homePosition[param]}deg)`;
+                  setKnobIndicator(knob, homePosition[param]);
               }
           }
       });
   });
-  
+
   document.getElementById('rest_position').addEventListener('click', function() {
       const restPosition = {
           slider_x: 0,
@@ -271,39 +238,32 @@
           yaw: 0,
           slider_gripper: 100
       };
-      
-      // Update all controls to rest position
+
       Object.keys(restPosition).forEach(param => {
-          socket.emit('update_value', {
-              param: param,
-              value: restPosition[param]
-          });
-          
-          // Update display values
+          socket.emit('update_value', { param, value: restPosition[param] });
           const displayId = param.replace('slider_', '');
-          document.getElementById(`value_${displayId}`).textContent = restPosition[param];
-          document.getElementById(`display_${displayId}`).textContent = restPosition[param];
-          
-          // Update slider positions
+          const valueEl = document.getElementById(`value_${displayId}`);
+          if (valueEl) valueEl.textContent = restPosition[param];
+
           if (param.startsWith('slider_')) {
-              document.getElementById(param).value = restPosition[param];
+              const sl = document.getElementById(param);
+              if (sl) sl.value = restPosition[param];
           }
-          
-          // Update knob positions if it's orientation
+
           if (['roll', 'pitch', 'yaw'].includes(param)) {
               const knob = document.querySelector(`.knob-container[data-param="${param}"]`);
               if (knob) {
                   knob.currentAngle = restPosition[param];
-                  knob.querySelector('.knob-indicator-container').style.transform = `rotate(${restPosition[param]}deg)`;
+                  setKnobIndicator(knob, restPosition[param]);
               }
           }
       });
   });
 
-  // Attach mouse and touch event listeners to knob containers to update rotation
+  // Knob drag — horizontal axis: 0 = left, 180 = right, 90 = top/bottom.
   document.querySelectorAll('.knob-container').forEach(knob => {
     let dragging = false;
-    let lastAngle = 0;  // Store the last angle
+    let lastAngle = 0;
 
     function updateKnob(e) {
       const rect = knob.getBoundingClientRect();
@@ -311,48 +271,40 @@
       const centerY = rect.top + rect.height / 2;
       const dx = e.clientX - centerX;
       const dy = e.clientY - centerY;
-      // Calculate angle in degrees from mouse position
-      let target = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
-      // Clamp target between 0 and 180
+      const raw = Math.atan2(dy, dx) * (180 / Math.PI);
+      let target = 180 - Math.abs(raw);
       target = Math.max(0, Math.min(180, target));
+
       if (typeof knob.currentAngle === 'undefined') {
         knob.currentAngle = target;
       }
       const factor = 0.1;
       const newAngle = knob.currentAngle + factor * (target - knob.currentAngle);
       knob.currentAngle = newAngle;
-      lastAngle = Math.round(newAngle);  // Store the last angle
-      
-      // Update the display and emit the value
+      lastAngle = Math.round(newAngle);
+
       const param = knob.dataset.param;
-      document.getElementById(`value_${param}`).textContent = lastAngle;
-      document.getElementById(`display_${param}`).textContent = lastAngle;
-      socket.emit('update_value', {
-        param: param,
-        value: lastAngle
-      });
-      
-      knob.querySelector('.knob-indicator-container').style.transform = `rotate(${newAngle}deg)`;
+      const valueEl = document.getElementById(`value_${param}`);
+      if (valueEl) valueEl.textContent = lastAngle;
+      socket.emit('update_value', { param, value: lastAngle });
+
+      setKnobIndicator(knob, newAngle);
     }
-    
+
     knob.addEventListener('mousedown', function (e) {
       dragging = true;
       updateKnob(e);
     });
-    
+
     document.addEventListener('mousemove', function (e) {
       if (dragging) updateKnob(e);
     });
-    
+
     document.addEventListener('mouseup', function () {
       if (dragging) {
         dragging = false;
-        // On mouse up, emit the last known angle
         const param = knob.dataset.param;
-        socket.emit('update_value', {
-          param: param,
-          value: lastAngle
-        });
+        socket.emit('update_value', { param, value: lastAngle });
       }
     });
   });

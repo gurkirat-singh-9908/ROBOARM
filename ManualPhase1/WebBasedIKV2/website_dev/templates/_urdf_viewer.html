@@ -1,7 +1,7 @@
 <div id="urdf-viewer"
-     style="position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 180px; background: #1a1a22; border-radius: 0.375rem; overflow: hidden;">
+     style="position: relative; width: 100%; min-height: 480px; flex: 1 1 auto; background: #6b7077; border-radius: 0.375rem; overflow: hidden;">
   <div id="urdf-status"
-       style="position: absolute; top: 8px; left: 12px; color: #cccccc; font-family: monospace; font-size: 12px; pointer-events: none; z-index: 1; text-shadow: 0 1px 2px rgba(0,0,0,0.6);">
+       style="position: absolute; top: 8px; left: 12px; color: #f0f0f0; font-family: monospace; font-size: 12px; pointer-events: none; z-index: 1; text-shadow: 0 1px 2px rgba(0,0,0,0.6);">
     Loading URDF…
   </div>
 </div>
@@ -32,7 +32,7 @@
   THREE.Object3D.DEFAULT_UP.set(0, 0, 1);
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x1a1a22);
+  scene.background = new THREE.Color(0x6b7077);
 
   const camera = new THREE.PerspectiveCamera(
     50, Math.max(1, mount.clientWidth) / Math.max(1, mount.clientHeight), 0.01, 100);
@@ -52,7 +52,7 @@
   dir.position.set(2, 2, 5);
   scene.add(dir);
 
-  const grid = new THREE.GridHelper(2, 20, 0x666688, 0x333344);
+  const grid = new THREE.GridHelper(2, 20, 0x4a5057, 0x555b62);
   grid.rotation.x = Math.PI / 2;
   scene.add(grid);
 
