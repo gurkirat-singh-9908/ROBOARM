@@ -79,8 +79,7 @@
     result => {
       robot = result;
       scene.add(robot);
-      const jointCount = Object.keys(robot.joints).length;
-      setStatus(`Robot loaded · ${jointCount} joints`);
+      if (status) status.style.display = 'none';
       console.log('URDF joints:', Object.keys(robot.joints));
     },
     undefined,
