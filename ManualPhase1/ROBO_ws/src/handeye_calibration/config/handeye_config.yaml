@@ -10,7 +10,7 @@ mode: eye_in_hand
 # TF frame names – must match the URDF / TF tree.
 base_frame:     base_link
 gripper_frame:  gripper_1
-camera_frame:   camera_1
+camera_frame:   camera_optical   # calibrated frame, distinct from URDF nominal camera_1
 
 # ArUco marker ID that represents the calibration target. -1 = accept any ID.
 target_marker_id: -1

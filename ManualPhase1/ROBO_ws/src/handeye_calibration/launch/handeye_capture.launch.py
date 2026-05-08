@@ -44,7 +44,10 @@ def generate_launch_description():
         executable='aruco_detect',
         name='aruco_detect',
         output='screen',
-        parameters=[{'show_feed': True}],
+        parameters=[{
+            'show_feed':    True,
+            'camera_frame': cfg['camera_frame'],
+        }],
     )
 
     collector = Node(

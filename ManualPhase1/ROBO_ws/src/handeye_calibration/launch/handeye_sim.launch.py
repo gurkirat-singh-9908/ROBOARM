@@ -84,13 +84,15 @@ def generate_launch_description():
         ],
     )
 
+    # Sim uses the URDF-published frame 'camera_1' directly — there is no
+    # real calibration broadcasting 'camera_optical' in software-only mode.
     sim_aruco = Node(
         package='handeye_calibration',
         executable='sim_aruco_publisher',
         name='sim_aruco_publisher',
         output='screen',
         parameters=[{
-            'camera_frame': cfg['camera_frame'],
+            'camera_frame': 'camera_1',
             'target_frame': 'fake_marker',
         }],
     )

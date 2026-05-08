@@ -97,6 +97,12 @@ class ArucoNode(Node):
         self.declare_parameter('show_feed', False)
         self._show_feed = self.get_parameter('show_feed').value
 
+        # Frame the published pose is expressed in. Default 'camera_optical' so
+        # it does not collide with the URDF-mounted nominal frame 'camera_1'
+        # (the hand-eye calibration broadcasts gripper_1 → camera_optical).
+        self.declare_parameter('camera_frame', 'camera_optical')
+        self._camera_frame = self.get_parameter('camera_frame').value
+
         if self._show_feed:
             cv2.namedWindow('ArUco Detection', cv2.WINDOW_NORMAL)
             self.get_logger().info("show_feed=True — live detection window enabled")
@@ -187,7 +193,7 @@ class ArucoNode(Node):
             # ── publish PoseStamped ──────────────────────────────────────────
             pose_msg = PoseStamped()
             pose_msg.header.stamp    = stamp
-            pose_msg.header.frame_id = 'camera_1'
+            pose_msg.header.frame_id = self._camera_frame
 
             pose_msg.pose.position.x = float(tvec[0])
             pose_msg.pose.position.y = float(tvec[1])
