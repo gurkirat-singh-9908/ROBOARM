@@ -82,10 +82,32 @@ class ArucoNode(Node):
         super().__init__('aruco_detector')
 
         # ── detector setup ──────────────────────────────────────────────────
-        aruco_dict = aruco.getPredefinedDictionary(ARUCO_DICT)
-        params     = aruco.DetectorParameters()
-        params.cornerRefinementMethod = aruco.CORNER_REFINE_SUBPIX
-        self.detector = aruco.ArucoDetector(aruco_dict, params)
+        # OpenCV 4.7+ exposes aruco.ArucoDetector; 4.6 (Ubuntu Noble apt) only
+        # has the legacy module-level API. Pick whichever the runtime offers.
+        if hasattr(aruco, 'getPredefinedDictionary'):
+            self._aruco_dict = aruco.getPredefinedDictionary(ARUCO_DICT)
+        else:
+            self._aruco_dict = aruco.Dictionary_get(ARUCO_DICT)
+
+        if hasattr(aruco, 'DetectorParameters'):
+            self._aruco_params = aruco.DetectorParameters()
+        else:
+            self._aruco_params = aruco.DetectorParameters_create()
+        # On Ubuntu Noble aarch64 the apt python3-opencv 4.6 package has broken
+        # aruco bindings — even property access segfaults. So this node MUST be
+        # built/run with a cv2 >= 4.7 from pip (e.g. via roboenv). Guard the
+        # subpix setter behind hasattr so the file still imports under 4.6 even
+        # if someone tries to run it there.
+        if hasattr(aruco, 'CORNER_REFINE_SUBPIX'):
+            try:
+                self._aruco_params.cornerRefinementMethod = aruco.CORNER_REFINE_SUBPIX
+            except Exception:
+                pass
+
+        if hasattr(aruco, 'ArucoDetector'):
+            self._detector = aruco.ArucoDetector(self._aruco_dict, self._aruco_params)
+        else:
+            self._detector = None  # use module-level aruco.detectMarkers fallback
 
         # marker corner template in marker frame  (z = 0 plane)
         half = MARKER_LENGTH / 2.0
@@ -169,7 +191,11 @@ class ArucoNode(Node):
 
         # ── detection ────────────────────────────────────────────────────────
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        corners, ids, _ = self.detector.detectMarkers(gray)
+        if self._detector is not None:
+            corners, ids, _ = self._detector.detectMarkers(gray)
+        else:
+            corners, ids, _ = aruco.detectMarkers(
+                gray, self._aruco_dict, parameters=self._aruco_params)
 
         # ── optional live window ──────────────────────────────────────────────
         if self._show_feed and (ids is not None or SHOW_FEED_NO_DETECTION):

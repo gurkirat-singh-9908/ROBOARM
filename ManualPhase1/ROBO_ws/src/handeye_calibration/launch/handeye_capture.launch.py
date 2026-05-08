@@ -32,11 +32,26 @@ def generate_launch_description():
         parameters=[{'robot_description': robot_description}],
     )
 
+    arduino_bridge = Node(
+        package='arduino_bridge',
+        executable='bridge_node',
+        name='arduino_bridge',
+        output='screen',
+        parameters=[{
+            'serial_port': cfg.get('arduino_port', '/dev/ttyUSB0'),
+            'baud_rate':   cfg.get('arduino_baud', 9600),
+        }],
+    )
+
     camera_node = Node(
         package='ArUcoMarkerRos',
         executable='camera_node',
         name='camera_node',
         output='screen',
+        parameters=[{
+            'source':    cfg.get('camera_source', ''),
+            'frame_id':  cfg['camera_frame'],
+        }],
     )
 
     aruco_node = Node(
@@ -45,23 +60,21 @@ def generate_launch_description():
         name='aruco_detect',
         output='screen',
         parameters=[{
-            'show_feed':    True,
+            # Headless Pi → cv2.imshow has no display. Force off.
+            'show_feed':    False,
             'camera_frame': cfg['camera_frame'],
         }],
     )
 
-    collector = Node(
-        package='handeye_calibration',
-        executable='sample_collector',
-        name='handeye_sample_collector',
-        output='screen',
-        emulate_tty=True,
-        parameters=[{
-            'base_frame':       cfg['base_frame'],
-            'gripper_frame':    cfg['gripper_frame'],
-            'samples_file':     cfg['samples_file'],
-            'target_marker_id': cfg['target_marker_id'],
-        }],
-    )
-
-    return LaunchDescription([robot_state_publisher, camera_node, aruco_node, collector])
+    # NOTE: manual_joint_commander and sample_collector both read stdin.
+    # Run each in its own terminal AFTER this launch:
+    #   ros2 run handeye_calibration manual_joint_commander
+    #   ros2 run handeye_calibration sample_collector \
+    #       --ros-args -p base_frame:=base_link -p gripper_frame:=gripper_1 \
+    #       -p samples_file:=/tmp/handeye_samples.yaml
+    return LaunchDescription([
+        robot_state_publisher,
+        arduino_bridge,
+        camera_node,
+        aruco_node,
+    ])

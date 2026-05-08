@@ -12,6 +12,14 @@ base_frame:     base_link
 gripper_frame:  gripper_1
 camera_frame:   camera_optical   # calibrated frame, distinct from URDF nominal camera_1
 
+# Camera source — empty string means use camera_index 0.
+# Examples:
+#   ''                              → /dev/video0
+#   '0' / '1'                       → numeric V4L2 index
+#   'http://192.168.1.50:8080/video' → IP Webcam (Android) MJPEG stream
+#   'rtsp://user:pass@host/path'    → RTSP stream
+camera_source: 'http://192.168.29.81:8080/video'
+
 # ArUco marker ID that represents the calibration target. -1 = accept any ID.
 target_marker_id: -1
 
@@ -25,3 +33,10 @@ method: PARK
 
 # Minimum samples before compute_calibration will run. 10+ recommended.
 min_samples: 3
+
+# Arduino bridge defaults (override per-machine).
+arduino_port: /dev/ttyUSB0
+arduino_baud: 9600
+
+# Manual joint commander default input unit ('deg' or 'rad').
+joint_input_unit: deg
