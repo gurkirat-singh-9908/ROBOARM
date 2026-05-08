@@ -1,5 +1,6 @@
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
 
 import cv2
 import numpy as np
@@ -27,7 +28,7 @@ class CameraNode(Node):
 
         # ── declare parameters ────────────────────────────────────────────────
         self.declare_parameter(
-            'camera_index', 1,
+            'camera_index', 0,
             ParameterDescriptor(description='OpenCV VideoCapture device index'))
         self.declare_parameter(
             'frame_width', 640,
@@ -50,13 +51,19 @@ class CameraNode(Node):
         self.frame_id = self.get_parameter('frame_id').value
 
         # ── open camera ───────────────────────────────────────────────────────
-        self.cap = cv2.VideoCapture(cam_idx)
+        # Force V4L2 backend — avoids GStreamer fallback that adds queue latency.
+        self.cap = cv2.VideoCapture(cam_idx, cv2.CAP_V4L2)
 
         if not self.cap.isOpened():
             self.get_logger().fatal(
                 f"Cannot open camera at index {cam_idx}. "
                 "Check the camera_index parameter or USB connection.")
             raise RuntimeError(f"Camera {cam_idx} not available")
+
+        # MJPG keeps USB bandwidth low → fewer dropped/queued frames than YUYV.
+        self.cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+        # Shrink driver buffer so read() returns the freshest frame, not a stale one.
+        self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
         # Request resolution and FPS (camera may not honour all values)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH,  frame_width)
@@ -74,7 +81,15 @@ class CameraNode(Node):
 
         # ── ROS objects ───────────────────────────────────────────────────────
         self.bridge    = CvBridge()
-        self.publisher = self.create_publisher(Image, '/camera/image_raw', 10)
+
+        # Sensor-data QoS: BEST_EFFORT + depth=1 → drop stale frames instead
+        # of buffering them. Subscriber must use the same profile to connect.
+        sensor_qos = QoSProfile(
+            reliability=ReliabilityPolicy.BEST_EFFORT,
+            history=HistoryPolicy.KEEP_LAST,
+            depth=1,
+        )
+        self.publisher = self.create_publisher(Image, '/camera/image_raw', sensor_qos)
 
         # Timer fires at the requested FPS
         timer_period = 1.0 / fps
@@ -86,6 +101,11 @@ class CameraNode(Node):
     # ── TIMER CALLBACK ────────────────────────────────────────────────────────
 
     def timer_callback(self):
+        # Flush stale frames sitting in the V4L2/userspace queue. grab() is
+        # cheap (no decode); only the final read() pays the decode cost.
+        for _ in range(2):
+            self.cap.grab()
+
         ret, frame = self.cap.read()
 
         if not ret:

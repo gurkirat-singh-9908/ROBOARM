@@ -1,5 +1,6 @@
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
 
 import cv2
 from cv2 import aruco
@@ -14,6 +15,10 @@ from cv_bridge import CvBridge
 # ── CONSTANTS ──────────────────────────────────────────────────────────────────
 ARUCO_DICT    = aruco.DICT_4X4_50
 MARKER_LENGTH = 0.05          # metres  — change to your physical marker size
+
+# Set True (dev) → feed window updates on every frame even when no marker found.
+# Set False (prod) → feed only updates when at least one marker is detected.
+SHOW_FEED_NO_DETECTION = True
 
 
 # ── HELPERS ────────────────────────────────────────────────────────────────────
@@ -114,11 +119,17 @@ class ArucoNode(Node):
         self.bridge = CvBridge()
 
         # ── ROS subscriber ───────────────────────────────────────────────────
+        # Must match camera_node's sensor-data QoS or pub/sub won't connect.
+        sensor_qos = QoSProfile(
+            reliability=ReliabilityPolicy.BEST_EFFORT,
+            history=HistoryPolicy.KEEP_LAST,
+            depth=1,
+        )
         self.sub_image = self.create_subscription(
             Image,
             '/camera/image_raw',
             self.image_callback,
-            10
+            sensor_qos
         )
 
         # ── ROS publishers ───────────────────────────────────────────────────
@@ -160,8 +171,18 @@ class ArucoNode(Node):
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         corners, ids, _ = self.detector.detectMarkers(gray)
 
+        # ── optional live window ──────────────────────────────────────────────
+        if self._show_feed and (ids is not None or SHOW_FEED_NO_DETECTION):
+            display = self._draw_detections(frame, corners, ids)
+            cv2.imshow('ArUco Detection', display)
+            key = cv2.waitKey(1) & 0xFF
+            if key in (ord('q'), 27):
+                self.get_logger().info("Feed window closed by user — shutting down.")
+                cv2.destroyAllWindows()
+                rclpy.shutdown()
+
         if ids is None:
-            return   # nothing found this frame
+            return   # skip pose computation — no markers this frame
 
         # ── per-marker processing ─────────────────────────────────────────────
         for i, marker_id in enumerate(ids.flatten()):
@@ -229,16 +250,6 @@ class ArucoNode(Node):
                 f"pixel=({cx_px:.0f}, {cy_px:.0f})"
             )
 
-        # ── optional live window ──────────────────────────────────────────────
-        if self._show_feed:
-            display = self._draw_detections(frame, corners, ids)
-            cv2.imshow('ArUco Detection', display)
-            # q or ESC closes the window and shuts the node down cleanly
-            key = cv2.waitKey(1) & 0xFF
-            if key in (ord('q'), 27):
-                self.get_logger().info("Feed window closed by user — shutting down.")
-                cv2.destroyAllWindows()
-                rclpy.shutdown()
 
     # ── DRAW HELPER ────────────────────────────────────────────────────────────
 
