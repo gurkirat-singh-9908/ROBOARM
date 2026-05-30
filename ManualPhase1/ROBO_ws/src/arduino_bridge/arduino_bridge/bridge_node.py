@@ -76,7 +76,7 @@ class ArduinoBridge(Node):
 
         # ── ROS parameters ─────────────────────────────────────────────────────
         self.declare_parameter('serial_port',        '/dev/ttyUSB0')
-        self.declare_parameter('baud_rate',           9600)
+        self.declare_parameter('baud_rate',           115200)
         self.declare_parameter('min_send_interval',   0.05)   # 20 Hz cap
         self.declare_parameter('jump_threshold_deg',  25.0)   # warn threshold
 

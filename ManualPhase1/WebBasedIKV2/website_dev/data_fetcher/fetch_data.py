@@ -239,12 +239,12 @@ def main():
             f'skipping initial publish. Arm will move on first slider input.')
 
     try:
-        print('Connecting to web server at http://localhost:8080 …')
-        sio.connect('http://localhost:8080', wait_timeout=10)
+        print('Connecting to web server at https://flying-scorpion-neat.ngrok-free.app …')
+        sio.connect('https://flying-scorpion-neat.ngrok-free.app', wait_timeout=10)
         sio.wait()
     except Exception as e:
         print(f'Error: {e}')
-        print('Ensure the Flask server is running on http://localhost:8080')
+        print('Ensure the Flask server is running and ngrok tunnel is up at https://flying-scorpion-neat.ngrok-free.app')
         sys.exit(1)
     finally:
         ros_node.destroy_node()
