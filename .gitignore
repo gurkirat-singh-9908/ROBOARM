@@ -30,5 +30,9 @@ Thumbs.db
 *.hex
 *.elf
 
+# Runtime state from arduino_bridge (gripper / joint last-known positions)
+ManualPhase1/ROBO_ws/src/arduino_bridge/gripper_state.txt
+ManualPhase1/ROBO_ws/src/arduino_bridge/gripper_state.txt.tmp
+
 # Jupyter checkpoints
 .ipynb_checkpoints/
