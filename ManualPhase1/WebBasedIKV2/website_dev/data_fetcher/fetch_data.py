@@ -26,7 +26,7 @@ from sensor_msgs.msg import JointState, Image as ImageMsg
 from cv_bridge import CvBridge
 import socketio
 
-from param import Home_Position, Default_Gripper_Position
+from param import Home_Position, Default_Gripper_Position, Camera_Topics
 
 # Only publish once the user has stopped moving the slider for this long.
 # Prevents flooding the IK solver with every pixel of drag.
@@ -94,9 +94,23 @@ class WebPublisher(Node):
             JointState, '/joint_states', self._on_joint_state, 10)
         self._last_js_emit = 0.0
         self._cv_bridge = CvBridge()
-        self.camera_sub = self.create_subscription(
-            ImageMsg, '/camera/image_raw', self._on_camera_frame, 10)
-        self._last_cam_emit = 0.0
+
+        # Build a subscription per configured camera. Each callback is bound
+        # to the camera id so the web side can demux frames from any number
+        # of feeds onto a single socket.io event.
+        self._last_cam_emit: dict[str, float] = {}
+        self._camera_subs = []
+        for cam in Camera_Topics:
+            cam_id = cam['id']
+            topic = cam['topic']
+            self._last_cam_emit[cam_id] = 0.0
+            sub = self.create_subscription(
+                ImageMsg, topic,
+                lambda msg, cid=cam_id: self._on_camera_frame(cid, msg),
+                10)
+            self._camera_subs.append(sub)
+            self.get_logger().info(
+                f"camera feed '{cam_id}' subscribed on {topic}")
 
     def _on_joint_state(self, msg: JointState):
         now = time.monotonic()
@@ -113,20 +127,21 @@ class WebPublisher(Node):
         except Exception as e:
             self.get_logger().warn(f'joint_states emit failed: {e}')
 
-    def _on_camera_frame(self, msg: ImageMsg):
+    def _on_camera_frame(self, camera_id: str, msg: ImageMsg):
         now = time.monotonic()
-        if now - self._last_cam_emit < CAMERA_MIN_PERIOD:
+        if now - self._last_cam_emit.get(camera_id, 0.0) < CAMERA_MIN_PERIOD:
             return
-        self._last_cam_emit = now
+        self._last_cam_emit[camera_id] = now
         if not sio.connected:
             return
         try:
             frame = self._cv_bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
             _, buf = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 70])
             b64 = base64.b64encode(buf).decode('utf-8')
-            sio.emit('camera_frame', {'frame': b64})
+            sio.emit('camera_frame', {'camera_id': camera_id, 'frame': b64})
         except Exception as e:
-            self.get_logger().warn(f'camera_frame emit failed: {e}')
+            self.get_logger().warn(
+                f"camera_frame emit failed for '{camera_id}': {e}")
 
     def publish(self, values: dict):
         x = float(values['slider_x'])

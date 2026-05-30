@@ -119,9 +119,10 @@ class ArucoNode(Node):
         ], dtype=np.float32)
 
         # ── show_feed parameter ──────────────────────────────────────────────
-        # Pass --ros-args -p show_feed:=true to open a live detection window.
-        # Stays False by default so the node runs headless in production.
-        self.declare_parameter('show_feed', False)
+        # Default True: the live annotated feed is the primary debugging
+        # surface for detection issues, so it stays open unless the operator
+        # explicitly disables it (e.g. headless Pi: -p show_feed:=false).
+        self.declare_parameter('show_feed', True)
         self._show_feed = self.get_parameter('show_feed').value
 
         # Frame the published pose is expressed in. Default 'camera_optical' so
@@ -131,8 +132,17 @@ class ArucoNode(Node):
         self._camera_frame = self.get_parameter('camera_frame').value
 
         if self._show_feed:
-            cv2.namedWindow('ArUco Detection', cv2.WINDOW_NORMAL)
-            self.get_logger().info("show_feed=True — live detection window enabled")
+            # Headless boxes (no DISPLAY / no Qt backend) raise cv2.error here.
+            # Catch so the node still publishes detections even when the live
+            # window can't be created.
+            try:
+                cv2.namedWindow('ArUco Detection', cv2.WINDOW_NORMAL)
+                self.get_logger().info("show_feed=True — live detection window enabled")
+            except cv2.error as exc:
+                self._show_feed = False
+                self.get_logger().warn(
+                    f"Could not open live feed window ({exc}). "
+                    "Continuing headless. Override with -p show_feed:=false to silence.")
 
         # cached intrinsics — filled on first frame
         self._K    = None

@@ -1,0 +1,11 @@
+[0.000000] (-) TimerEvent: {}
+[0.000057] (-) JobUnselected: {'identifier': 'ArUcoMarkerRos'}
+[0.000082] (-) JobUnselected: {'identifier': 'arduino_bridge'}
+[0.000097] (-) JobUnselected: {'identifier': 'roboticarm_description'}
+[0.000109] (-) JobUnselected: {'identifier': 'roboticarm_description'}
+[0.000121] (-) JobUnselected: {'identifier': 'roboticarm_moveit2'}
+[0.000134] (-) JobUnselected: {'identifier': 'task1'}
+[0.000147] (handeye_calibration) JobQueued: {'identifier': 'handeye_calibration', 'dependencies': OrderedDict({'ArUcoMarkerRos': '/home/kirat/ROBOARM/install/ArUcoMarkerRos'})}
+[0.000166] (handeye_calibration) JobStarted: {'identifier': 'handeye_calibration'}
+[0.009394] (handeye_calibration) JobEnded: {'identifier': 'handeye_calibration', 'rc': 1}
+[0.019779] (-) EventReactorShutdown: {}

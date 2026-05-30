@@ -95,7 +95,11 @@ def main():
         pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        # rclpy.ok() guards against rclpy's built-in SIGINT handler having
+        # already shut down the context, which would otherwise raise
+        # `rcl_shutdown already called on the given context`.
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == '__main__':

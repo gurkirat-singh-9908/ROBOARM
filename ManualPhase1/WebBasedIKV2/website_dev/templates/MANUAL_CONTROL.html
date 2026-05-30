@@ -130,30 +130,20 @@
     </div>
   </div>
 
-  <!-- Col 2: URDF Viewer (top-aligned with Positional) + Camera Overlay -->
+  <!-- Col 2: URDF Viewer (camera feed lives in the global widget in base.html) -->
   <div class="col-md-8 d-flex">
     <div class="control-box mb-2 flex-fill" id="urdf-wrapper" style="position: relative; display: flex;">
       {% include '_urdf_viewer.html' %}
-
-      <!-- Camera overlay floating tile, top-right -->
-      <div id="camera-panel"
-           style="position:absolute; top:20px; right:20px; width:30%; aspect-ratio:16/9; min-width:180px; background:#1a1a22; border:2px solid #303841; border-radius:0.5rem; overflow:hidden; box-shadow:0 12px 28px rgba(0,0,0,0.55), 0 4px 8px rgba(0,0,0,0.35); z-index:5; display:flex; align-items:center; justify-content:center;">
-        <img id="camera-feed"
-             style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; display:none;">
-        <div id="camera-placeholder"
-             style="color:#cccccc; font-family:monospace; font-size:0.75rem; text-align:center; padding:0.5rem;">
-          connect camera!
-        </div>
-      </div>
     </div>
   </div>
 </div>
 {% endblock %}
 
 {% block extra_scripts %}
-<script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.5.4/dist/socket.io.min.js"></script>
 <script>
-  const socket = io();
+  // Reuse the layout-level socket so the persistent camera widget and this
+  // page share a single connection.
+  const socket = window._sharedSocket || io();
   window._pageSocket = socket;
 
   function setKnobIndicator(knob, angle) {
@@ -185,15 +175,7 @@
       console.log('Value updated:', data);
   });
 
-  // Camera feed
-  const camFeed = document.getElementById('camera-feed');
-  const camPlaceholder = document.getElementById('camera-placeholder');
-  socket.on('camera_frame', function(data) {
-      if (!data || !data.frame) return;
-      camFeed.src = 'data:image/jpeg;base64,' + data.frame;
-      camFeed.style.display = 'block';
-      camPlaceholder.style.display = 'none';
-  });
+  // Camera feed handled by the persistent widget in base.html.
 
   // Preset positions
   document.getElementById('home_position').addEventListener('click', function() {

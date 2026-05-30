@@ -88,6 +88,13 @@ def AUTOMATIC_CONTROL():
 def Connect():
     return render_template('Connect.html')
 
+@app.route("/api/cameras")
+def list_cameras():
+    return jsonify([
+        {'id': c['id'], 'name': c.get('name', c['id'])}
+        for c in param.Camera_Topics
+    ])
+
 @app.route("/robot_description")
 def robot_description():
     return Response(_ROBOT_URDF, mimetype='application/xml')

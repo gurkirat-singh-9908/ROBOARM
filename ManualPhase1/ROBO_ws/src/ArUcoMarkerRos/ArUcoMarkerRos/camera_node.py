@@ -31,11 +31,16 @@ class CameraNode(Node):
         super().__init__('camera_node')
 
         # ── declare parameters ────────────────────────────────────────────────
+        # `source` accepts either a numeric index (`0`, `1`) or a URL string,
+        # so the parameter is dynamically typed: ROS2 otherwise locks the
+        # type to the declared default and `-p source:=0` would be rejected
+        # as INTEGER vs STRING.
         self.declare_parameter(
             'source', '',
             ParameterDescriptor(
                 description='Numeric index (e.g. "0") or URL (http://, rtsp://). '
-                            'Overrides camera_index when non-empty.'))
+                            'Overrides camera_index when non-empty.',
+                dynamic_typing=True))
         self.declare_parameter(
             'camera_index', 0,
             ParameterDescriptor(description='OpenCV VideoCapture device index'))
@@ -53,7 +58,11 @@ class CameraNode(Node):
             ParameterDescriptor(description='TF frame name stamped on every image'))
 
         # ── read parameters ───────────────────────────────────────────────────
-        source_str   = str(self.get_parameter('source').value or '').strip()
+        # Use an explicit `is None` check rather than truthiness so that an
+        # integer source of `0` (a valid V4L2 index) is preserved instead of
+        # being collapsed to an empty string.
+        _src_val = self.get_parameter('source').value
+        source_str   = '' if _src_val is None else str(_src_val).strip()
         cam_idx      = self.get_parameter('camera_index').value
         frame_width  = self.get_parameter('frame_width').value
         frame_height = self.get_parameter('frame_height').value

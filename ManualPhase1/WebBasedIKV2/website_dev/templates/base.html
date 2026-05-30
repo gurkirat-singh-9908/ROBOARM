@@ -16,6 +16,47 @@
 </head>
 <body>
     <div class="bg-container"></div>
+
+    <!-- Persistent camera widget — visible on every page so the operator can
+         keep an eye on the live feed and switch between feeds in a multi-cam
+         setup without leaving the current view. -->
+    <div id="global-camera-widget"
+         style="position:fixed; top:80px; right:20px; width:320px; max-width:40vw;
+                background:#1a1a22; border:2px solid #303841; border-radius:0.5rem;
+                box-shadow:0 12px 28px rgba(0,0,0,0.55), 0 4px 8px rgba(0,0,0,0.35);
+                z-index:1050; overflow:hidden; color:#e6e6e6;
+                font-family:'Segoe UI', Roboto, sans-serif;">
+      <div id="global-camera-header"
+           style="display:flex; align-items:center; gap:0.5rem; padding:0.35rem 0.5rem;
+                  background:#22232b; border-bottom:1px solid #303841; cursor:default;">
+        <span style="font-size:0.75rem; letter-spacing:0.05em; text-transform:uppercase;
+                     color:#9aa0a6; margin-right:auto;">Live Camera</span>
+        <select id="global-camera-select"
+                style="background:#1a1a22; color:#e6e6e6; border:1px solid #303841;
+                       border-radius:0.25rem; font-size:0.75rem; padding:0.1rem 0.25rem;
+                       max-width:120px;">
+        </select>
+        <button id="global-camera-toggle" type="button"
+                title="Show / hide feed"
+                style="background:transparent; border:none; color:#e6e6e6;
+                       font-size:1rem; line-height:1; padding:0 0.25rem; cursor:pointer;">
+          ▾
+        </button>
+      </div>
+      <div id="global-camera-body"
+           style="position:relative; aspect-ratio:16/9; background:#0e0e14;
+                  display:flex; align-items:center; justify-content:center;">
+        <img id="global-camera-feed" alt=""
+             style="position:absolute; top:0; left:0; width:100%; height:100%;
+                    object-fit:cover; display:none;">
+        <div id="global-camera-placeholder"
+             style="color:#9aa0a6; font-family:monospace; font-size:0.75rem;
+                    text-align:center; padding:0.5rem;">
+          waiting for camera…
+        </div>
+      </div>
+    </div>
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Home</a>
@@ -51,6 +92,97 @@
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
+
+    <!-- Socket.IO loaded once at the layout level so every page (and the
+         persistent camera widget) shares one connection. Pages should reuse
+         window._sharedSocket instead of calling io() again. -->
+    <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.5.4/dist/socket.io.min.js"></script>
+    <script>
+      window._sharedSocket = window._sharedSocket || io();
+      // Backwards-compat alias for templates that already reference _pageSocket.
+      window._pageSocket = window._sharedSocket;
+    </script>
+
     {% block extra_scripts %}{% endblock %}
+
+    <!-- Global camera widget controller. Runs after the page-level scripts so
+         that any custom camera handling on a page can coexist with the
+         persistent widget. -->
+    <script>
+      (function () {
+        const sock = window._sharedSocket;
+        const sel = document.getElementById('global-camera-select');
+        const feed = document.getElementById('global-camera-feed');
+        const placeholder = document.getElementById('global-camera-placeholder');
+        const body = document.getElementById('global-camera-body');
+        const toggle = document.getElementById('global-camera-toggle');
+        const STORAGE_KEY = 'roboarm.activeCamera';
+
+        let activeCameraId = localStorage.getItem(STORAGE_KEY) || null;
+
+        function setActive(id) {
+          activeCameraId = id;
+          if (id) localStorage.setItem(STORAGE_KEY, id);
+          // Drop any stale frame so the operator gets a clear visual cue
+          // that they switched feeds and the new feed hasn't arrived yet.
+          feed.removeAttribute('src');
+          feed.style.display = 'none';
+          placeholder.textContent = 'waiting for ' + (id || 'camera') + '…';
+          placeholder.style.display = 'block';
+        }
+
+        function populate(cameras) {
+          sel.innerHTML = '';
+          if (!cameras || cameras.length === 0) {
+            const opt = document.createElement('option');
+            opt.textContent = 'no cameras';
+            opt.disabled = true;
+            sel.appendChild(opt);
+            sel.disabled = true;
+            return;
+          }
+          sel.disabled = false;
+          cameras.forEach(cam => {
+            const opt = document.createElement('option');
+            opt.value = cam.id;
+            opt.textContent = cam.name || cam.id;
+            sel.appendChild(opt);
+          });
+          // Honor the previously selected camera if it still exists,
+          // otherwise default to the first available feed.
+          const ids = cameras.map(c => c.id);
+          if (!activeCameraId || !ids.includes(activeCameraId)) {
+            activeCameraId = cameras[0].id;
+            localStorage.setItem(STORAGE_KEY, activeCameraId);
+          }
+          sel.value = activeCameraId;
+        }
+
+        fetch('/api/cameras')
+          .then(r => r.ok ? r.json() : [])
+          .then(populate)
+          .catch(() => populate([]));
+
+        sel.addEventListener('change', () => setActive(sel.value));
+
+        sock.on('camera_frame', function (data) {
+          if (!data || !data.frame) return;
+          // Tolerate older publishers that didn't tag frames with an id —
+          // treat them as the currently selected feed so existing setups
+          // keep working without changes.
+          const incomingId = data.camera_id || activeCameraId;
+          if (activeCameraId && incomingId !== activeCameraId) return;
+          feed.src = 'data:image/jpeg;base64,' + data.frame;
+          feed.style.display = 'block';
+          placeholder.style.display = 'none';
+        });
+
+        toggle.addEventListener('click', function () {
+          const collapsed = body.style.display === 'none';
+          body.style.display = collapsed ? 'flex' : 'none';
+          toggle.textContent = collapsed ? '▾' : '▸';
+        });
+      })();
+    </script>
 </body>
 </html> 
