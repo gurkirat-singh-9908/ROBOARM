@@ -30,6 +30,7 @@ setup(
             'sim_aruco_publisher = handeye_calibration.sim_aruco_publisher:main',
             'aruco_to_target = handeye_calibration.aruco_to_target:main',
             'manual_joint_commander = handeye_calibration.manual_joint_commander:main',
+            'residual_filter = handeye_calibration.residual_filter:main',
         ],
     },
 )

@@ -60,8 +60,11 @@ def generate_launch_description():
         name='aruco_detect',
         output='screen',
         parameters=[{
-            # Headless Pi → cv2.imshow has no display. Force off.
-            'show_feed':    False,
+            # Live detection window is the default — set to False here when
+            # launching on a headless box (e.g. Pi over SSH without an X
+            # forwarder). The node also auto-disables it if cv2 can't open
+            # a window, so leaving True is safe in mixed setups.
+            'show_feed':    True,
             'camera_frame': cfg['camera_frame'],
         }],
     )
