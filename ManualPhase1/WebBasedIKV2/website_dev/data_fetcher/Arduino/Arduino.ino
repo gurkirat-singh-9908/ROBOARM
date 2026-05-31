@@ -42,7 +42,9 @@ void setGripper(int8_t dir) {
 
 void startGripperPulse(int signedMs) {
   if (signedMs == 0) {
-    setGripper(0);
+    // 0 = "no gripper command in this packet" — do NOT brake here, or the
+    // idle packets streaming between commands would kill every pulse after
+    // one serial interval. tickGripper() brakes at the pulse's timed end.
     return;
   }
   unsigned long mag = (unsigned long) (signedMs < 0 ? -signedMs : signedMs);
