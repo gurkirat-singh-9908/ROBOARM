@@ -97,9 +97,14 @@ class ArduinoBridge(Node):
         self.declare_parameter('jump_threshold_deg',  25.0)   # warn threshold
 
         # Gripper (DC motor, no feedback) — host owns state.
+        # ms_per_percent: calibrated 15.0 s full mechanical sweep, derated to
+        # 13.5 s (1.5 s margin) so the jaws stop short of the hard stop and
+        # apply grip traction instead of stalling. 13500 ms / 100 % = 135.0.
+        # max_pulse_ms: 14000 covers a full 0→100 % command in a single pulse
+        # with 500 ms slack, so the bridge doesn't have to chunk the sweep.
         self.declare_parameter('gripper_state_path',     _DEFAULT_STATE_PATH)
-        self.declare_parameter('gripper_ms_per_percent', 30.0)   # calibrate!
-        self.declare_parameter('gripper_max_pulse_ms',   5000)
+        self.declare_parameter('gripper_ms_per_percent', 135.0)
+        self.declare_parameter('gripper_max_pulse_ms',   14000)
 
         self._port      = self.get_parameter('serial_port').value
         self._baud      = self.get_parameter('baud_rate').value

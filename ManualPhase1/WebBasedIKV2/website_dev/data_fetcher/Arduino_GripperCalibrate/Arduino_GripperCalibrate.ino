@@ -11,8 +11,8 @@
  * Open Arduino IDE Serial Monitor at 115200 baud, line ending = Newline.
  * Send single-character commands (Enter sends them):
  *
- *   f  motor forward (direction A — which one depends on wiring)
- *   b  motor backward (direction B)
+ *   f  close gripper  (direction A — which one depends on wiring)
+ *   b  open gripper   (direction B)
  *   p  pause          (brake motor + pause timer, print elapsed)
  *   s  start          (arm timer, zero accumulator)
  *   r  reset          (brake motor, disarm timer, zero accumulator)
@@ -21,10 +21,10 @@
  * Wire-flip safe: the timer counts whenever the motor is running and
  * recording is armed, no matter which letter started it. Typical session:
  *
- *   b  -> jog to one mechanical limit
+ *   b  -> open gripper to one mechanical limit
  *   p  -> stop at the limit
  *   s  -> arm timer
- *   f  -> drive to the opposite limit
+ *   f  -> close gripper to the opposite limit
  *   p  -> stop; sketch prints total milliseconds and ms_per_percent
  *
  * Safety: if no command arrives for SAFETY_TIMEOUT_MS while motor is on,
@@ -136,8 +136,8 @@ void printState() {
 
 void handleChar(char c) {
   switch (c) {
-    case 'f': case 'F': startMotor(+1, "forward");  lastCommandMs = millis(); break;
-    case 'b': case 'B': startMotor(-1, "backward"); lastCommandMs = millis(); break;
+    case 'f': case 'F': startMotor(+1, "close");    lastCommandMs = millis(); break;
+    case 'b': case 'B': startMotor(-1, "open");     lastCommandMs = millis(); break;
     case 'p': case 'P': pauseMotor(true);           lastCommandMs = millis(); break;
     case 's': case 'S': armRecording();             lastCommandMs = millis(); break;
     case 'r': case 'R': resetAll();                 lastCommandMs = millis(); break;
@@ -171,7 +171,7 @@ void setup() {
 
   Serial.println();
   Serial.println("=== Gripper calibration ===");
-  Serial.println("cmds: f=fwd  b=back  p=pause  s=start  r=reset  ?=state");
+  Serial.println("cmds: f=close  b=open  p=pause  s=start  r=reset  ?=state");
 }
 
 void loop() {

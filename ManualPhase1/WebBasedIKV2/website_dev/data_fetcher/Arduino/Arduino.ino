@@ -8,7 +8,11 @@
 #define GRIPPER_IN2 13
 
 // Safety cap on a single motor pulse.
-static const unsigned long MAX_PULSE_MS = 5000;
+// Calibrated full sweep is 15.0 s; effective sweep (derated for grip
+// traction) is 13.5 s. Cap = 14000 ms gives a single packet enough room
+// for a full 0→100 % sweep with 500 ms slack while still hard-braking if
+// host sends something pathological.
+static const unsigned long MAX_PULSE_MS = 14000;
 
 Servo s1, s2, s3, s4, s5, s6;
 
