@@ -11,6 +11,7 @@ executes the trajectory.  bridge_node reads /joint_states and drives Arduino.
 """
 
 import math
+import os
 import sys
 import threading
 import time
@@ -42,6 +43,12 @@ CAMERA_MIN_PERIOD = 1.0 / 15.0
 # ── Workspace bounds (must match ik_mover.cpp constants) ──────────────────────
 _ARM_MAX_REACH = 0.75   # metres
 _ARM_MIN_REACH = 0.10   # metres
+
+# Web server (Flask/SocketIO) URL. MUST be the same instance the browser
+# connects to, or slider events never reach this node. Defaults to the local
+# server; override for remote/ngrok with e.g.
+#   WEB_SERVER_URL=https://flying-scorpion-neat.ngrok-free.app
+WEB_SERVER_URL = os.environ.get('WEB_SERVER_URL', 'http://localhost:8080')
 
 sio = socketio.Client()
 ros_node = None
@@ -254,12 +261,12 @@ def main():
             f'skipping initial publish. Arm will move on first slider input.')
 
     try:
-        print('Connecting to web server at https://flying-scorpion-neat.ngrok-free.app …')
-        sio.connect('https://flying-scorpion-neat.ngrok-free.app', wait_timeout=10)
+        print(f'Connecting to web server at {WEB_SERVER_URL} …')
+        sio.connect(WEB_SERVER_URL, wait_timeout=10)
         sio.wait()
     except Exception as e:
         print(f'Error: {e}')
-        print('Ensure the Flask server is running and ngrok tunnel is up at https://flying-scorpion-neat.ngrok-free.app')
+        print(f'Ensure the Flask server (app.py) is running and reachable at {WEB_SERVER_URL}')
         sys.exit(1)
     finally:
         ros_node.destroy_node()
