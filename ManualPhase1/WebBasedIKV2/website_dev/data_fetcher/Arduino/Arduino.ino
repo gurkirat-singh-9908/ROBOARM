@@ -12,7 +12,7 @@
 // traction) is 13.5 s. Cap = 14000 ms gives a single packet enough room
 // for a full 0→100 % sweep with 500 ms slack while still hard-braking if
 // host sends something pathological.
-static const unsigned long MAX_PULSE_MS = 14000;
+static const unsigned long MAX_PULSE_MS = 16000;
 
 Servo s1, s2, s3, s4, s5, s6;
 
