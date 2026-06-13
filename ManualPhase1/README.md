@@ -52,7 +52,13 @@ ros2 run arduino_bridge bridge_node --ros-args \
 TX  (ROS → Arduino):   "j0 j1 j2 j3 j4 j5 gripper checksum\n"
 RX  (Arduino → ROS):   "OK:j0,j1,j2,j3,j4,j5 grip=<g>"  on success
                         "ERR:checksum_fail(...)"           on bad checksum
+
+Control bytes (out-of-band, single char):
+TX  "X\n"  e-stop  — brake gripper now (even mid-pulse), freeze
+TX  "G\n"  go      — release e-stop
+RX  "ESTOP" / "RESUME" acks
 ```
 
-All values are integers (microseconds for servo writeMicroseconds).
+`j0..j5` are servo angles 0–180. `gripper` is a **signed** DC-motor pulse in
+ms (>0 open, <0 close, 0 = no change), not an angle.
 `checksum = (j0+j1+j2+j3+j4+j5+gripper) & 0xFFFF`

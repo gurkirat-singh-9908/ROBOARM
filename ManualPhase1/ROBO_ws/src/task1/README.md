@@ -81,10 +81,10 @@ ros2 topic pub --once /roboarm/estop std_msgs/Bool "{data: true}"   # kill
 ros2 topic pub --once /roboarm/estop std_msgs/Bool "{data: false}"  # start
 ```
 
-Run the helper while the bridge/picker are already up. Note: the gripper is
-a DC motor whose pulse the Arduino runs to completion — an in-flight grip
-pulse finishes before the freeze fully bites; everything else stops
-immediately.
+Run the helper while the bridge/picker are already up. On KILL the bridge
+also sends the Arduino an `X` control byte, which brakes the gripper DC
+motor immediately — even mid-pulse — so the grip aborts too, not just the
+servos. (`G` on release.)
 
 ## Key parameters
 

@@ -50,12 +50,14 @@ s1..s6 servos + DC-motor gripper
 
 ## Serial protocol
 ```
-TX (bridge→Arduino):  "j0 j1 j2 j3 j4 j5 gripper checksum\n"   (all int, µs for servos)
+TX (bridge→Arduino):  "j0 j1 j2 j3 j4 j5 gripper checksum\n"   (j0..j5 servo deg 0-180)
 RX (Arduino→bridge):  "OK:j0,j1,j2,j3,j4,j5 grip=<g>"   |   "ERR:checksum_fail(...)" | "ERR:bad_parse(...)"
 checksum = (j0+j1+j2+j3+j4+j5+gripper) & 0xFFFF
+Control bytes (out-of-band): TX "X\n"=e-stop (brake gripper now, freeze), "G\n"=release.  RX "ESTOP"/"RESUME".
 ```
 - Field [6] (gripper) = **signed pulse-duration ms**: sign=direction, magnitude=run-time (DC-motor, no feedback). Host owns last-commanded %, persisted to `arduino_bridge/gripper_state.txt`.
 - Gripper convention: `f`=close, `b`=open (after servo→motor swap). See memory `gripper_direction`.
+- `rec/rec.ino` drives the gripper via H-bridge IN1=12/IN2=13 (non-blocking ms pulse, timed brake) and honors the `X`/`G` e-stop bytes. Bridge sends `X` on `/roboarm/estop`=True.
 
 ## Hardware / servo calibration
 Arduino Mega. Angles radians internally (`c2r`/`c2d` helpers in Contrl).

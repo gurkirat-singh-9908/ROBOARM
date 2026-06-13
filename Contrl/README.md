@@ -21,7 +21,7 @@ Current-generation kinematics and Arduino firmware for the 6-DOF robotic arm.
 | `test.py` | Unit-level sanity checks |
 | `contrl.ino` | Arduino sketch (stub – needs implementation) |
 | `reciver.ino` | Arduino receiver sketch (baud 115200, listens to bridge) |
-| `rec/rec.ino` | Current Arduino sketch: parses 8-value serial packet, validates checksum, drives servos via `writeMicroseconds()` |
+| `rec/rec.ino` | Current Arduino sketch: parses 8-value packet, validates checksum, drives 6 servos via `writeMicroseconds()` + DC gripper (H-bridge IN1=12/IN2=13, signed-ms pulse). Honors `X`/`G` e-stop control bytes (brake gripper mid-pulse + freeze / resume) |
 
 ## Robot parameters
 

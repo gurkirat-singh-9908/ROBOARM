@@ -277,9 +277,26 @@ class ArduinoBridge(Node):
             # clear the dedup cache so the first post-resume pose is re-sent.
             self._pending_gripper_ms = 0
             self._last_sent = None
-            self.get_logger().warn('E-STOP ENGAGED — freezing arm, dropping serial writes.')
+            # Tell the Arduino to brake the gripper NOW (aborts an in-flight
+            # pulse mid-sweep — rec.ino's "X" control byte). Sent directly
+            # because _on_joints/_on_gripper are blocked while estopped.
+            self._send_control_byte('X')
+            self.get_logger().warn('E-STOP ENGAGED — freezing arm, gripper braked.')
         else:
+            self._send_control_byte('G')   # release Arduino freeze
             self.get_logger().warn('E-STOP released — resuming.')
+
+    def _send_control_byte(self, ch: str):
+        """Write a single out-of-band control byte (e.g. 'X'/'G') to the Arduino."""
+        if self._sim_mode:
+            self.get_logger().info(f'[SIM] → {ch}')
+            return
+        if self.ser is None or not self.ser.is_open:
+            return
+        try:
+            self.ser.write(f'{ch}\n'.encode('ascii'))
+        except serial.SerialException as exc:
+            self.get_logger().error(f'Serial write failed sending "{ch}": {exc}')
 
     def _on_gripper(self, msg: Float64):
         """
