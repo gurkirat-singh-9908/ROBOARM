@@ -45,7 +45,7 @@ s1..s6 servos + DC-motor gripper
 | `ArUcoMarkerRos` | camera node + ArUco detect | `camera_node.py`, `aruco_detect.py` |
 | `roboticarm_description` | URDF/Xacro, meshes, RViz, launch | `display.launch.py`, `gazebo.launch.py` |
 | `roboticarm_moveit2` | MoveIt2 config (SRDF, kinematics, controllers) | `demo.launch.py`, `ik_pipeline.launch.py`, `move_group.launch.py` |
-| `task1` | high-level task node | `object_detector`, `visual_servo`, `moveit_interface`, `joint_tracker` |
+| `task1` | high-level tasks; **Task 1 = pick tomato** (conf gate ≥0.75) | `tomato_detector`, `pick_tomato` (+ generic demo: `object_detector`, `visual_servo`, `joint_tracker`, `moveit_interface`) |
 | `handeye_calibration` | eye-in-hand calibration workflow | `sample_collector`, `compute_calibration`, `publish_calibration`, `manual_joint_commander`, `aruco_to_target`, `sim_aruco_publisher`, `residual_filter` |
 
 ## Serial protocol

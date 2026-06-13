@@ -21,7 +21,7 @@ Active ROS2 workspace.  Build with `colcon build` from inside this directory.
 | `ArUcoMarkerRos` | Camera node + ArUco marker detection |
 | `roboticarm_description` | URDF/Xacro model, launch files, RViz configs, STL meshes |
 | `roboticarm_moveit2` | MoveIt2 configuration (SRDF, kinematics, controllers) |
-| `task1` | High-level task node (visual servo, object detection, MoveIt interface) |
+| `task1` | High-level tasks. **Task 1 = pick a tomato** (`tomato_detector` + `pick_tomato`, confidence gate ≥0.75); plus generic blob-servo demo nodes. See [`ROBO_ws/src/task1/README.md`](ROBO_ws/src/task1/README.md) |
 | `handeye_calibration` | Eye-in-hand calibration (sample capture, solve, publish TF) |
 
 ## Quick-start (ROBO_ws)

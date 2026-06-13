@@ -103,13 +103,8 @@ class ArduinoBridge(Node):
         # max_pulse_ms: 14000 covers a full 0→100 % command in a single pulse
         # with 500 ms slack, so the bridge doesn't have to chunk the sweep.
         self.declare_parameter('gripper_state_path',     _DEFAULT_STATE_PATH)
-<<<<<<< HEAD
         self.declare_parameter('gripper_ms_per_percent', 150.0)   # 15.0 s full sweep (was 135.0 = 13.5 s)
         self.declare_parameter('gripper_max_pulse_ms',   16000)    # must exceed full sweep
-=======
-        self.declare_parameter('gripper_ms_per_percent', 150.0)
-        self.declare_parameter('gripper_max_pulse_ms',   16000)
->>>>>>> 69f26d9efa89976812088d6e7930d12ae553431c
 
         self._port      = self.get_parameter('serial_port').value
         self._baud      = self.get_parameter('baud_rate').value
