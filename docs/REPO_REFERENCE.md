@@ -22,9 +22,9 @@ s1..s6 servos + DC-motor gripper
 ## Directory map
 | Path | Role | Status |
 |------|------|--------|
-| `Contrl/` | Active IK solvers, visualizer, Arduino firmware (`rec/rec.ino` = current sketch) | active |
+| `Contrl/` | IK solvers + visualizer (active Python). The `.ino` files here are dead/superseded — NOT the live firmware | mixed |
 | `ManualPhase1/ROBO_ws/` | **Current ROS2 Jazzy workspace** — build here w/ `colcon build` | active |
-| `ManualPhase1/WebBasedIKV2/` | V2 Flask web control (Pi), `website_dev/app.py` | reference/secondary |
+| `ManualPhase1/WebBasedIKV2/` | V2 Flask web control (Pi), `website_dev/app.py`; **live Arduino firmware** at `data_fetcher/Arduino/Arduino.ino` | reference/secondary |
 | `vision/` | HSV colour-detection scripts | utility |
 | `vision/aruco_prototypes/` | Standalone ArUco prototypes (superseded by ArUcoMarkerRos) | scratch |
 | `docs/` | REPO_REFERENCE, CHANGELOG, TASK, AUDIT, PI_SETUP | reference |
@@ -57,7 +57,7 @@ Control bytes (out-of-band): TX "X\n"=e-stop (brake gripper now, freeze), "G\n"=
 ```
 - Field [6] (gripper) = **signed pulse-duration ms**: sign=direction, magnitude=run-time (DC-motor, no feedback). Host owns last-commanded %, persisted to `arduino_bridge/gripper_state.txt`.
 - Gripper convention: `f`=close, `b`=open (after servo→motor swap). See memory `gripper_direction`.
-- `rec/rec.ino` drives the gripper via H-bridge IN1=12/IN2=13 (non-blocking ms pulse, timed brake) and honors the `X`/`G` e-stop bytes. Bridge sends `X` on `/roboarm/estop`=True.
+- Live sketch `data_fetcher/Arduino/Arduino.ino` drives the gripper via H-bridge IN1=12/IN2=13 (non-blocking ms pulse, timed brake) and honors the `X`/`G` e-stop bytes. Bridge sends `X` on `/roboarm/estop`=True.
 
 ## Hardware / servo calibration
 Arduino Mega. Angles radians internally (`c2r`/`c2d` helpers in Contrl).

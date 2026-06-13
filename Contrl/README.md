@@ -19,9 +19,15 @@ Current-generation kinematics and Arduino firmware for the 6-DOF robotic arm.
 | `88.py` | Quick FK test / scratch file |
 | `t2.py` | Scratch / test |
 | `test.py` | Unit-level sanity checks |
-| `contrl.ino` | Arduino sketch (stub – needs implementation) |
-| `reciver.ino` | Arduino receiver sketch (baud 115200, listens to bridge) |
-| `rec/rec.ino` | Current Arduino sketch: parses 8-value packet, validates checksum, drives 6 servos via `writeMicroseconds()` + DC gripper (H-bridge IN1=12/IN2=13, signed-ms pulse). Honors `X`/`G` e-stop control bytes (brake gripper mid-pulse + freeze / resume) |
+| `contrl.ino` | Dead stub (empty). |
+| `reciver.ino` | Old servo-only receiver. Superseded. |
+| `rec/rec.ino` | Old servo-only receiver (no gripper motor). Superseded. |
+
+> **Live Arduino firmware is NOT here.** The production sketch is
+> [`ManualPhase1/WebBasedIKV2/website_dev/data_fetcher/Arduino/Arduino.ino`](../ManualPhase1/WebBasedIKV2/website_dev/data_fetcher/Arduino/Arduino.ino)
+> — it drives the 6 servos + DC gripper (H-bridge IN1=12/IN2=13, signed-ms
+> pulse) and honors the `X`/`G` e-stop control bytes. The `.ino` files in
+> this folder are kept only as history.
 
 ## Robot parameters
 

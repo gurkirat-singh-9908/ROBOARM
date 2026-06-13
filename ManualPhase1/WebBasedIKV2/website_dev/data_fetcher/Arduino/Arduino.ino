@@ -24,6 +24,11 @@ int crntAngles[6] = {90, 90, 90, 90, 90, 90};
 int8_t gripperDir = 0;
 unsigned long gripperEndMs = 0;
 
+// E-stop. true = frozen: gripper braked, motion packets ignored.
+// Engaged/released by the out-of-band control bytes "X"/"G" (sent by
+// bridge_node on /roboarm/estop).
+bool estopped = false;
+
 void setGripper(int8_t dir) {
   // Both LOW is coast on L298N / brake on TB6612 — safe default.
   // Switch to (HIGH,HIGH) for active brake if the driver coasts open.
@@ -59,6 +64,18 @@ void tickGripper() {
   }
 }
 
+void engageEstop() {
+  estopped = true;
+  setGripper(0);             // brake the motor NOW, even mid-pulse
+  gripperEndMs = millis();   // disarm the pulse timer
+  Serial.println("ESTOP");
+}
+
+void releaseEstop() {
+  estopped = false;
+  Serial.println("RESUME");
+}
+
 void setup() {
   Serial.begin(115200);
 
@@ -88,6 +105,14 @@ void loop() {
 
     String data = Serial.readStringUntil('\n');
     data.trim();
+    if (data.length() == 0) return;
+
+    // Out-of-band control bytes (checked before packet parse).
+    if (data == "X" || data == "x") { engageEstop();  return; }
+    if (data == "G" || data == "g") { releaseEstop(); return; }
+
+    // While frozen, drop motion packets (gripper stays braked, servos hold).
+    if (estopped) return;
 
     int values[8];        // packet: s1..s6, gripper_pulse_ms (signed), checksum
     int index = 0;
