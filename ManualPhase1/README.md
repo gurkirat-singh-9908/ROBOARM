@@ -1,14 +1,10 @@
 # ManualPhase1 – Manual-Control Phase
 
-Development history and current ROS2 workspace for manual arm control.
+Current ROS2 workspace and active web interface for manual arm control.
+Earlier prototypes (V1 slider GUI, old `ws` snapshot, Arduino test sketch)
+are frozen under [`archive/manualphase1-history/`](../archive/manualphase1-history/).
 
 ## Sub-folders
-
-### `SliderBasedIKV1/` – Version 1: Slider-based IK
-First working prototype. Slider GUI on desktop sends joint angles to Arduino over USB serial.
-- `contrl/` – Python IK scripts (older snapshots; active versions are in `Contrl/` at the repo root)
-- `gui/` – Arduino `gui.ino` sketch + `updateServos` helpers
-- `misc/` – Early `controller.py` and `reciver.ino`
 
 ### `WebBasedIKV2/` – Version 2: Flask web interface
 Web-based IK control served from a Raspberry Pi over the local network.
@@ -26,12 +22,7 @@ Active ROS2 workspace.  Build with `colcon build` from inside this directory.
 | `roboticarm_description` | URDF/Xacro model, launch files, RViz configs, STL meshes |
 | `roboticarm_moveit2` | MoveIt2 configuration (SRDF, kinematics, controllers) |
 | `task1` | High-level task node (visual servo, object detection, MoveIt interface) |
-
-### `ws/` – Earlier ROS2 workspace snapshot
-Near-identical to `ROBO_ws/` with minor differences in `fake_camera.py` and `setup.py`.  Kept for reference.
-
-### `test/` – Arduino GUI test
-Standalone `gui.ino` + `updateServos` test sketch.
+| `handeye_calibration` | Eye-in-hand calibration (sample capture, solve, publish TF) |
 
 ## Quick-start (ROBO_ws)
 

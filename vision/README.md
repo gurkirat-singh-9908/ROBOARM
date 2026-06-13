@@ -1,4 +1,4 @@
-# vission – Computer Vision Utilities
+# vision – Computer Vision Utilities
 
 HSV colour-based object detection scripts for the robotic arm camera.
 
@@ -8,6 +8,7 @@ HSV colour-based object detection scripts for the robotic arm camera.
 |------|-------------|
 | `initialblue.py` | Blue object detector with tunable HSV sliders (`H: 100-113`, `S: 118-230`, `V: 113-255`) |
 | `tempdetection.py` | Generic colour detector with full-range HSV sliders for calibration |
+| `aruco_prototypes/` | Standalone ArUco detection scripts (pre-ROS; superseded by `ROBO_ws/src/ArUcoMarkerRos/`) |
 
 ## Usage
 

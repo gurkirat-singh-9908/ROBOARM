@@ -9,13 +9,10 @@ __pycache__/
 *.pyd
 .Python
 
-# ROS2 build artifacts
+# ROS2 build artifacts (colcon)
 ManualPhase1/ROBO_ws/build/
 ManualPhase1/ROBO_ws/install/
 ManualPhase1/ROBO_ws/log/
-ManualPhase1/ws/build/
-ManualPhase1/ws/install/
-ManualPhase1/ws/log/
 
 # Editor / OS
 .vscode/

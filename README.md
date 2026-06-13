@@ -1,4 +1,3 @@
-#welcome
 # ROBOARM – 6-DOF Robotic Arm
 
 A custom 6-DOF servo-driven robotic arm with ROS2 integration, inverse kinematics, ArUco marker vision, and a web control interface.
@@ -10,18 +9,20 @@ A custom 6-DOF servo-driven robotic arm with ROS2 integration, inverse kinematic
 ```
 ROBOARM/
 ├── Contrl/             # Active IK solvers, visualizer, and Arduino firmware
-├── ManualPhase1/       # Development history + current ROS2 workspace
-│   ├── SliderBasedIKV1/    – V1: Desktop slider GUI → Arduino serial
-│   ├── WebBasedIKV2/       – V2: Flask web interface on Raspberry Pi
+├── ManualPhase1/       # Current ROS2 workspace + active web interface
 │   ├── ROBO_ws/            – Current ROS2 (Jazzy) workspace
-│   └── ws/                 – Earlier ROS2 workspace snapshot
-├── vission/            # Colour detection / HSV calibration scripts
-├── Temp/               # Standalone ArUco prototype scripts
-├── OldData/            # Legacy website code (reference only)
+│   └── WebBasedIKV2/       – V2: Flask web interface on Raspberry Pi
+├── vision/             # Colour detection + ArUco prototypes
+│   └── aruco_prototypes/   – Standalone ArUco scripts (pre-ROS)
+├── docs/               # REPO_REFERENCE, CHANGELOG, TASK, AUDIT, PI_SETUP
+├── archive/            # Frozen history (reference only)
+│   ├── legacy-website/        – Pre-rewrite Flask app + external JS refs
+│   └── manualphase1-history/  – V1 slider GUI, old ws snapshot, test sketch
 ├── pkg/                # installed_packages.txt snapshot
-├── commands.md         # Change log and useful commands
 └── start_roboarm.sh    # Quick-start shell script
 ```
+
+See [`docs/REPO_REFERENCE.md`](docs/REPO_REFERENCE.md) for the full internal map, gotchas, and pipeline detail.
 
 ---
 
@@ -149,8 +150,8 @@ Set `ROS_DOMAIN_ID=10` and `ROS_LOCALHOST_ONLY=0` on both machines to share ROS 
 ## Known issues / roadmap
 
 - `Contrl/contrl.ino` stub needs implementation for direct hardware control.
-- Gripper topic not yet wired to `bridge_node.py` (hardcoded 0).
 - Joint 4/5 angle correction in `bridge_node.py` may need tuning after physical wiring verification.
+- Hand-eye calibration in progress — see [`docs/TASK.md`](docs/TASK.md) (Pi captures samples, PC solves).
 - YOLO integration (`yolo/`) is environment-only; detection script not yet written.
 
 ---
@@ -160,8 +161,8 @@ Set `ROS_DOMAIN_ID=10` and `ROS_LOCALHOST_ONLY=0` on both machines to share ROS 
 Each sub-folder has its own `README.md` with more detail:
 - [`Contrl/README.md`](Contrl/README.md)
 - [`ManualPhase1/README.md`](ManualPhase1/README.md)
-- [`ManualPhase1/SliderBasedIKV1/README.md`](ManualPhase1/SliderBasedIKV1/README.md)
 - [`ManualPhase1/WebBasedIKV2/README.md`](ManualPhase1/WebBasedIKV2/README.md)
-- [`vission/README.md`](vission/README.md)
-- [`Temp/README.md`](Temp/README.md)
-- [`OldData/README.md`](OldData/README.md)
+- [`vision/README.md`](vision/README.md)
+- [`vision/aruco_prototypes/README.md`](vision/aruco_prototypes/README.md)
+- [`archive/manualphase1-history/SliderBasedIKV1/README.md`](archive/manualphase1-history/SliderBasedIKV1/README.md)
+- [`archive/legacy-website/README.md`](archive/legacy-website/README.md)
