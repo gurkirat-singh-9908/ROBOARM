@@ -44,8 +44,8 @@ def generate_launch_description():
     )
 
     camera_node = Node(
-        package='ArUcoMarkerRos',
-        executable='camera_node',
+        package='location',
+        executable='camera',
         name='camera_node',
         output='screen',
         parameters=[{
@@ -55,8 +55,8 @@ def generate_launch_description():
     )
 
     aruco_node = Node(
-        package='ArUcoMarkerRos',
-        executable='aruco_detect',
+        package='location',
+        executable='aruco_source',
         name='aruco_detect',
         output='screen',
         parameters=[{

@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>task1</name>
+  <name>tasks</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Task element: object-agnostic high-level orchestrators (pick)
+    plus the global e-stop helper.</description>
   <maintainer email="gurkiratsinghvirdi10@gmail.com">kirat</maintainer>
   <license>TODO: License declaration</license>
 
@@ -11,9 +12,6 @@
   <depend>geometry_msgs</depend>
   <depend>sensor_msgs</depend>
   <depend>std_msgs</depend>
-  <depend>moveit_msgs</depend>
-  <depend>cv_bridge</depend>
-  <depend>python3-opencv</depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

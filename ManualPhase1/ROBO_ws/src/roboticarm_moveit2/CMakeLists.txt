@@ -22,9 +22,10 @@ install(TARGETS ik_mover
   DESTINATION lib/${PROJECT_NAME}
 )
 
-# ── Python scripts (pose_publisher) ───────────────────────────────────────────
+# ── Python scripts (pose_publisher, traj_interpolator) ────────────────────────
 install(PROGRAMS
   scripts/pose_publisher
+  scripts/traj_interpolator
   DESTINATION lib/${PROJECT_NAME}
 )
 

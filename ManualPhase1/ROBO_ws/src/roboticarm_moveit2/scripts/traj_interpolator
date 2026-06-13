@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+"""
+traj_interpolator — turn an ik_mover trajectory into smooth /joint_states,
+WITHOUT the ros2_control JointTrajectoryController.
+
+Why this exists: the apt ros2_control JTC segfaults on this box (on_init crash
+after the 2026-05-08 upgrade). ik_mover itself does not need ros2_control — it
+only needs robot_description (from robot_state_publisher) + a kinematics
+plugin. The single job JTC did was interpolating ik_mover's target trajectory
+into a smooth /joint_states stream for the arduino_bridge. This node does just
+that, in ~80 lines of pure rclpy, so the IK path no longer depends on the
+fragile (and apt-clobbered) ros2_control stack.
+
+  ik_mover ─/arm_controller/joint_trajectory─▶ traj_interpolator ─/joint_states─▶ bridge
+
+On each incoming trajectory it ramps every joint linearly from the current
+commanded position to the final point's positions over that point's
+time_from_start, publishing at `rate` Hz. Single-point trajectories (what
+ik_mover sends) are the common case; multi-point ones collapse to the last
+point. This is the seam where richer smoothing (velocity profiles, splines)
+goes in the motion-smoothing phase.
+"""
+
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import JointState
+from trajectory_msgs.msg import JointTrajectory
+
+
+class TrajInterpolator(Node):
+
+    def __init__(self):
+        super().__init__('traj_interpolator')
+
+        self.declare_parameter('rate', 50.0)               # Hz output
+        self.declare_parameter('traj_topic', '/arm_controller/joint_trajectory')
+        self.declare_parameter('joint_states_topic', '/joint_states')
+        self.declare_parameter('min_duration', 0.05)       # s floor for a ramp
+        rate = float(self.get_parameter('rate').value)
+        self._min_dur = float(self.get_parameter('min_duration').value)
+
+        self._names = []
+        self._start = []       # positions at ramp start
+        self._target = []      # positions at ramp end
+        self._t0 = None
+        self._dur = 0.0
+        self._current = {}     # name -> last published position
+
+        self.create_subscription(
+            JointTrajectory, self.get_parameter('traj_topic').value,
+            self._on_traj, 10)
+        self._pub = self.create_publisher(
+            JointState, self.get_parameter('joint_states_topic').value, 10)
+
+        self.create_timer(1.0 / rate, self._tick)
+        self.get_logger().info(
+            f'traj_interpolator up — {self.get_parameter("traj_topic").value} '
+            f'→ {self.get_parameter("joint_states_topic").value} @ {rate:g} Hz '
+            '(no ros2_control / JTC).')
+
+    def _on_traj(self, msg: JointTrajectory):
+        if not msg.points:
+            return
+        last = msg.points[-1]
+        self._names = list(msg.joint_names)
+        # Start from wherever each joint currently sits (0 if unseen).
+        self._start = [self._current.get(n, 0.0) for n in self._names]
+        self._target = list(last.positions)
+        dur = last.time_from_start.sec + last.time_from_start.nanosec * 1e-9
+        self._dur = max(self._min_dur, dur)
+        self._t0 = self.get_clock().now()
+
+    def _tick(self):
+        if self._t0 is None or not self._names:
+            return
+        elapsed = (self.get_clock().now() - self._t0).nanoseconds * 1e-9
+        frac = 1.0 if elapsed >= self._dur else elapsed / self._dur
+
+        pos = []
+        for i, n in enumerate(self._names):
+            p = self._start[i] + frac * (self._target[i] - self._start[i])
+            pos.append(p)
+            self._current[n] = p
+
+        msg = JointState()
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.name = self._names
+        msg.position = pos
+        self._pub.publish(msg)
+
+
+def main():
+    rclpy.init()
+    node = TrajInterpolator()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.destroy_node()
+        if rclpy.ok():
+            rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()

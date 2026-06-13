@@ -1,59 +1,67 @@
 """
-tomato_detector.py  —  red-tomato detector with a confidence score
+color_source.py  —  colour-threshold object-position source
 
-Task-1 vision front end. Grabs frames from a camera, segments red regions
-in HSV (red wraps the hue axis, so two bands are OR-ed), takes the largest
-blob, and scores how tomato-like it is.
+A location *source*: it answers "where is the object in the image and how sure
+am I". It is object-agnostic — what the object looks like (HSV bands, area
+floor, threshold, real size) comes from ``objects/<object>.yaml`` loaded via
+``object_config``. No object is hard-coded; swap this whole node for a YOLO
+source later without changing the contract below.
 
-Publishes (every frame, so downstream can detect loss-of-target):
-  /tomato/center      geometry_msgs/Point    x,y = blob centre px, z = radius px
-  /tomato/confidence  std_msgs/Float64       0.0 .. 1.0
+Pipeline: grab frame → HSV two-band mask (colour may wrap the hue axis) →
+morphology → largest blob → confidence from circularity × fill.
 
-Confidence is a classical heuristic — NO neural net is involved (no model
-weights / torch in this repo). It blends:
-  • circularity  = 4·π·area / perimeter²   (1.0 for a perfect circle)
-  • fill         = area / enclosing-circle-area
-A ripe tomato reads as a round, solid, well-filled red blob, so both terms
-sit near 1.0. Below `min_area` px the score is forced to 0. Swap this node
-for a YOLO detector later without touching the picker — the topic contract
-(center + confidence) stays the same.
+Published contract (every frame, so a finder/picker can detect loss):
+  /location/center      geometry_msgs/Point    x,y = blob centre px, z = radius px
+  /location/confidence  std_msgs/Float64       0.0 .. 1.0
+  /location/detected    std_msgs/Bool          confidence >= pick_threshold
+
+If the object has no config the node logs how to tune it and idles (publishes
+detected=False) instead of crashing.
 """
 
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Point
-from std_msgs.msg import Float64
+from std_msgs.msg import Float64, Bool
 import cv2
 import numpy as np
 
+from location import object_config
 
-class TomatoDetector(Node):
+
+class ColorSource(Node):
 
     def __init__(self):
-        super().__init__('tomato_detector')
+        super().__init__('color_source')
 
         # ── Parameters ──────────────────────────────────────────────────────
+        self.declare_parameter('object', 'tomato')      # which objects/<name>.yaml
         self.declare_parameter('camera_index', 0)
         self.declare_parameter('show_feed', True)
-        self.declare_parameter('min_area', 600)          # px², reject specks
-        self.declare_parameter('blur_ksize', 5)          # odd; 0 disables
-        # Red lives at both ends of the hue circle → two bands.
-        self.declare_parameter('lower1', [0, 120, 70])
-        self.declare_parameter('upper1', [10, 255, 255])
-        self.declare_parameter('lower2', [170, 120, 70])
-        self.declare_parameter('upper2', [180, 255, 255])
 
+        self._object = self.get_parameter('object').value
         cam_idx = self.get_parameter('camera_index').value
         self._show_feed = bool(self.get_parameter('show_feed').value)
-        self._min_area = int(self.get_parameter('min_area').value)
-        self._blur = int(self.get_parameter('blur_ksize').value)
-        self._lower1 = np.array(self.get_parameter('lower1').value, dtype=np.uint8)
-        self._upper1 = np.array(self.get_parameter('upper1').value, dtype=np.uint8)
-        self._lower2 = np.array(self.get_parameter('lower2').value, dtype=np.uint8)
-        self._upper2 = np.array(self.get_parameter('upper2').value, dtype=np.uint8)
 
-        self.center_pub = self.create_publisher(Point, '/tomato/center', 10)
-        self.conf_pub = self.create_publisher(Float64, '/tomato/confidence', 10)
+        # Publishers come first so we can emit detected=False while idle.
+        self.center_pub = self.create_publisher(Point, '/location/center', 10)
+        self.conf_pub = self.create_publisher(Float64, '/location/confidence', 10)
+        self.detected_pub = self.create_publisher(Bool, '/location/detected', 10)
+
+        # ── Object config (data-driven thresholding) ────────────────────────
+        self.cap = None
+        try:
+            self._cfg = object_config.load(self._object)
+            self.get_logger().info(
+                f"Loaded config for '{self._object}' from "
+                f"{object_config.config_path(self._object)}")
+        except object_config.MissingObjectConfig as exc:
+            # Idle, don't crash: a finder/picker just sees detected=False.
+            self.get_logger().error(str(exc))
+            self._idle_timer = self.create_timer(0.5, self._idle)
+            return
+
+        self._load_cfg(self._cfg)
 
         self.cap = cv2.VideoCapture(cam_idx)
         if not self.cap.isOpened():
@@ -65,7 +73,23 @@ class TomatoDetector(Node):
         self._kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
         self.timer = self.create_timer(0.03, self.loop)   # ~30 Hz
         self.get_logger().info(
-            'tomato_detector up — publishing /tomato/center + /tomato/confidence')
+            f"color_source up for '{self._object}' — publishing /location/*")
+
+    # ── Config ───────────────────────────────────────────────────────────────
+
+    def _load_cfg(self, cfg: dict):
+        self._min_area = int(cfg.get('min_area', 600))
+        self._blur = int(cfg.get('blur_ksize', 5))
+        self._threshold = float(cfg.get('pick_threshold', 0.75))
+        self._lower1 = np.array(cfg['lower1'], dtype=np.uint8)
+        self._upper1 = np.array(cfg['upper1'], dtype=np.uint8)
+        self._lower2 = np.array(cfg['lower2'], dtype=np.uint8)
+        self._upper2 = np.array(cfg['upper2'], dtype=np.uint8)
+
+    def _idle(self):
+        """No config: keep telling downstream there is no target."""
+        d = Bool(); d.data = False
+        self.detected_pub.publish(d)
 
     # ── Detection ───────────────────────────────────────────────────────────
 
@@ -111,30 +135,29 @@ class TomatoDetector(Node):
             confidence, center, radius = self._score(c)
 
         # Always publish — confidence 0 with no centre means "no target".
-        conf_msg = Float64()
-        conf_msg.data = confidence
+        conf_msg = Float64(); conf_msg.data = confidence
         self.conf_pub.publish(conf_msg)
+        det_msg = Bool(); det_msg.data = confidence >= self._threshold
+        self.detected_pub.publish(det_msg)
 
         if center is not None:
             p = Point()
-            p.x = float(center[0])
-            p.y = float(center[1])
-            p.z = float(radius)
+            p.x = float(center[0]); p.y = float(center[1]); p.z = float(radius)
             self.center_pub.publish(p)
 
         if self._show_feed:
             if center is not None:
-                colour = (0, 255, 0) if confidence >= 0.75 else (0, 165, 255)
+                colour = (0, 255, 0) if confidence >= self._threshold else (0, 165, 255)
                 cv2.circle(frame, center, int(radius), colour, 2)
                 cv2.circle(frame, center, 4, colour, -1)
-                cv2.putText(frame, f'conf {confidence:.2f}',
+                cv2.putText(frame, f'{self._object} {confidence:.2f}',
                             (center[0] - 40, center[1] - int(radius) - 10),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, colour, 2)
-            cv2.imshow('tomato_detector', frame)
+            cv2.imshow('color_source', frame)
             cv2.waitKey(1)
 
     def destroy_node(self):
-        if self.cap.isOpened():
+        if self.cap is not None and self.cap.isOpened():
             self.cap.release()
         if self._show_feed:
             cv2.destroyAllWindows()
@@ -144,7 +167,7 @@ class TomatoDetector(Node):
 def main():
     rclpy.init()
     try:
-        node = TomatoDetector()
+        node = ColorSource()
     except RuntimeError:
         rclpy.shutdown()
         return

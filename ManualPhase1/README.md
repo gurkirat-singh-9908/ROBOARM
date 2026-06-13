@@ -15,14 +15,17 @@ Web-based IK control served from a Raspberry Pi over the local network.
 ### `ROBO_ws/` – Current ROS2 workspace (Jazzy)
 Active ROS2 workspace.  Build with `colcon build` from inside this directory.
 
-| Package | Description |
-|---------|-------------|
-| `arduino_bridge` | ROS2 node that bridges `/joint_states` topic to Arduino serial |
-| `ArUcoMarkerRos` | Camera node + ArUco marker detection |
-| `roboticarm_description` | URDF/Xacro model, launch files, RViz configs, STL meshes |
-| `roboticarm_moveit2` | MoveIt2 configuration (SRDF, kinematics, controllers) |
-| `task1` | High-level tasks. **Task 1 = pick a tomato** (`tomato_detector` + `pick_tomato`, confidence gate ≥0.75); plus generic blob-servo demo nodes. See [`ROBO_ws/src/task1/README.md`](ROBO_ws/src/task1/README.md) |
-| `handeye_calibration` | Eye-in-hand calibration (sample capture, solve, publish TF) |
+The workspace is organised as a pipeline of swappable **elements**:
+`location → ik → bridge → arm`.
+
+| Package | Element | Description |
+|---------|---------|-------------|
+| `location` | **location** | Object-position sources (`aruco_source` 3D, `color_source` pixel), `finder` workspace sweep, `to_target`, and the `tune` HSV tuner. Data-driven per-object config under `objects/`. See [`ROBO_ws/src/location/README.md`](ROBO_ws/src/location/README.md) |
+| `roboticarm_moveit2` | **ik** | `ik_mover` (direct setFromIK) + `traj_interpolator` (replaces JTC, no ros2_control). `ik.launch.py` runs the whole IK path. |
+| `arduino_bridge` | **bridge** | Bridges `/joint_states` + `/roboarm/gripper` to Arduino serial |
+| `tasks` | task | Object-agnostic orchestrators: `pick` (Task 1 = `pick object:=tomato`) + `estop`. See [`ROBO_ws/src/tasks/README.md`](ROBO_ws/src/tasks/README.md) |
+| `roboticarm_description` | — | URDF/Xacro model, launch files, RViz configs, STL meshes |
+| `handeye_calibration` | — | Eye-in-hand calibration (sample capture, solve, publish TF) |
 
 ## Quick-start (ROBO_ws)
 
