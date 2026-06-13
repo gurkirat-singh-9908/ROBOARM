@@ -59,6 +59,33 @@ Set `ROS_DOMAIN_ID` equal and `ROS_LOCALHOST_ONLY=0` on both machines so
 the topics cross the network. Do **not** also run `joint_tracker` — it
 would fight `pick_tomato` over `/joint_states`.
 
+## Kill switch (e-stop)
+
+`/roboarm/estop` (`std_msgs/Bool`) is a global stop watched by **both** the
+bridge and the picker:
+
+- **True = KILL** — bridge instantly freezes (drops all serial writes, so
+  the servos hold their last position); `pick_tomato` halts its FSM.
+- **False = START** — bridge resumes; `pick_tomato` restarts from `SEARCH`.
+
+The bridge is the authoritative stop — it sits on the Pi next to the
+hardware and keeps freezing even if the PC dies. From any machine on the
+ROS graph:
+
+```bash
+ros2 run task1 estop stop     # kill everything now
+ros2 run task1 estop start    # resume / restart the pick
+
+# equivalent without the helper:
+ros2 topic pub --once /roboarm/estop std_msgs/Bool "{data: true}"   # kill
+ros2 topic pub --once /roboarm/estop std_msgs/Bool "{data: false}"  # start
+```
+
+Run the helper while the bridge/picker are already up. Note: the gripper is
+a DC motor whose pulse the Arduino runs to completion — an in-flight grip
+pulse finishes before the freeze fully bites; everything else stops
+immediately.
+
 ## Key parameters
 
 | Node | Param | Default | Notes |

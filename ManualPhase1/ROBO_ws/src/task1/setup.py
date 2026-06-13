@@ -29,6 +29,7 @@ setup(
             'joint_tracker = task1.joint_tracker:main',
             'tomato_detector = task1.tomato_detector:main',
             'pick_tomato = task1.pick_tomato:main',
+            'estop = task1.estop:main',
         ],
     },
 )

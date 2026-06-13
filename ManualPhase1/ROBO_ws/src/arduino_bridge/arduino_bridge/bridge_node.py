@@ -4,6 +4,9 @@ bridge_node.py  —  ROS2 → Arduino serial bridge
 Subscribes to:
   /joint_states       sensor_msgs/JointState   arm angles (radians) from MoveIt2
   /roboarm/gripper    std_msgs/Float64          gripper open % [0-100]
+  /roboarm/estop      std_msgs/Bool             kill switch: True freezes the
+                                                arm (drops all serial writes,
+                                                servos hold); False resumes
 
 Converts joint angles using robot-specific mechanical offsets and sends a
 space-delimited command with checksum over serial to the Arduino at up to
@@ -31,7 +34,7 @@ import time
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import JointState
-from std_msgs.msg import Float64
+from std_msgs.msg import Float64, Bool
 import serial
 import serial.tools.list_ports
 
@@ -127,6 +130,7 @@ class ArduinoBridge(Node):
         self._last_sent         = None   # dedup
         self._last_send_time    = 0.0
         self._pending_gripper_ms = 0     # signed pulse to send on next packet
+        self._estopped          = False  # True = kill: freeze, drop all serial writes
 
         self._last_gripper_pct, persisted_degrees = self._load_state()
         if persisted_degrees is not None:
@@ -135,6 +139,8 @@ class ArduinoBridge(Node):
         # ── Subscriptions ──────────────────────────────────────────────────────
         self.create_subscription(JointState, '/joint_states',     self._on_joints,  10)
         self.create_subscription(Float64,    '/roboarm/gripper',  self._on_gripper, 10)
+        # E-stop: True freezes the arm (no new serial writes); False resumes.
+        self.create_subscription(Bool,        '/roboarm/estop',    self._on_estop,   10)
 
         # ── Shutdown handlers so Ctrl-C / SIGTERM still persist state ──────────
         self._stopped = False
@@ -260,6 +266,21 @@ class ArduinoBridge(Node):
 
     # ── ROS callbacks ──────────────────────────────────────────────────────────
 
+    def _on_estop(self, msg: Bool):
+        """Kill switch. True = freeze the arm; False = resume."""
+        engaged = bool(msg.data)
+        if engaged == self._estopped:
+            return
+        self._estopped = engaged
+        if engaged:
+            # Drop any queued gripper pulse so it can't fire on resume, and
+            # clear the dedup cache so the first post-resume pose is re-sent.
+            self._pending_gripper_ms = 0
+            self._last_sent = None
+            self.get_logger().warn('E-STOP ENGAGED — freezing arm, dropping serial writes.')
+        else:
+            self.get_logger().warn('E-STOP released — resuming.')
+
     def _on_gripper(self, msg: Float64):
         """
         Convert a new target percent into a signed pulse-ms relative to the
@@ -267,6 +288,8 @@ class ArduinoBridge(Node):
         advance the saved percent by only what was actually commanded so the
         next pulse picks up any leftover travel.
         """
+        if self._estopped:
+            return
         target = max(0.0, min(100.0, float(msg.data)))
         delta_pct = target - self._last_gripper_pct
         raw_ms = int(round(delta_pct * self._ms_per_percent))
@@ -287,6 +310,10 @@ class ArduinoBridge(Node):
             f'last_pct={self._last_gripper_pct:.1f}%')
 
     def _on_joints(self, msg: JointState):
+        # ── E-stop: freeze. Servos hold last position; no new command sent. ────
+        if self._estopped:
+            return
+
         # ── Validate all joints present ────────────────────────────────────────
         radians = _joints_from_msg(msg)
         if radians is None:

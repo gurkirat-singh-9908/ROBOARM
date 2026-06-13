@@ -37,7 +37,7 @@ import time
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Point
-from std_msgs.msg import Float64
+from std_msgs.msg import Float64, Bool
 from sensor_msgs.msg import JointState
 
 # Must match arduino_bridge JOINT_ORDER (s1..s6).
@@ -103,6 +103,8 @@ class PickTomato(Node):
         self.grip_pub = self.create_publisher(Float64, '/roboarm/gripper', 10)
         self.create_subscription(Point, '/tomato/center', self._on_center, 10)
         self.create_subscription(Float64, '/tomato/confidence', self._on_conf, 10)
+        # E-stop: True halts the FSM; False (re)starts it from SEARCH.
+        self.create_subscription(Bool, '/roboarm/estop', self._on_estop, 10)
 
         # ── State ───────────────────────────────────────────────────────────
         self.positions = [0.0] * 6
@@ -113,6 +115,7 @@ class PickTomato(Node):
         self._state = SEARCH
         self._state_t0 = time.time()
         self._approached = False
+        self._estopped = False
 
         self.timer = self.create_timer(1.0 / rate, self._tick)
         self.get_logger().info(
@@ -127,6 +130,21 @@ class PickTomato(Node):
 
     def _on_conf(self, msg: Float64):
         self._conf = float(msg.data)
+
+    def _on_estop(self, msg: Bool):
+        engaged = bool(msg.data)
+        if engaged == self._estopped:
+            return
+        self._estopped = engaged
+        if engaged:
+            self.get_logger().warn('E-STOP ENGAGED — halting pick.')
+        else:
+            # Restart: drop progress, resume hunting from the top. Joint
+            # positions are left as-is so resume doesn't snap the arm.
+            self._stable = 0
+            self._approached = False
+            self._enter(SEARCH)
+            self.get_logger().warn('E-STOP released — restarting from SEARCH.')
 
     # ── Helpers ───────────────────────────────────────────────────────────────
 
@@ -159,6 +177,9 @@ class PickTomato(Node):
     # ── FSM tick ──────────────────────────────────────────────────────────────
 
     def _tick(self):
+        if self._estopped:
+            return   # frozen — publish nothing, hold last commanded pose
+
         st = self._state
 
         if st == SEARCH:
