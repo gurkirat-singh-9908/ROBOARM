@@ -1,10 +1,12 @@
 """
-Task 1 — pick a tomato.
+Task 1 — pick a tomato.  (PC side)
 
-Starts the detector + the pick orchestrator. The arm bridge
-(arduino_bridge bridge_node) and robot_state_publisher are assumed to be
-running already (e.g. via the ik_pipeline launch), since this node only
-publishes /joint_states and /roboarm/gripper.
+Starts ONLY the detector + pick orchestrator. This is the PC half of the
+split: detection + planning run here, on a machine with a display. The
+arm-side arduino_bridge runs separately on the headless Pi and is NOT
+launched here — pick_tomato just publishes /joint_states and
+/roboarm/gripper, which reach the Pi's bridge over the shared ROS graph
+(same ROS_DOMAIN_ID, ROS_LOCALHOST_ONLY=0).
 
   ros2 launch task1 pick_tomato.launch.py
   ros2 launch task1 pick_tomato.launch.py camera_index:=2 pick_threshold:=0.8

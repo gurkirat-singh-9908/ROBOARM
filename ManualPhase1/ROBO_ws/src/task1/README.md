@@ -3,12 +3,24 @@
 High-level task nodes for the arm. Task 1 is **"pick a tomato"**, gated on a
 detector confidence of **≥ 0.75**.
 
-## Task 1 pipeline
+## Where it runs (PC / Pi split)
+
+Detection + planning run on the **PC** (has a display). The
+`arduino_bridge` runs on the **headless Pi** and talks to the Arduino.
+They share one ROS graph (same `ROS_DOMAIN_ID`, `ROS_LOCALHOST_ONLY=0`), so
+`/joint_states` and `/roboarm/gripper` published on the PC reach the Pi.
+The `pick_tomato.launch.py` here is **PC-only** — it does *not* start the
+bridge. (Endgame: everything moves onto the Pi; nothing about the topic
+contract changes when it does.)
 
 ```
-tomato_detector ──/tomato/center──────▶ pick_tomato ──/joint_states──▶ arduino_bridge ──▶ servos
-        │         /tomato/confidence         │        /roboarm/gripper ─▶ arduino_bridge ──▶ gripper
-     camera                              state machine
+   PC (display)                                     Pi (headless)
+┌──────────────────────────────────────┐        ┌─────────────────────────┐
+│ tomato_detector ─/tomato/center────▶  │  ROS   │ arduino_bridge          │
+│      │          /tomato/confidence    │  DDS   │   bridge_node ─▶ Arduino│
+│   camera             │                │ ─────▶ │   /joint_states         │ ─▶ servos
+│              pick_tomato (FSM) ────────────────▶│   /roboarm/gripper      │ ─▶ gripper
+└──────────────────────────────────────┘        └─────────────────────────┘
 ```
 
 - **`tomato_detector`** — HSV red segmentation (red wraps hue → two bands),
@@ -26,11 +38,15 @@ tomato_detector ──/tomato/center──────▶ pick_tomato ──/joi
 
 ## Run
 
-The arm bridge + `robot_state_publisher` must already be up (e.g. the
-`ik_pipeline` launch). Then:
+On the **Pi** (headless) — bridge to the Arduino, no detection:
 
 ```bash
-# both nodes together
+ros2 run arduino_bridge bridge_node --ros-args -p serial_port:=/dev/ttyUSB0
+```
+
+On the **PC** — detection + pick (this launch starts only these two):
+
+```bash
 ros2 launch task1 pick_tomato.launch.py
 ros2 launch task1 pick_tomato.launch.py camera_index:=2 pick_threshold:=0.8
 
@@ -39,8 +55,9 @@ ros2 run task1 tomato_detector --ros-args -p camera_index:=0
 ros2 run task1 pick_tomato     --ros-args -p pick_threshold:=0.75
 ```
 
-Do **not** also run `joint_tracker` — it would fight `pick_tomato` over
-`/joint_states`.
+Set `ROS_DOMAIN_ID` equal and `ROS_LOCALHOST_ONLY=0` on both machines so
+the topics cross the network. Do **not** also run `joint_tracker` — it
+would fight `pick_tomato` over `/joint_states`.
 
 ## Key parameters
 
