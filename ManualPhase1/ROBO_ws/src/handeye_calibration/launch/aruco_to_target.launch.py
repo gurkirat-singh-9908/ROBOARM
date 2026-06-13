@@ -56,15 +56,15 @@ def generate_launch_description():
         description='Hz for /target_pose publication. 0 = on every aruco frame.')
 
     camera_node = Node(
-        package='ArUcoMarkerRos',
-        executable='camera_node',
+        package='location',
+        executable='camera',
         name='camera_node',
         output='screen',
     )
 
     aruco_node = Node(
-        package='ArUcoMarkerRos',
-        executable='aruco_detect',
+        package='location',
+        executable='aruco_source',
         name='aruco_detect',
         output='screen',
         parameters=[{
@@ -82,8 +82,8 @@ def generate_launch_description():
     )
 
     aruco_to_target = Node(
-        package='handeye_calibration',
-        executable='aruco_to_target',
+        package='location',
+        executable='to_target',
         name='aruco_to_target',
         output='screen',
         parameters=[{

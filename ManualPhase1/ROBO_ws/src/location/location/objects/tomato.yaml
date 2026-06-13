@@ -1,0 +1,15 @@
+# tomato — red, round, ~6 cm. Default detection config for the colour source.
+# Red wraps the HSV hue axis, so two bands are OR-ed together.
+# Retune to your camera + lighting:  ros2 run location tune -p object:=tomato
+object: tomato
+
+# HSV bands  [H 0-179, S 0-255, V 0-255]
+lower1: [0, 120, 70]
+upper1: [10, 255, 255]
+lower2: [170, 120, 70]
+upper2: [180, 255, 255]
+
+min_area: 600          # px^2 — blobs smaller than this score 0 (reject specks)
+blur_ksize: 5          # odd Gaussian kernel; 0 disables
+pick_threshold: 0.75   # confidence gate to commit to a pick
+real_diameter_m: 0.06  # physical size — used to estimate range from blob radius

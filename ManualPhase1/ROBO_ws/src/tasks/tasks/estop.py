@@ -2,15 +2,15 @@
 estop.py  —  fire the arm kill switch from the command line
 
 Publishes std_msgs/Bool on /roboarm/estop, the topic the arduino_bridge and
-pick_tomato both watch:
+the pick task both watch:
 
   True  = KILL   — bridge freezes (drops all serial writes, servos hold),
-                   pick_tomato halts its state machine.
-  False = START  — bridge resumes, pick_tomato restarts from SEARCH.
+                   pick halts its state machine.
+  False = START  — bridge resumes, pick restarts from SEARCH.
 
 Usage:
-  ros2 run task1 estop stop      # or: kill | true | 1   → engage
-  ros2 run task1 estop start     # or: run  | false | 0  → release
+  ros2 run tasks estop stop      # or: kill | true | 1   → engage
+  ros2 run tasks estop start     # or: run  | false | 0  → release
 
 The node publishes a few times over ~0.5 s (so every running subscriber
 gets it) and then exits. Run it while the bridge / picker are up.
@@ -55,7 +55,7 @@ def main():
     elif arg in _RELEASE:
         engage = False
     else:
-        print('usage: ros2 run task1 estop <stop|start>', file=sys.stderr)
+        print('usage: ros2 run tasks estop <stop|start>', file=sys.stderr)
         print(f'  engage:  {sorted(_ENGAGE)}', file=sys.stderr)
         print(f'  release: {sorted(_RELEASE)}', file=sys.stderr)
         sys.exit(2)
