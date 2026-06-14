@@ -41,15 +41,22 @@ def main():
     name = node.get_parameter('object').value
     cam_idx = node.get_parameter('camera_index').value
 
-    cap = cv2.VideoCapture(cam_idx)
+    # V4L2 first, fall back to the default backend (virtual cams like Iriun
+    # reject an explicit CAP_V4L2 open) — same as the camera node.
+    cap = cv2.VideoCapture(cam_idx, cv2.CAP_V4L2)
     if not cap.isOpened():
-        node.get_logger().fatal(f'Cannot open camera index {cam_idx}.')
+        cap.release()
+        cap = cv2.VideoCapture(cam_idx)
+    if not cap.isOpened():
+        node.get_logger().fatal(
+            f'Cannot open camera index {cam_idx}. Try -p camera_index:=1 or 2.')
         node.destroy_node()
         rclpy.shutdown()
         sys.exit(1)
 
     win = f'tune:{name}'
     cv2.namedWindow(win, cv2.WINDOW_NORMAL)
+    cv2.resizeWindow(win, 1280, 480)
 
     seed = _seed_from_existing(name) or {}
     d1l = seed.get('lower1', [0, 120, 70]);  d1u = seed.get('upper1', [10, 255, 255])
@@ -78,7 +85,14 @@ def main():
 
     while rclpy.ok():
         ret, frame = cap.read()
-        if not ret:
+        if not ret or frame is None:
+            # Keep the GUI responsive even with no frames (a silent `continue`
+            # leaves the window unpainted and looking dead). Warn, pump keys.
+            node.get_logger().warn(
+                f'No frame from camera index {cam_idx} — is it streaming?',
+                throttle_duration_sec=2.0)
+            if (cv2.waitKey(30) & 0xFF) in (ord('q'), 27):
+                break
             continue
 
         blur = g('blur(odd)')
@@ -106,8 +120,15 @@ def main():
                 cv2.circle(overlay, (int(x), int(y)), int(r), (0, 255, 0), 2)
 
         masked = cv2.bitwise_and(frame, frame, mask=mask)
+        # Label the panes: LEFT = live feed + detected circle, RIGHT = the HSV
+        # mask applied (only in-range pixels show; tune until your object lights
+        # up white/colour here).
+        cv2.putText(overlay, "LIVE", (10, 25),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
+        cv2.putText(masked, "MASK", (10, 25),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
         view = np.hstack([overlay, masked])
-        cv2.putText(view, "s=save  q=quit", (10, 25),
+        cv2.putText(view, "s=save  q/Esc=quit", (10, view.shape[0] - 15),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
         cv2.imshow(win, view)
 
