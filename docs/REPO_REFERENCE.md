@@ -36,7 +36,8 @@ contract below never changes.
 ## ROBO_ws packages (`ManualPhase1/ROBO_ws/src/`)
 | Package | Element | Key entry points |
 |---------|---------|------------------|
-| `location` | **location** | `camera`, `aruco_source`, `color_source`, `to_target`, `finder`, `tune` |
+| `camera` | **sensor** | `camera` — standalone `/camera/image_raw` provider, shared by all consumers |
+| `location` | **location** | `aruco_source`, `color_source`, `to_target`, `finder`, `tune` (all subscribe `/camera/image_raw`) |
 | `roboticarm_moveit2` | **ik** | `ik_mover` (C++), `traj_interpolator`, `pose_publisher`; launch `ik.launch.py` |
 | `arduino_bridge` | **bridge** | `bridge_node` |
 | `tasks` | task orchestrators | `pick` (object-agnostic), `estop` |

@@ -9,7 +9,7 @@ reach the Pi's bridge over the shared ROS graph (same ROS_DOMAIN_ID,
 ROS_LOCALHOST_ONLY=0).
 
   ros2 launch tasks pick.launch.py
-  ros2 launch tasks pick.launch.py object:=tomato camera_index:=2 pick_threshold:=0.8
+  ros2 launch tasks pick.launch.py object:=tomato camera_source:=2 pick_threshold:=0.8
 
 For the ArUco + real-IK path instead, launch the location element and the IK
 stack separately:
@@ -26,16 +26,24 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     obj = LaunchConfiguration('object')
-    camera_index = LaunchConfiguration('camera_index')
+    camera_source = LaunchConfiguration('camera_source')
     pick_threshold = LaunchConfiguration('pick_threshold')
     show_feed = LaunchConfiguration('show_feed')
 
     return LaunchDescription([
         DeclareLaunchArgument('object', default_value='tomato'),
-        DeclareLaunchArgument('camera_index', default_value='0'),
+        DeclareLaunchArgument('camera_source', default_value='0',
+                              description='camera index or stream URL'),
         DeclareLaunchArgument('pick_threshold', default_value='0.75'),
         DeclareLaunchArgument('show_feed', default_value='true'),
 
+        Node(
+            package='camera',
+            executable='camera',
+            name='camera',
+            output='screen',
+            parameters=[{'source': camera_source}],
+        ),
         Node(
             package='location',
             executable='color_source',
@@ -43,7 +51,6 @@ def generate_launch_description():
             output='screen',
             parameters=[{
                 'object': obj,
-                'camera_index': camera_index,
                 'show_feed': show_feed,
             }],
         ),

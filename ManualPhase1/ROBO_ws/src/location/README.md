@@ -10,9 +10,13 @@ location  →  ik  →  bridge  →  arm
 
 ## Sub-elements
 
+> The camera is **not** here — it lives in its own `camera` package
+> (`ros2 run camera camera`), publishing `/camera/image_raw`, because many
+> elements need the feed. Every source below *subscribes* to that topic; none
+> opens the device itself (except the standalone `tune` tool).
+
 | Node | Role | Output |
 |------|------|--------|
-| `camera` | webcam / phone-stream publisher | `/camera/image_raw` |
 | `aruco_source` | ArUco marker detect — **metric 3D pose** via solvePnP | `/aruco/pose`, `/aruco/pixel_center`, `/aruco/id` |
 | `color_source` | HSV colour-threshold detector (data-driven, per object) | `/location/center`, `/location/confidence`, `/location/detected` |
 | `to_target` | reframe a source pose to `base_link` (+ hover) | `/target_pose` |
@@ -61,8 +65,8 @@ ros2 launch location location.launch.py source:=aruco
 # colour source for an object
 ros2 launch location location.launch.py source:=color object:=tomato
 
-# individual nodes
-ros2 run location camera --ros-args -p source:=0
+# individual nodes (camera must be up first — it's a separate package)
+ros2 run camera camera --ros-args -p source:=0
 ros2 run location color_source --ros-args -p object:=tomato
 ros2 run location finder
 ```
