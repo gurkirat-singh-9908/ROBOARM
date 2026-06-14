@@ -20,6 +20,7 @@
   <depend>python3-opencv</depend>
   <depend>python3-yaml</depend>
   <depend>location</depend>
+  <depend>camera</depend>
 
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>

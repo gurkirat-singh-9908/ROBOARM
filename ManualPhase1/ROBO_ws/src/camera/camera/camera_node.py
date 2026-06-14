@@ -82,11 +82,20 @@ class CameraNode(Node):
             is_url = False
 
         # ── open camera ───────────────────────────────────────────────────────
-        # URL → FFMPEG (handles http/rtsp). Local index → V4L2 (lower latency).
+        # URL → FFMPEG (handles http/rtsp). Local index → V4L2 (lower latency),
+        # but fall back to the default backend: virtual cams (Iriun, OBS,
+        # v4l2loopback) often reject an explicit CAP_V4L2 open while opening
+        # fine with the auto-selected backend.
         if is_url:
             self.cap = cv2.VideoCapture(resolved, cv2.CAP_FFMPEG)
         else:
             self.cap = cv2.VideoCapture(resolved, cv2.CAP_V4L2)
+            if not self.cap.isOpened():
+                self.get_logger().warn(
+                    f"V4L2 backend could not open source '{resolved}' — "
+                    "retrying with the default backend (virtual camera?).")
+                self.cap.release()
+                self.cap = cv2.VideoCapture(resolved)
 
         if not self.cap.isOpened():
             self.get_logger().fatal(

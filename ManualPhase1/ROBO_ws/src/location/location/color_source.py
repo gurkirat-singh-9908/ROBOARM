@@ -21,8 +21,11 @@ detected=False) instead of crashing.
 
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
 from geometry_msgs.msg import Point
+from sensor_msgs.msg import Image
 from std_msgs.msg import Float64, Bool
+from cv_bridge import CvBridge
 import cv2
 import numpy as np
 
@@ -36,12 +39,12 @@ class ColorSource(Node):
 
         # ── Parameters ──────────────────────────────────────────────────────
         self.declare_parameter('object', 'tomato')      # which objects/<name>.yaml
-        self.declare_parameter('camera_index', 0)
         self.declare_parameter('show_feed', True)
+        self.declare_parameter('image_topic', '/camera/image_raw')
 
         self._object = self.get_parameter('object').value
-        cam_idx = self.get_parameter('camera_index').value
         self._show_feed = bool(self.get_parameter('show_feed').value)
+        image_topic = self.get_parameter('image_topic').value
 
         # Publishers come first so we can emit detected=False while idle.
         self.center_pub = self.create_publisher(Point, '/location/center', 10)
@@ -49,7 +52,6 @@ class ColorSource(Node):
         self.detected_pub = self.create_publisher(Bool, '/location/detected', 10)
 
         # ── Object config (data-driven thresholding) ────────────────────────
-        self.cap = None
         try:
             self._cfg = object_config.load(self._object)
             self.get_logger().info(
@@ -63,17 +65,17 @@ class ColorSource(Node):
 
         self._load_cfg(self._cfg)
 
-        self.cap = cv2.VideoCapture(cam_idx)
-        if not self.cap.isOpened():
-            self.get_logger().fatal(
-                f'Cannot open camera at index {cam_idx}. '
-                'Override with --ros-args -p camera_index:=<n>.')
-            raise RuntimeError(f'Camera {cam_idx} not available')
-
+        # Frames come from the shared `camera` node, not a direct device open —
+        # so color_source, aruco_source and anything else share one camera.
+        self._bridge = CvBridge()
         self._kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
-        self.timer = self.create_timer(0.03, self.loop)   # ~30 Hz
+        sensor_qos = QoSProfile(
+            reliability=ReliabilityPolicy.BEST_EFFORT,
+            history=HistoryPolicy.KEEP_LAST, depth=1)
+        self.create_subscription(Image, image_topic, self.on_image, sensor_qos)
         self.get_logger().info(
-            f"color_source up for '{self._object}' — publishing /location/*")
+            f"color_source up for '{self._object}' — subscribing {image_topic}, "
+            "publishing /location/*")
 
     # ── Config ───────────────────────────────────────────────────────────────
 
@@ -111,9 +113,12 @@ class ColorSource(Node):
         confidence = float(np.clip(0.5 * circularity + 0.5 * fill, 0.0, 1.0))
         return confidence, (int(x), int(y)), float(radius)
 
-    def loop(self):
-        ret, frame = self.cap.read()
-        if not ret:
+    def on_image(self, msg: Image):
+        try:
+            frame = self._bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
+        except Exception as e:
+            self.get_logger().error(f'cv_bridge conversion failed: {e}',
+                                    throttle_duration_sec=2.0)
             return
 
         hsv = frame
@@ -157,8 +162,6 @@ class ColorSource(Node):
             cv2.waitKey(1)
 
     def destroy_node(self):
-        if self.cap is not None and self.cap.isOpened():
-            self.cap.release()
         if self._show_feed:
             cv2.destroyAllWindows()
         super().destroy_node()

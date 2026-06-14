@@ -44,7 +44,7 @@ def generate_launch_description():
     )
 
     camera_node = Node(
-        package='location',
+        package='camera',
         executable='camera',
         name='camera_node',
         output='screen',

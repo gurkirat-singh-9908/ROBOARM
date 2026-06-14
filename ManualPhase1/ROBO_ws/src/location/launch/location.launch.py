@@ -37,7 +37,7 @@ def generate_launch_description():
                               description='camera index or stream URL'),
         DeclareLaunchArgument('show_feed', default_value='true'),
 
-        Node(package='location', executable='camera', name='camera',
+        Node(package='camera', executable='camera', name='camera',
              parameters=[{'source': cam}], output='screen'),
 
         # ArUco 3D source + reframe to base_link
@@ -48,7 +48,7 @@ def generate_launch_description():
              condition=LaunchConfigurationEquals('source', 'aruco'),
              output='screen'),
 
-        # Colour (pixel) source
+        # Colour (pixel) source — subscribes /camera/image_raw from camera node
         Node(package='location', executable='color_source', name='color_source',
              condition=LaunchConfigurationEquals('source', 'color'),
              parameters=[{'object': obj, 'show_feed': show}], output='screen'),

@@ -56,7 +56,7 @@ def generate_launch_description():
         description='Hz for /target_pose publication. 0 = on every aruco frame.')
 
     camera_node = Node(
-        package='location',
+        package='camera',
         executable='camera',
         name='camera_node',
         output='screen',
